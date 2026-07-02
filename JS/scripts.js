@@ -170,3 +170,45 @@ function calcCarga() {
     document.getElementById('res_carga').innerHTML = 
         `Potência: ${P.toFixed(0)} W<br>Corrente estimada: ${I.toFixed(2)} A`;
 }
+
+// Orçamento
+function gerarOrcamento() {
+    const tom = Number(document.getElementById('qtd_tomada').value) * Number(document.getElementById('preco_tomada').value);
+    const int = Number(document.getElementById('qtd_interruptor').value) * Number(document.getElementById('preco_interruptor').value);
+    const c15 = Number(document.getElementById('m15').value) * Number(document.getElementById('preco_m15').value);
+    const c25 = Number(document.getElementById('m25').value) * Number(document.getElementById('preco_m25').value);
+    const c4 = Number(document.getElementById('m4').value) * Number(document.getElementById('preco_m4').value);
+    const disj = Number(document.getElementById('qtd_disj').value) * Number(document.getElementById('preco_disj').value);
+    const cond = Number(document.getElementById('qtd_conduite').value) * Number(document.getElementById('preco_conduite').value);
+    const mao = Number(document.getElementById('mao').value);
+    const lucro = 1 + Number(document.getElementById('lucro').value)/100;
+
+    const total = (tom + int + c15 + c25 + c4 + disj + cond + mao) * lucro;
+    document.getElementById('res_orc').classList.remove('hidden');
+    document.getElementById('res_orc').innerHTML = `Total Estimado: R$ ${total.toFixed(2)}`;
+}
+
+// Recibo
+function gerarRecibo() {
+    const prestador = document.getElementById('prestador_nome').value;
+    const docPrestador = document.getElementById('prestador_doc').value;
+    const endPrestador = document.getElementById('prestador_end').value;
+    const cliente = document.getElementById('cliente_nome').value;
+    const docCliente = document.getElementById('cliente_doc').value;
+    const endCliente = document.getElementById('cliente_end').value;
+    const desc = document.getElementById('descricao').value;
+    const valor = Number(document.getElementById('valor_total').value).toFixed(2);
+    const data = document.getElementById('data_recibo').value;
+
+    document.getElementById('recibo_area').innerHTML = `
+        <div style="background:white; color:#000; padding:25px; border-radius:10px;">
+            <h3 style="text-align:center; margin-bottom:20px;">RECIBO DE SERVIÇO</h3>
+            <p><strong>Prestador:</strong> ${prestador}<br>${docPrestador}<br>${endPrestador}</p>
+            <p><strong>Cliente:</strong> ${cliente}<br>${docCliente}<br>${endCliente}</p>
+            <p><strong>Serviço:</strong> ${desc}</p>
+            <p style="margin-top:15px;"><strong>Valor Total:</strong> R$ ${valor}</p>
+            <p style="margin-top:15px;"><strong>Data:</strong> ${data}</p>
+            <p style="margin-top:40px; text-align:center;">____________________________________<br>Assinatura</p>
+        </div>
+    `;
+}

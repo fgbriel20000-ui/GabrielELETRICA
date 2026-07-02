@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Recibos | Gabriel Eletro V2K</title>
+
+<meta name="description"
+content="Emissão de recibos para eletricistas.">
+
+<link rel="stylesheet" href="../CSS/estilo.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="card glass text-center">
+
+<i class="fa fa-file-text logo-icon"></i>
+
+<h1 class="marca">
+
+Recibo de Serviço
+
+</h1>
+
+<p class="slogan">
+
+Emita recibos profissionais em poucos segundos.
+
+</p>
+
+</header>
+
+<nav class="nav-bar">
+
+<a href="../index.html" class="nav-btn">
+
+<i class="fa fa-home"></i>
+
+Início
+
+</a>
+
+<a href="calculadoras.html" class="nav-btn">
+
+<i class="fa fa-calculator"></i>
+
+Calculadoras
+
+</a>
+
+<a href="tabelas.html" class="nav-btn">
+
+<i class="fa fa-table"></i>
+
+Tabelas
+
+</a>
+
+<a href="recibo.html" class="nav-btn active">
+
+<i class="fa fa-file-text"></i>
+
+Recibos
+
+</a>
+
+</nav>
+
+<main>
+
+<section class="card glass">
+
+<h2 class="titulo-secao">
+
+<i class="fa fa-pencil"></i>
+
+Dados do Serviço
+
+</h2>
+
+<label>Nome do Cliente</label>
+
+<input
+type="text"
+id="cliente"
+class="form-control"
+placeholder="Nome completo">
+
+<br>
+
+<label>Telefone</label>
+
+<input
+type="tel"
+id="telefone"
+class="form-control"
+placeholder="(84) 99999-9999">
+
+<br>
+
+<label>Endereço</label>
+
+<input
+type="text"
+id="endereco"
+class="form-control"
+placeholder="Rua, número e bairro">
+
+<br>
+
+<label>Serviço Realizado</label>
+
+<textarea
+id="servico"
+class="form-control"
+rows="4"
+placeholder="Ex.: Instalação de chuveiro, troca de tomadas..."></textarea>
+
+<br>
+
+<label>Valor (R$)</label>
+
+<input
+type="number"
+id="valor"
+class="form-control"
+placeholder="0,00">
+
+<br>
+
+<label>Data</label>
+
+<input
+type="date"
+id="data"
+class="form-control">
+
+</section>
+
+<section class="card glass">
+
+<h2 class="titulo-secao">
+
+<i class="fa fa-sticky-note"></i>
+
+Informações Adicionais
+
+</h2>
+
+<label>Forma de Pagamento</label>
+
+<select
+id="pagamento"
+class="form-control">
+
+<option>Dinheiro</option>
+
+<option>PIX</option>
+
+<option>Cartão de Débito</option>
+
+<option>Cartão de Crédito</option>
+
+<option>Transferência Bancária</option>
+
+</select>
+
+<br>
+
+<label>Observações</label>
+
+<textarea
+id="observacoes"
+class="form-control"
+rows="4"
+placeholder="Garantia, materiais fornecidos, observações..."></textarea>
+
+<br>
+
+<div class="form-grid">
+
+<button
+class="btn btn-primary"
+onclick="gerarRecibo()">
+
+<i class="fa fa-file-text"></i>
+
+Gerar Recibo
+
+</button>
+
+<button
+class="btn"
+onclick="window.print()">
+
+<i class="fa fa-print"></i>
+
+Imprimir
+
+</button>
+
+<button
+class="btn"
+onclick="location.reload()">
+
+<i class="fa fa-refresh"></i>
+
+Limpar
+
+</button>
+
+<button
+class="btn"
+onclick="navigator.clipboard.writeText(document.getElementById('recibo_area').innerText)">
+
+<i class="fa fa-copy"></i>
+
+Copiar
+
+</button>
+
+</div>
+
+</section>
+
+<!-- VISUALIZAÇÃO -->
+
+<section class="card glass">
+
+<h2 class="titulo-secao">
+
+<i class="fa fa-eye"></i>
+
+Visualização
+
+</h2>
+
+<div
+id="recibo_area"
+class="glass"
+style="padding:25px;min-height:350px;">
+
+<p class="texto">
+
+Seu recibo aparecerá aqui após clicar em
+<b>Gerar Recibo</b>.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- BOTÕES DE AÇÃO -->
+
+<section class="card glass">
+
+<h2 class="titulo-secao">
+
+<i class="fa fa-cogs"></i>
+
+Ações do Recibo
+
+</h2>
+
+<div class="form-grid">
+
+<button
+class="btn btn-primary"
+onclick="gerarRecibo()">
+
+<i class="fa fa-magic"></i>
+
+Gerar Recibo
+
+</button>
+
+<button
+class="btn"
+onclick="window.print()">
+
+<i class="fa fa-print"></i>
+
+Imprimir
+
+</button>
+
+<button
+class="btn"
+onclick="limparRecibo()">
+
+<i class="fa fa-trash"></i>
+
+Limpar
+
+</button>
+
+<button
+class="btn"
+onclick="copiarRecibo()">
+
+<i class="fa fa-copy"></i>
+
+Copiar
+
+</button>
+
+</div>
+
+</section>
+
+<!-- VISUALIZAÇÃO DO RECIBO -->
+
+<section class="card glass">
+
+<h2 class="titulo-secao">
+
+<i class="fa fa-eye"></i>
+
+Pré-visualização
+
+</h2>
+
+<div
+id="recibo_area"
+class="glass"
+style="padding:25px; min-height:350px;">
+
+<p class="texto">
+
+O recibo aparecerá aqui após clicar em
+<b>Gerar Recibo</b>.
+
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+<footer class="card glass text-center">
+
+<p>
+
+⚡ Gabriel Eletro V2K
+
+</p>
+
+<small>
+
+Sistema de recibos profissional para eletricistas
+
+</small>
+
+</footer>
+
+</div>
+
+<script src="../JS/scripts.js" defer></script>
+
+<script>
+
+function limparRecibo(){
+
+document.getElementById("cliente").value = "";
+document.getElementById("telefone").value = "";
+document.getElementById("endereco").value = "";
+document.getElementById("servico").value = "";
+document.getElementById("valor").value = "";
+document.getElementById("observacoes").value = "";
+
+document.getElementById("recibo_area").innerHTML =
+"<p class='texto'>O recibo aparecerá aqui...</p>";
+
+}
+
+function copiarRecibo(){
+
+const texto = document.getElementById("recibo_area").innerText;
+
+navigator.clipboard.writeText(texto);
+
+alert("Recibo copiado!");
+
+}
+
+</script>
+
+</body>
+</html>

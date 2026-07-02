@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tabelas | Gabriel Eletro V2K</title>
+
+    <meta name="description"
+        content="Tabelas da NBR 5410 para consulta rápida.">
+
+    <link rel="stylesheet" href="../CSS/estilo.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="card glass text-center">
+
+<i class="fa fa-table logo-icon"></i>
+
+<h1 class="marca">
+
+Tabelas Elétricas
+
+</h1>
+
+<p class="slogan">
+
+Consulte rapidamente as informações mais importantes.
+
+</p>
+
+</header>
+
+<nav class="nav-bar">
+
+<a href="../index.html" class="nav-btn">
+
+<i class="fa fa-home"></i>
+
+Início
+
+</a>
+
+<a href="calculadoras.html" class="nav-btn">
+
+<i class="fa fa-calculator"></i>
+
+Calculadoras
+
+</a>
+
+<a href="tabelas.html" class="nav-btn active">
+
+<i class="fa fa-table"></i>
+
+Tabelas
+
+</a>
+
+<a href="recibo.html" class="nav-btn">
+
+<i class="fa fa-file-text"></i>
+
+Recibos
+
+</a>
+
+</nav>
+
+<main>
+
+<section class="card glass">
+
+<h2 class="titulo-secao">
+
+🔍 Pesquisar Tabela
+
+</h2>
+
+<input
+type="text"
+id="pesquisaTabela"
+class="form-control"
+placeholder="Ex.: Bitola, Disjuntor, Condutores...">
+
+</section>
+
+<section class="card glass">
+
+<h2 class="titulo-secao">
+
+📚 Escolha uma tabela
+
+</h2>
+
+<div class="form-grid">
+
+<button
+class="btn btn-primary"
+onclick="mostrar('tabBitolas')">
+
+📏 Bitolas
+
+</button>
+
+<button
+class="btn btn-primary"
+onclick="mostrar('tabDisjuntores')">
+
+🔌 Disjuntores
+
+</button>
+
+<button
+class="btn btn-primary"
+onclick="mostrar('tabCondutores')">
+
+🎨 Cores
+
+</button>
+
+<button
+class="btn btn-primary"
+onclick="mostrar('tabEletrodutos')">
+
+🧱 Eletrodutos
+
+</button>
+
+<button
+class="btn btn-primary"
+onclick="mostrar('tabAgrupamento')">
+
+📋 Agrupamento
+
+</button>
+
+<button
+class="btn btn-primary"
+onclick="mostrar('tabTemperatura')">
+
+🌡 Temperatura
+
+</button>
+
+</div>
+
+</section>
+
+<!-- BITOLAS -->
+
+<section
+id="tabBitolas"
+class="card glass hidden">
+
+<h2 class="titulo-secao">
+
+📏 Bitolas x Corrente
+
+</h2>
+
+<table class="tabela">
+
+<thead>
+
+<tr>
+
+<th>Bitola</th>
+
+<th>Corrente</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>1,5 mm²</td>
+
+<td>15,5 A</td>
+
+</tr>
+
+<tr>
+
+<td>2,5 mm²</td>
+
+<td>21 A</td>
+
+</tr>
+
+<tr>
+
+<td>4 mm²</td>
+
+<td>28 A</td>
+
+</tr>
+
+<tr>
+
+<td>6 mm²</td>
+
+<td>36 A</td>
+
+</tr>
+
+<tr>
+
+<td>10 mm²</td>
+
+<td>50 A</td>
+
+</tr>
+
+<tr>
+
+<td>16 mm²</td>
+
+<td>68 A</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+<!-- ========================= -->
+<!-- DISJUNTORES -->
+<!-- ========================= -->
+
+<section
+id="tabDisjuntores"
+class="card glass hidden">
+
+<h2 class="titulo-secao">
+
+🔌 Disjuntores Comerciais
+
+</h2>
+
+<table class="tabela">
+
+<thead>
+
+<tr>
+
+<th>Corrente (A)</th>
+
+<th>Aplicação</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>6 A</td>
+
+<td>Iluminação</td>
+
+</tr>
+
+<tr>
+
+<td>10 A</td>
+
+<td>Iluminação / Controle</td>
+
+</tr>
+
+<tr>
+
+<td>16 A</td>
+
+<td>Tomadas</td>
+
+</tr>
+
+<tr>
+
+<td>20 A</td>
+
+<td>Tomadas de Uso Geral</td>
+
+</tr>
+
+<tr>
+
+<td>25 A</td>
+
+<td>Circuitos dedicados</td>
+
+</tr>
+
+<tr>
+
+<td>32 A</td>
+
+<td>Chuveiros pequenos</td>
+
+</tr>
+
+<tr>
+
+<td>40 A</td>
+
+<td>Chuveiros / Fornos</td>
+
+</tr>
+
+<tr>
+
+<td>50 A</td>
+
+<td>Motores</td>
+
+</tr>
+
+<tr>
+
+<td>63 A</td>
+
+<td>Alimentação geral</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+<!-- ========================= -->
+<!-- CORES DOS CONDUTORES -->
+<!-- ========================= -->
+
+<section
+id="tabCondutores"
+class="card glass hidden">
+
+<h2 class="titulo-secao">
+
+🎨 Cores dos Condutores
+
+</h2>
+
+<table class="tabela">
+
+<thead>
+
+<tr>
+
+<th>Cor</th>
+
+<th>Função</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>Azul-claro</td>
+
+<td>Neutro</td>
+
+</tr>
+
+<tr>
+
+<td>Verde ou Verde/Amarelo</td>
+
+<td>Terra (PE)</td>
+
+</tr>
+
+<tr>
+
+<td>Preto</td>
+
+<td>Fase</td>
+
+</tr>
+
+<tr>
+
+<td>Vermelho</td>
+
+<td>Fase</td>
+
+</tr>
+
+<tr>
+
+<td>Marrom</td>
+
+<td>Fase</td>
+
+</tr>
+
+<tr>
+
+<td>Cinza</td>
+
+<td>Fase</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+<!-- ========================= -->
+<!-- ELETRODUTOS -->
+<!-- ========================= -->
+
+<section
+id="tabEletrodutos"
+class="card glass hidden">
+
+<h2 class="titulo-secao">
+
+🧱 Eletrodutos PVC
+
+</h2>
+
+<table class="tabela">
+
+<thead>
+
+<tr>
+
+<th>Bitola</th>
+
+<th>Diâmetro</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>1/2"</td>
+
+<td>20 mm</td>
+
+</tr>
+
+<tr>
+
+<td>3/4"</td>
+
+<td>25 mm</td>
+
+</tr>
+
+<tr>
+
+<td>1"</td>
+
+<td>32 mm</td>
+
+</tr>
+
+<tr>
+
+<td>1 1/4"</td>
+
+<td>40 mm</td>
+
+</tr>
+
+<tr>
+
+<td>1 1/2"</td>
+
+<td>50 mm</td>
+
+</tr>
+
+<tr>
+
+<td>2"</td>
+
+<td>60 mm</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+<!-- ========================= -->
+<!-- FATOR DE AGRUPAMENTO -->
+<!-- ========================= -->
+
+<section
+id="tabAgrupamento"
+class="card glass hidden">
+
+<h2 class="titulo-secao">
+
+📋 Fator de Agrupamento
+
+</h2>
+
+<table class="tabela">
+
+<thead>
+
+<tr>
+
+<th>Circuitos</th>
+
+<th>Fator</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>1</td>
+
+<td>1,00</td>
+
+</tr>
+
+<tr>
+
+<td>2</td>
+
+<td>0,80</td>
+
+</tr>
+
+<tr>
+
+<td>3</td>
+
+<td>0,70</td>
+
+</tr>
+
+<tr>
+
+<td>4</td>
+
+<td>0,65</td>
+
+</tr>
+
+<tr>
+
+<td>5</td>
+
+<td>0,60</td>
+
+</tr>
+
+<tr>
+
+<td>6</td>
+
+<td>0,57</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+<!-- ========================= -->
+<!-- TEMPERATURA -->
+<!-- ========================= -->
+
+<section
+id="tabTemperatura"
+class="card glass hidden">
+
+<h2 class="titulo-secao">
+
+🌡️ Fator de Correção por Temperatura
+
+</h2>
+
+<table class="tabela">
+
+<thead>
+
+<tr>
+
+<th>Temperatura</th>
+
+<th>Fator</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>10 °C</td>
+
+<td>1,22</td>
+
+</tr>
+
+<tr>
+
+<td>15 °C</td>
+
+<td>1,17</td>
+
+</tr>
+
+<tr>
+
+<td>20 °C</td>
+
+<td>1,12</td>
+
+</tr>
+
+<tr>
+
+<td>25 °C</td>
+
+<td>1,06</td>
+
+</tr>
+
+<tr>
+
+<td>30 °C</td>
+
+<td>1,00</td>
+
+</tr>
+
+<tr>
+
+<td>35 °C</td>
+
+<td>0,94</td>
+
+</tr>
+
+<tr>
+
+<td>40 °C</td>
+
+<td>0,87</td>
+
+</tr>
+
+<tr>
+
+<td>45 °C</td>
+
+<td>0,79</td>
+
+</tr>
+
+<tr>
+
+<td>50 °C</td>
+
+<td>0,71</td>
+
+</tr>
+
+<tr>
+
+<td>55 °C</td>
+
+<td>0,61</td>
+
+</tr>
+
+<tr>
+
+<td>60 °C</td>
+
+<td>0,50</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+<!-- ========================= -->
+<!-- DICAS -->
+<!-- ========================= -->
+
+<section class="card glass">
+
+<h2 class="titulo-secao">
+
+💡 Dicas Rápidas
+
+</h2>
+
+<ul>
+
+<li>✔ Sempre dimensione primeiro o cabo e depois o disjuntor.</li>
+
+<li>✔ O condutor de proteção (terra) deve ser verde ou verde/amarelo.</li>
+
+<li>✔ O neutro deve ser azul-claro.</li>
+
+<li>✔ Nunca utilize cabos acima da capacidade de corrente permitida.</li>
+
+<li>✔ Sempre consulte a NBR 5410 em casos específicos.</li>
+
+</ul>
+
+</section>
+
+<!-- ========================= -->
+<!-- INFORMAÇÕES -->
+<!-- ========================= -->
+
+<section class="card glass">
+
+<h2 class="titulo-secao">
+
+📘 Sobre as Tabelas
+
+</h2>
+
+<p class="texto">
+
+As tabelas apresentadas neste aplicativo servem como consulta rápida para o dia a dia do eletricista.
+
+</p>
+
+<p class="texto">
+
+Para projetos elétricos completos e situações especiais, consulte sempre a versão mais atual da NBR 5410 e outras normas aplicáveis.
+
+</p>
+
+</section>
+
+</main>
+
+<footer class="card glass text-center">
+
+<p>
+
+⚡ Gabriel Eletro V2K
+
+</p>
+
+<p>
+
+Ferramentas desenvolvidas para facilitar o dia a dia do eletricista.
+
+</p>
+
+<small>
+
+Versão 2.0.0
+
+</small>
+
+</footer>
+
+</div>
+
+<script src="../JS/scripts.js" defer></script>
+
+</body>
+
+</html>

@@ -3,298 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todas as Calculadoras | Elétrica Profissional</title>
+    <title>Calculadoras | Gabriel Eletro</title>
     <link rel="stylesheet" href="../CSS/estilo.css">
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div class="container">
-        <!-- MENU PRINCIPAL -->
         <nav class="nav-bar">
-            <div class="nav-buttons">
-                <a href="../index.html" class="nav-btn">Início</a>
-                <a href="calculadoras.html" class="nav-btn active">Calculadoras</a>
-                <a href="tabelas.html" class="nav-btn">Tabelas</a>
-                <a href="orcamento.html" class="nav-btn">Orçamento</a>
-                <a href="recibo.html" class="nav-btn">Recibo</a>
-                <a href="checklist.html" class="nav-btn">Checklist</a>
-            </div>
+            <a href="../index.html" class="nav-btn"><i class="fa fa-home"></i> Início</a>
+            <a href="calculadoras.html" class="nav-btn active"><i class="fa fa-calculator"></i> Calculadoras</a>
+            <a href="metragem-cabos.html" class="nav-btn"><i class="fa fa-ruler"></i> Metragem Cabos</a>
+            <a href="tabelas.html" class="nav-btn"><i class="fa fa-table"></i> Tabelas</a>
+            <a href="recibo.html" class="nav-btn"><i class="fa fa-file-text"></i> Recibo</a>
         </nav>
 
-        <!-- BARRA DE SELEÇÃO DAS CALCULADORAS -->
-        <div class="glass card" style="margin-bottom:25px; padding:20px;">
-            <div class="form-group" style="margin:0;">
-                <label style="font-size:18px; font-weight:600; margin-bottom:10px;">
-                    <i class="fa fa-calculator mr-2"></i> Escolha o tipo de cálculo:
-                </label>
-                <select id="tipo_calc" class="form-control" onchange="mostrarSecao()" style="font-size:17px; padding:14px;">
-                    <option value="">-- Selecione --</option>
-                    <option value="corrente">Corrente Elétrica</option>
-                    <option value="potencia">Potência</option>
-                    <option value="queda">Queda de Tensão</option>
-                    <option value="bitola">Bitola do Cabo</option>
-                    <option value="disjuntor">Disjuntor</option>
-                    <option value="consumo">Consumo</option>
-                    <option value="demanda">Demanda</option>
-                    <option value="conversor">Conversor</option>
-                    <option value="carga">Cargas Específicas</option>
-                </select>
+        <main class="card glass">
+            <h2 class="titulo-secao">Calculadoras Elétricas</h2>
+
+            <div class="nav-bar" style="margin: 15px 0 25px;">
+                <button class="nav-btn active" onclick="mostrarAba('corrente')">Corrente</button>
+                <button class="nav-btn" onclick="mostrarAba('potencia')">Potência</button>
+                <button class="nav-btn" onclick="mostrarAba('disjuntor')">Disjuntor</button>
+                <button class="nav-btn" onclick="mostrarAba('bitola')">Bitola Cabo</button>
             </div>
-        </div>
 
-        <!-- ÁREA DE CONTEÚDO DINÂMICO -->
-        <main>
-            <div class="glass card">
-                <!-- Seção: Corrente -->
-                <div id="sec_corrente" class="secao-calc hidden">
-                    <h4 class="text-yellow-300 mb-4">Cálculo de Corrente Elétrica</h4>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Potência Ativa (Watts)</label>
-                            <input type="number" id="corr_pot" class="form-control" placeholder="Ex: 2200">
-                        </div>
-                        <div class="form-group">
-                            <label>Tensão Nominal (Volts)</label>
-                            <select id="corr_tensao" class="form-control">
-                                <option value="127">127V</option>
-                                <option value="220" selected>220V</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Tipo de Carga / Fator de Potência</label>
-                            <select id="corr_fp_tipo" class="form-control" onchange="ajustarFP('corr')">
-                                <option value="1.0">Resistiva (FP=1,0) – Chuveiro, forno</option>
-                                <option value="0.8">Indutiva Padrão (FP=0,8) – Motores, lâmpadas</option>
-                                <option value="manual">Definir valor manualmente</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Fator de Potência (se manual)</label>
-                            <input type="number" id="corr_fp_manual" step="0.01" min="0.1" max="1.0" value="0.8" class="form-control">
-                        </div>
+            <!-- Aba Corrente -->
+            <div id="aba_corrente" class="conteudo-aba">
+                <h3 class="subtitulo">Cálculo de Corrente Elétrica</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Potência Total (W)</label>
+                        <input type="number" id="corr_pot" class="form-control" placeholder="Ex: 2200">
                     </div>
-                    <button onclick="calcCorrente()" class="btn btn-primary btn-block mt-4">
-                        <i class="fa fa-calculator mr-2"></i> Calcular
-                    </button>
-                    <div id="res_corr" class="result-box hidden"></div>
-                </div>
-
-                <!-- Seção: Potência -->
-                <div id="sec_potencia" class="secao-calc hidden">
-                    <h4 class="text-yellow-300 mb-4">Cálculo de Potência</h4>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Tensão (V)</label>
-                            <input type="number" id="pot_tensao" value="220" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Corrente (A)</label>
-                            <input type="number" id="pot_corr" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Fator de Potência</label>
-                            <input type="number" id="pot_fp" step="0.01" min="0.1" max="1" value="0.8" class="form-control">
-                        </div>
+                    <div class="form-group">
+                        <label>Tensão (V)</label>
+                        <input type="number" id="corr_tensao" class="form-control" placeholder="Ex: 220">
                     </div>
-                    <button onclick="calcPotencia()" class="btn btn-primary btn-block mt-4">
-                        <i class="fa fa-calculator mr-2"></i> Calcular
-                    </button>
-                    <div id="res_pot" class="result-box hidden"></div>
-                </div>
-
-                <!-- Seção: Queda de Tensão -->
-                <div id="sec_queda" class="secao-calc hidden">
-                    <h4 class="text-yellow-300 mb-4">Cálculo de Queda de Tensão</h4>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Tensão do Circuito (V)</label>
-                            <input type="number" id="q_tensao" value="220" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Corrente do Circuito (A)</label>
-                            <input type="number" id="q_corr" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Comprimento do Cabo (m)</label>
-                            <input type="number" id="q_comp" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Seção do Condutor (mm²)</label>
-                            <input type="number" id="q_sec" class="form-control">
-                        </div>
-                    </div>
-                    <button onclick="calcQueda()" class="btn btn-primary btn-block mt-4">
-                        <i class="fa fa-calculator mr-2"></i> Calcular
-                    </button>
-                    <div id="res_q" class="result-box hidden"></div>
-                </div>
-
-                <!-- Seção: Bitola do Cabo -->
-                <div id="sec_bitola" class="secao-calc hidden">
-                    <h4 class="text-yellow-300 mb-4">Dimensionar Bitola do Cabo</h4>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Corrente de Projeto (A)</label>
-                            <input type="number" id="b_corr" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Comprimento do Circuito (m)</label>
-                            <input type="number" id="b_comp" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Tensão do Circuito (V)</label>
-                            <input type="number" id="b_tensao" value="220" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Método de Instalação</label>
-                            <select id="b_tipo" class="form-control">
-                                <option value="B1">Embutida em parede (B1)</option>
-                                <option value="B2">Embutida em tubo (B2)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button onclick="calcBitola()" class="btn btn-primary btn-block mt-4">
-                        <i class="fa fa-calculator mr-2"></i> Definir Bitola
-                    </button>
-                    <div id="res_b" class="result-box hidden"></div>
-                </div>
-
-                <!-- Seção: Disjuntor -->
-                <div id="sec_disjuntor" class="secao-calc hidden">
-                    <h4 class="text-yellow-300 mb-4">Sugestão de Disjuntor</h4>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Corrente do Circuito (A)</label>
-                            <input type="number" id="d_corr" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Seção do Cabo (mm²)</label>
-                            <input type="number" id="d_sec" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Tipo de Carga</label>
-                            <select id="d_tipo" class="form-control">
-                                <option value="resistiva">Resistiva</option>
-                                <option value="indutiva">Indutiva</option>
-                                <option value="veiculo">Carregador Veículo Elétrico</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button onclick="calcDisjuntor()" class="btn btn-primary btn-block mt-4">
-                        <i class="fa fa-calculator mr-2"></i> Indicar Disjuntor
-                    </button>
-                    <div id="res_d" class="result-box hidden"></div>
-                </div>
-
-                <!-- Seção: Consumo -->
-                <div id="sec_consumo" class="secao-calc hidden">
-                    <h4 class="text-yellow-300 mb-4">Consumo e Estimativa de Conta</h4>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Potência do Aparelho (W)</label>
-                            <input type="number" id="c_pot" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Horas de Uso por Dia</label>
-                            <input type="number" id="c_hora" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Dias por Mês</label>
-                            <input type="number" id="c_dia" value="30" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Preço do kWh (R$)</label>
-                            <input type="number" id="c_preco" step="0.01" value="0.80" class="form-control">
-                        </div>
-                    </div>
-                    <button onclick="calcConsumo()" class="btn btn-primary btn-block mt-4">
-                        <i class="fa fa-calculator mr-2"></i> Calcular Consumo
-                    </button>
-                    <div id="res_c" class="result-box hidden"></div>
-                </div>
-
-                <!-- Seção: Demanda -->
-                <div id="sec_demanda" class="secao-calc hidden">
-                    <h4 class="text-yellow-300 mb-4">Fator de Demanda Residencial</h4>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Potência Total Instalada (W)</label>
-                            <input type="number" id="fd_total" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Número de Circuitos</label>
-                            <input type="number" id="fd_circ" min="1" class="form-control">
-                        </div>
-                    </div>
-                    <button onclick="calcDemanda()" class="btn btn-primary btn-block mt-4">
-                        <i class="fa fa-calculator mr-2"></i> Calcular Demanda
-                    </button>
-                    <div id="res_fd" class="result-box hidden"></div>
-                </div>
-
-                <!-- Seção: Conversor -->
-                <div id="sec_conversor" class="secao-calc hidden">
-                    <h4 class="text-yellow-300 mb-4">Conversor de Unidades</h4>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>AWG para mm²</label>
-                            <input type="number" id="conv_awg" class="form-control" placeholder="Ex: 10">
-                            <button onclick="convAWG()" class="btn btn-primary mt-3">Converter</button>
-                            <div id="res_awg" class="result-box hidden mt-3"></div>
-                        </div>
-                        <div class="form-group">
-                            <label>W para kW</label>
-                            <input type="number" id="conv_w" class="form-control" placeholder="Ex: 2500">
-                            <button onclick="convW()" class="btn btn-primary mt-3">Converter</button>
-                            <div id="res_w" class="result-box hidden mt-3"></div>
-                        </div>
+                    <div class="form-group">
+                        <label>Fator de Potência</label>
+                        <input type="number" id="corr_fp" class="form-control" step="0.01" value="0.8">
                     </div>
                 </div>
+                <button onclick="calcularCorrente()" class="btn btn-primary btn-block">Calcular</button>
+                <div id="res_corrente" class="result-box hidden"></div>
+            </div>
 
-                <!-- Seção: Cargas Específicas -->
-                <div id="sec_carga" class="secao-calc hidden">
-                    <h4 class="text-yellow-300 mb-4">Dimensionamento para Cargas Específicas</h4>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Tipo de Carga</label>
-                            <select id="carga_tipo" class="form-control">
-                                <option value="chuveiro">Chuveiro Elétrico</option>
-                                <option value="ar">Ar-Condicionado</option>
-                                <option value="motor">Motor Elétrico (CV)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Valor da Potência (W ou CV)</label>
-                            <input type="number" id="carga_valor" class="form-control" placeholder="Ex: 5500">
-                        </div>
-                        <div class="form-group">
-                            <label>Tensão (V)</label>
-                            <select id="carga_tensao" class="form-control">
-                                <option value="127">127V</option>
-                                <option value="220" selected>220V</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Fator de Potência</label>
-                            <input type="number" id="carga_fp" step="0.01" min="0.1" max="1" value="0.8" class="form-control">
-                        </div>
+            <!-- Aba Potência -->
+            <div id="aba_potencia" class="conteudo-aba hidden">
+                <h3 class="subtitulo">Cálculo de Potência</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Tensão (V)</label>
+                        <input type="number" id="pot_tensao" class="form-control" placeholder="Ex: 220">
                     </div>
-                    <button onclick="calcCarga()" class="btn btn-primary btn-block mt-4">
-                        <i class="fa fa-calculator mr-2"></i> Calcular
-                    </button>
-                    <div id="res_carga" class="result-box hidden"></div>
+                    <div class="form-group">
+                        <label>Corrente (A)</label>
+                        <input type="number" id="pot_corr" class="form-control" placeholder="Ex: 10">
+                    </div>
+                    <div class="form-group">
+                        <label>Fator de Potência</label>
+                        <input type="number" id="pot_fp" class="form-control" step="0.01" value="0.8">
+                    </div>
                 </div>
+                <button onclick="calcularPotencia()" class="btn btn-primary btn-block">Calcular</button>
+                <div id="res_potencia" class="result-box hidden"></div>
+            </div>
+
+            <!-- Aba Disjuntor -->
+            <div id="aba_disjuntor" class="conteudo-aba hidden">
+                <h3 class="subtitulo">Dimensionar Disjuntor</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Corrente Calculada (A)</label>
+                        <input type="number" id="disj_corr" class="form-control" placeholder="Ex: 9.5">
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Circuito</label>
+                        <select id="disj_tipo" class="form-control">
+                            <option value="1.25">Iluminação / Tomadas (+25%)</option>
+                            <option value="1.3">Motores / Indutiva (+30%)</option>
+                        </select>
+                    </div>
+                </div>
+                <button onclick="calcularDisjuntor()" class="btn btn-primary btn-block">Calcular</button>
+                <div id="res_disjuntor" class="result-box hidden"></div>
+            </div>
+
+            <!-- Aba Bitola -->
+            <div id="aba_bitola" class="conteudo-aba hidden">
+                <h3 class="subtitulo">Dimensionar Bitola do Cabo</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Corrente do Circuito (A)</label>
+                        <input type="number" id="bit_corr" class="form-control" placeholder="Ex: 12">
+                    </div>
+                    <div class="form-group">
+                        <label>Comprimento do Cabo (m)</label>
+                        <input type="number" id="bit_comp" class="form-control" placeholder="Ex: 15">
+                    </div>
+                    <div class="form-group">
+                        <label>Tensão (V)</label>
+                        <input type="number" id="bit_tensao" class="form-control" value="220">
+                    </div>
+                </div>
+                <button onclick="calcularBitola()" class="btn btn-primary btn-block">Calcular</button>
+                <div id="res_bitola" class="result-box hidden"></div>
             </div>
         </main>
     </div>
-
     <script src="../JS/scripts.js"></script>
-    <script>
-        function mostrarSecao() {
-            document.querySelectorAll('.secao-calc').forEach(s => s.classList.add('hidden'));
-            const tipo = document.getElementById('tipo_calc').value;
-            if (tipo) document.getElementById('sec_' + tipo).classList.remove('hidden');
-        }
-    </script>
 </body>
 </html>

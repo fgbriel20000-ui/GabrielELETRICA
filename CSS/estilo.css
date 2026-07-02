@@ -1,0 +1,598 @@
+/* ==========================================================
+   GABRIEL ELETRO V2K
+   Desenvolvido por Gabriel
+   Estilo Principal
+========================================================== */
+
+/* ==========================
+   RESET
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:"Segoe UI",Roboto,Arial,sans-serif;
+
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+
+    color:#f8fafc;
+
+    min-height:100vh;
+
+    line-height:1.6;
+
+}
+
+/* ==========================
+   VARIÁVEIS
+========================== */
+
+:root{
+
+    --azul:#0f172a;
+
+    --azul2:#1e293b;
+
+    --glass:rgba(255,255,255,.05);
+
+    --glass2:rgba(255,255,255,.08);
+
+    --borda:rgba(255,255,255,.10);
+
+    --amarelo:#facc15;
+
+    --amarelo2:#eab308;
+
+    --texto:#f1f5f9;
+
+    --texto2:#cbd5e1;
+
+    --sombra:0 8px 30px rgba(0,0,0,.25);
+
+}
+
+/* ==========================
+   SELEÇÃO
+========================== */
+
+::selection{
+
+    background:var(--amarelo);
+
+    color:#000;
+
+}
+
+/* ==========================
+   SCROLLBAR
+========================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#162235;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--amarelo);
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#ffd633;
+
+}
+
+/* ==========================
+   CONTAINER
+========================== */
+
+.container{
+
+    width:95%;
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:25px;
+
+}
+
+/* ==========================
+   ALINHAMENTO
+========================== */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+/* ==========================
+   GLASS
+========================== */
+
+.glass{
+
+    background:var(--glass);
+
+    backdrop-filter:blur(14px);
+
+    -webkit-backdrop-filter:blur(14px);
+
+    border:1px solid var(--borda);
+
+    border-radius:18px;
+
+    box-shadow:var(--sombra);
+
+}
+
+/* ==========================
+   CARDS
+========================== */
+
+.card{
+
+    padding:30px;
+
+    margin-bottom:25px;
+
+    transition:.35s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-4px);
+
+}
+
+/* ==========================
+   LOGO
+========================== */
+
+.logo-icon{
+
+    font-size:60px;
+
+    color:var(--amarelo);
+
+    margin-bottom:12px;
+
+    transition:.4s;
+
+}
+
+.logo-icon:hover{
+
+    transform:rotate(-8deg) scale(1.08);
+
+}
+
+/* ==========================
+   MARCA
+========================== */
+
+.marca{
+
+    color:var(--amarelo);
+
+    font-size:34px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+}
+
+/* ==========================
+   SLOGAN
+========================== */
+
+.slogan{
+
+    margin-top:8px;
+
+    color:var(--texto2);
+
+    font-size:18px;
+
+}
+/* ==========================================================
+   MENU
+========================================================== */
+
+.nav-bar{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin:25px 0;
+
+}
+
+.nav-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    min-width:170px;
+
+    padding:14px 22px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    font-size:16px;
+
+    color:var(--texto);
+
+    background:rgba(59,130,246,.15);
+
+    border:1px solid rgba(96,165,250,.25);
+
+    transition:
+    background .30s,
+    transform .30s,
+    box-shadow .30s,
+    color .30s;
+
+}
+
+.nav-btn:hover{
+
+    background:rgba(59,130,246,.35);
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+}
+
+.nav-btn.active{
+
+    background:linear-gradient(135deg,var(--amarelo),var(--amarelo2));
+
+    color:#111827;
+
+}
+
+/* ==========================================================
+   TÍTULOS
+========================================================== */
+
+.titulo-secao{
+
+    color:var(--amarelo);
+
+    font-size:24px;
+
+    margin-bottom:18px;
+
+    padding-bottom:10px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.texto{
+
+    color:var(--texto2);
+
+    font-size:17px;
+
+    margin-bottom:15px;
+
+}
+
+/* ==========================================================
+   GRID
+========================================================== */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+}
+
+/* ==========================================================
+   INPUTS
+========================================================== */
+
+.form-control{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    color:white;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    transition:.3s;
+
+}
+
+.form-control::placeholder{
+
+    color:#94a3b8;
+
+}
+
+.form-control:focus{
+
+    border-color:var(--amarelo);
+
+    box-shadow:0 0 0 3px rgba(250,204,21,.20);
+
+}
+
+/* ==========================================================
+   BOTÕES
+========================================================== */
+
+.btn{
+
+    border:none;
+
+    cursor:pointer;
+
+    padding:14px 22px;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    transition:.30s;
+
+}
+
+.btn-primary{
+
+    background:linear-gradient(135deg,var(--amarelo),var(--amarelo2));
+
+    color:#111827;
+
+}
+
+.btn-primary:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 25px rgba(234,179,8,.25);
+
+}
+
+.btn-primary:active{
+
+    transform:scale(.97);
+
+}
+
+/* ==========================================================
+   CARDS DAS FERRAMENTAS
+========================================================== */
+
+.card h3{
+
+    margin:15px 0;
+
+    color:var(--amarelo);
+
+}
+
+.card p{
+
+    color:var(--texto2);
+
+}
+
+.card i{
+
+    transition:.4s;
+
+}
+
+.card:hover i{
+
+    transform:scale(1.15);
+
+}
+
+/* ==========================================================
+   LISTAS
+========================================================== */
+
+ul{
+
+    padding-left:20px;
+
+}
+
+li{
+
+    margin-bottom:10px;
+
+}
+
+/* ==========================================================
+   RODAPÉ
+========================================================== */
+
+footer{
+
+    text-align:center;
+
+}
+
+footer p{
+
+    margin-bottom:8px;
+
+}
+
+footer small{
+
+    color:#94a3b8;
+
+}
+
+/* ==========================================================
+   ANIMAÇÕES
+========================================================== */
+
+@keyframes aparecer{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+.card{
+
+    animation:aparecer .5s ease;
+
+}
+
+/* ==========================================================
+   RESPONSIVO
+========================================================== */
+
+@media(max-width:768px){
+
+.logo-icon{
+
+    font-size:48px;
+
+}
+
+.marca{
+
+    font-size:28px;
+
+}
+
+.slogan{
+
+    font-size:16px;
+
+}
+
+.card{
+
+    padding:20px;
+
+}
+
+.nav-btn{
+
+    width:100%;
+
+}
+
+.titulo-secao{
+
+    font-size:22px;
+
+}
+
+}
+
+/* ==========================================================
+   IMPRESSÃO
+========================================================== */
+
+@media print{
+
+body{
+
+    background:white;
+
+    color:black;
+
+}
+
+.nav-bar{
+
+    display:none;
+
+}
+
+footer{
+
+    display:none;
+
+}
+
+.glass{
+
+    background:white;
+
+    border:none;
+
+    box-shadow:none;
+
+}
+
+}

@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elétrica Profissional | Cálculos e Orçamentos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #0F172A;
+            --secondary: #1E293B;
+            --accent: #F59E0B;
+            --accent-light: #FBBF24;
+            --electric: #38BDF8;
+            --success: #22C55E;
+            --danger: #EF4444;
+            --text: #F8FAFC;
+            --text-muted: #CBD5E1;
+            --border: rgba(148, 163, 184, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            min-height: 100vh;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(245, 158, 11, 0.5); }
+        }
+
+        @keyframes slide-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            position: relative;
+            font-size: clamp(1.75rem, 3vw, 2.75rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--electric));
+            border-radius: 2px;
+        }
+
+        .nav-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            padding: 0.85rem 1.5rem;
+            border-radius: 12px;
+            background: rgba(51, 65, 85, 0.5);
+            border: 1px solid transparent;
+            color: var(--text);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-btn:hover {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: var(--primary);
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            animation: pulse-glow 2s infinite;
+        }
+
+        .tab-content {
+            display: none;
+            animation: slide-up 0.5s ease forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.75rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-icon {
+            font-size: 1.75rem;
+            color: var(--accent);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--electric);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            padding: 0.9rem 1rem;
+            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--electric);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #4ADE80);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .result-box {
+            margin-top: 1.5rem;
+            padding: 1.75rem;
+            border-radius: 12px;
+            background: rgba(22, 163, 74, 0.1);
+            border-left: 4px solid var(--success);
+            animation: fade-in 0.6s ease;
+            line-height: 1.8;
+        }
+
+        .result-box.hidden {
+            display: none;
+        }
+
+        .text-highlight {
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: rgba(51, 65, 85, 0.7);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--accent-light);
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(30, 41, 59, 0.4);
+        }
+
+        tr:hover td {
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .recibo {
+            background: white;
+            color: #111827;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            line-height: 1.6;
+        }
+
+        .recibo h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 768px) {
+            .nav-buttons { gap: 0.5rem; }
+            .nav-btn { padding: 0.7rem 1rem; font-size: 0.9rem; }
+            .card { padding: 1.5rem; }
+            .recibo { padding: 1.5rem; }
+        }
+
+        @media print {
+            .nav-bar, .btn, .no-print { display: none !important; }
+            .recibo { color: black; background: white; box-shadow: none; margin: 0; padding: 20px; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="text-center py-8">
+            <h1 class="section-title">
+                <i class="fa fa-bolt text-yellow-400 mr-3"></i>
+                Elétrica Profissional
+            </h1>
+            <p class="text-lg text-gray-400 max-w-3xl mx-auto">
+                Cálculos técnicos, orçamentos detalhados e emissão de recibos para instalações elétricas residenciais e comerciais
+            </p>
+        </header>
+
+        <nav class="nav-bar">
+            <div class="nav-buttons">
+                <button class="nav-btn active" data-tab="corrente">Corrente</button>
+                <button class="nav-btn" data-tab="potencia">Potência</button>
+                <button class="nav-btn" data-tab="queda">Queda Tensão</button>
+                <button class="nav-btn" data-tab="bitola">Bitola Cabo</button>
+                <button class="nav-btn" data-tab="disjuntor">Disjuntor</button>
+                <button class="nav-btn" data-tab="consumo">Consumo</button>
+                <button class="nav-btn" data-tab="demanda">Demanda</button>
+                <button class="nav-btn" data-tab="tabelas">Tabelas</button>
+                <button class="nav-btn" data-tab="conversor">Conversor</button>
+                <button class="nav-btn" data-tab="cargas">Cargas</button>
+                <button class="nav-btn" data-tab="orcamento">Orçamento</button>
+                <button class="nav-btn" data-tab="nota">Recibo</button>
+                <button class="nav-btn" data-tab="checklist">Checklist</button>
+            </div>
+        </nav>
+
+        <main>
+            <div id="corrente" class="tab-content active">
+                <div class="glass card">
+                    <div class="card-header">
+                        <i class="fa fa-plug card-icon"></i>
+                        <h3 class="card-title">Cálculo de Corrente Elétrica</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Potência Ativa (Watts)</label>
+                            <input type="number" id="corr_pot" class="form-control" placeholder="Ex: 2200">
+                        </div>
+                        <div class="form-group">
+                            <label>Tensão Nominal (Volts)</label>
+                            <select id="corr_tensao" class="form-control">
+                                <option value="127">127V</option>
+                                <option value="220" selected>220V</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de Carga / Fator de Potência</label>
+                            <select id="corr_fp_tipo" class="form-control" onchange="ajustarFP('corr')">
+                                <option value="1.0">Resistiva (FP=1,0) – Chuveiro, forno</option>
+                                <option value="0.8">Indutiva Padrão (FP=0,8) – Motores, lâmpadas</option>
+                                <option value="manual">Definir valor manualmente</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Fator de Potência (se manual)</label>
+                            <input type="number" id="corr_fp_manual" step="0.01" min="0.1" max="1.0" value="0.8" class="form-control">
+                        </div>
+                    </div>
+                    <button onclick="calcCorrente()" class="btn btn-primary btn-block mt-6">
+                        <i class="fa fa-calculator mr-2"></i> Calcular Corrente
+                    </button>
+                    <div id="res_corr" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <div id="potencia" class="tab-content">
+                <div class="glass card">
+                    <div class="card-header">
+                        <i class="fa fa-flash card-icon"></i>
+                        <h3 class="card-title">Cálculo de Potência</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Tensão (Volts)</label>
+                            <input type="number" id="pot_tensao" class="form-control" placeholder="Ex: 220">
+                        </div>
+                        <div class="form-group">
+                            <label>Corrente (Amperes)</label>
+                            <input type="number" id="pot_corr" class="form-control" placeholder="Ex: 10">
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de Carga / Fator de Potência</label>
+                            <select id="pot_fp_tipo" class="form-control" onchange="ajustarFP('pot')">
+                                <option value="1.0">Resistiva (FP=1,0)</option>
+                                <option value="0.8">Indutiva (FP=0,8)</option>
+                                <option value="manual">Manual</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Fator de Potência</label>
+                            <input type="number" id="pot_fp_manual" step="0.01" min="0.1" max="1.0" value="0.8" class="form-control">
+                        </div>
+                    </div>
+                    <button onclick="calcPotencia()" class="btn btn-primary btn-block mt-6">
+                        <i class="fa fa-calculator mr-2"></i> Calcular Potência
+                    </button>
+                    <div id="res_pot" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <div id="queda" class="tab-content">
+                <div class="glass card">
+                    <div class="card-header">
+                        <i class="fa fa-line-chart card-icon"></i>
+                        <h3 class="card-title">Queda de Tensão</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Tensão do Circuito (V)</label>
+                            <input type="number" id="q_tensao" value="220" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Corrente do Circuito (A)</label>
+                            <input type="number" id="q_corr" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Comprimento do Cabo (m)</label>
+                            <input type="number" id="q_comp" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Seção do Condutor (mm²)</label>
+                            <input type="number" id="q_sec" class="form-control">
+                        </div>
+                    </div>
+                    <button onclick="calcQueda()" class="btn btn-primary btn-block mt-6">
+                        <i class="fa fa-calculator mr-2"></i> Calcular Queda
+                    </button>
+                    <div id="res_q" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <div id="bitola" class="tab-content">
+                <div class="glass card">
+                    <div class="card-header">
+                        <i class="fa fa-random card-icon"></i>
+                        <h3 class="card-title">Dimensionar Bitola do Cabo</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Corrente de Projeto (A)</label>
+                            <input type="number" id="b_corr" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Comprimento do Circuito (m)</label>
+                            <input type="number" id="b_comp" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Tensão do Circuito (V)</label>
+                            <input type="number" id="b_tensao" value="220" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Método de Instalação</label>
+                            <select id="b_tipo" class="form-control">
+                                <option value="B1">Embutida em parede (B1)</option>
+                                <option value="B2">Embutida em tubo (B2)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="calcBitola()" class="btn btn-primary btn-block mt-6">
+                        <i class="fa fa-calculator mr-2"></i> Definir Bitola
+                    </button>
+                    <div id="res_b" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <div id="disjuntor" class="tab-content">
+                <div class="glass card">
+                    <div class="card-header">
+                        <i class="fa fa-shield card-icon"></i>
+                        <h3 class="card-title">Sugestão de Disjuntor</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Corrente do Circuito (A)</label>
+                            <input type="number" id="d_corr" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Seção do Cabo (mm²)</label>
+                            <input type="number" id="d_sec" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de Carga</label>
+                            <select id="d_tipo" class="form-control">
+                                <option value="resistiva">Resistiva</option>
+                                <option value="indutiva">Indutiva</option>
+                                <option value="veiculo">Carregador Veículo Elétrico</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="calcDisjuntor()" class="btn btn-primary btn-block mt-6">
+                        <i class="fa fa-calculator mr-2"></i> Indicar Disjuntor
+                    </button>
+                    <div id="res_d" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <div id="consumo" class="tab-content">
+                <div class="glass card">
+                    <div class="card-header">
+                        <i class="fa fa-battery-half card-icon"></i>
+                        <h3 class="card-title">Consumo e Estimativa de Conta</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Potência do Aparelho (W)</label>
+                            <input type="number" id="c_pot" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Horas de Uso por Dia</label>
+                            <input type="number" id="c_hora" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Dias por Mês</label>
+                            <input type="number" id="c_dia" value="30" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Preço do kWh (R$)</label>
+                            <input type="number" id="c_preco" step="0.01" value="0.80" class="form-control">
+                        </div>
+                    </div>
+                    <button onclick="calcConsumo()" class="btn btn-primary btn-block mt-6">
+                        <i class="fa fa-calculator mr-2"></i> Calcular Consumo
+                    </button>
+                    <div id="res_c" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <div id="demanda" class="tab-content">
+                <div class="glass card">
+                    <div class="card-header">
+                        <i class="fa fa-signal card-icon"></i>
+                        <h3 class="card-title">Fator de Demanda Residencial</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Potência Total Instalada (W)</label>
+                            <input type="number" id="fd_total" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Número de Circuitos</label>
+                            <input type="number" id="fd_circ" min="1" class="form-control">
+                        </div>
+                    </div>
+                    <button onclick="calcDemanda()" class="btn btn-primary btn-block mt-6">
+                        <i class="fa fa-calculator mr-2"></i> Calcular Demanda
+                    </button>
+                    <div id="res_fd" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <div id="tabelas" class="tab-content">
+                <div class="glass card">
+                    <div class="card-header">
+                        <i class="fa fa-table card-icon"></i>
+                        <h3 class="card-title">Tabelas Normativas NBR 5410</h3>
+                    </div>
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="text-yellow-300 text-lg font-semibold mb-3">Capacidade de Corrente (Cobre, PVC, B1)</h4>
+                            <div class="table-container">
+                                <table>
+                                    <tr><th>Seção (mm²)</th><td>1,5</td><td>2,5</td><td>4</td><td>6</td><td>10</td><td>16</td></tr>
+                                    <tr><th>Corrente (A)</th><td>15,5</td><td>21</td><td>28</td><td>36</td><td>50</td><td>68</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-yellow-300 text-lg font-semibold mb-3">Cores dos Condutores</h4>
+                            <div class="table-container">
+                                <table>
+                                    <tr><th>Função</th><th>Cor Padrão</th></tr>
+                                    <tr><td>Fase</td><td>Preto, Branco ou Vermelho</td></tr>
+                                    <tr><td>Neutro</td><td>Azul-Claro</td></tr>
+                                    <tr><td>Terra / Proteção</td><td>Verde ou Verde-Amarelo</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="conversor" class="tab-content">
+                <div class="glass card">
+                    <div class="card-header">
+                        <i class="fa fa-exchange card-icon"></i>
+                        <h3 class="card-title">Conversor de Unidades</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>AWG ↔ mm²</label>
+                            <input type="number" id="conv_awg" placeholder="Ex: 12" class="form-control">
+                            <button onclick="convAWG()" class="btn btn-primary mt-3">Converter</button>
+                            <div id="res_awg" class="mt-4 text-lg font-medium"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Watts ↔ Quilowatts</label>
+                            <input type="number" id="conv_w" placeholder="Ex: 2500" class="form-control">
+                            <button onclick="convW()" class="btn btn-primary mt-3">Converter</button>
+                            <div id="res_w" class="mt-4 text-lg font-medium"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cargas" class="tab-content">
+                <div class="glass card">
+                    <div class="card-header">
+                        <i class="fa fa-home card-icon"></i>
+                        <h3 class="card-title">Dimensionamento de Cargas Específicas</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Tipo de Carga</label>
+                            <select id="carga_tipo" class="form-control">
+                                <option value="chuveiro">Chuveiro Elétrico</option>
+                                <option value="ar">Ar-Condicionado</option>
+                                <option value="motor">Motor Elétrico</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Potência (W) ou CV</label>
+                            <input type="number" id="carga_valor" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Tensão (V)</label>
+                            <input type="number" id="carga_tensao" value="220" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Fator de Potência</label>
+                            <input type="number" id="carga_fp" step="0.01" min="0.5" max="1.0" value="0.8" class="form-control">
+                        </div>
+                    </div>
+                    <button onclick="calcCarga()" class="btn btn-primary btn-block mt-6">
+                        <i class="fa fa-calculator mr-2"></i> Dimensionar
+                    </button>
+                    <div id="res_carga" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <div id="orcamento" class="tab-content">
+                <div class="glass card">
+                    <div class="card-header">
+                        <i class="fa fa-file-text card-icon"></i>
+                        <h3 class="card-title">Orçamento com Lucro</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div>
+                            <h4 class="text-yellow-300 font-semibold mb-4">Quantidades</h4>
+                            <div class="form-group">
+                                <label>Tomadas (un)</label>
+                                <input type="number" id="qtd_tomada" value="0" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Interruptores (un)</label>
+                                <input type="number" id="qtd_interruptor" value="0" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Cabo 1,5mm² (m)</label>
+                                <input type="number" id="m15" value="0" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Cabo 2,5mm² (m)</label>
+                                <input type="number" id="m25" value="0" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Cabo 4mm² (m)</label>
+                                <input type="number" id="m4" value="0" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Disjuntores (un)</label>
+                                <input type="number" id="qtd_disj" value="0" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Conduítes (m)</label>
+                                <input type="number" id="qtd_conduite" value="0" class="form-control">
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-yellow-300 font-semibold mb-4">Preços e Lucro</h4>
+                            <div class="form-group">
+                                <label>Tomada R$</label>
+                                <input type="number" id="preco_tomada" value="8.50" step="0.01" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Interruptor R$</label>
+                                <input type="number" id="preco_interruptor" value="7.20" step="0.01" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Cabo 1,5mm² R$/m</label>
+                                <input type="number" id="preco_m15" value="2.50" step="0.01" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Cabo 2,5mm² R$/m</label>
+                                <input type="number" id="preco_m25" value="3.80" step="0.01" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Cabo 4mm² R$/m</label>
+                                <input type="number" id="preco_m4" value="5.20" step="0.01" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Disjuntor R$</label>
+                                <input type="number" id="preco_disj" value="25.00" step="0.01" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Conduíte R$/m</label>
+                                <input type="number" id="preco_conduite" value="4.50" step="0.01" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Mão de Obra R$</label>
+                                <input type="number" id="mao" value="0" step="0.01" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Margem de Lucro %</label>
+                                <input type="number" id="lucro" value="30" min="0" max="200" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="gerarOrcamento()" class="btn btn-primary btn-block mt-6">
+                        <i class="fa fa-calculator mr-2"></i> Gerar Orçamento
+                    </button>
+                    <div id="res_orc" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <div id="nota" class="tab-content">
+                <div class="glass card">
+                    <div class="card-header">
+                        <i class="fa fa-file-pdf-o card-icon"></i>
+                        <h3 class="card-title">Recibo de Serviço</h3>
+                    </div>
+                    <p class="text-yellow-300 mb-6">⚠️ Este é um recibo válido como comprovante. Para Nota Fiscal oficial, cadastre-se na prefeitura de Natal.</p>
+                    <div class="form-grid">
+                        <div>
+                            <h4 class="text-yellow-300 font-semibold mb-4">Prestador</h4>
+                            <div class="form-group">
+                                <label>Nome / Empresa</label>
+                                <input type="text" id="prestador_nome" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>CPF / CNPJ</label>
+                                <input type="text" id="prestador_doc" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Endereço</label>
+                                <input type="text" id="prestador_end" class="form-control">
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-yellow-300 font-semibold mb-4">Cliente</h4>
+                            <div class="form-group">
+                                <label>Nome do Cliente</label>
+                                <input type="text" id="cliente_nome" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>CPF</label>
+                                <input type="text" id="cliente_doc" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Endereço da Obra</label>
+                                <input type="text" id="cliente_end" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-4">
+                        <label>Descrição do Serviço</label>
+                        <textarea id="descricao" rows="4" class="form-control">Instalação elétrica residencial conforme NBR 5410</textarea>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Valor Total R$</label>
+                            <input type="number" id="valor_total" step="0.01" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Data</label>
+                            <input type="date" id="data_recibo" class="form-control">
+                        </div>
+                    </div>
+                    <div class="flex gap-4 mt-6">
+                        <button onclick="gerarRecibo()" class="btn btn-success flex-1">
+                            <i class="fa fa-file-text mr-2"></i> Gerar Recibo
+                        </button>
+                        <button onclick="window.print()" class="btn btn-primary flex-1">
+                            <i class="fa fa-print mr-2"></i> Imprimir / PDF
+                        </button>
+                    </div>
+                    <div id="recibo_area" class="mt-8"></div>
+                </div>
+            </div>
+
+            <div id="checklist" class="tab-content">
+                <div class="glass card">
+                    <div class="card-header">
+                        <i class="fa fa-check-square card-icon"></i>
+                        <h3 class="card-title">Checklist e Normas</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-yellow-300 font-semibold mb-3">Verificação de Execução</h4>
+                            <ul class="space-y-3 text-lg">
+                                <li class="flex items-center gap-3">
+                                    <input type="checkbox" class="w-5 h-5 accent-yellow-400">
+                                    <span>Verificar tensão da concessionária local</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <input type="checkbox" class="w-5 h-5 accent-yellow-400">
+                                    <span>Dimensionar circuitos independentes</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <input type="checkbox" class="w-5 h-5 accent-yellow-400">
+                                    <span>Verificar sistema de aterramento</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <input type="checkbox" class="w-5 h-5 accent-yellow-400">
+                                    <span>Instalar DR e disjuntores corretos</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <input type="checkbox" class="w-5 h-5 accent-yellow-400">
+                                    <span>Conferir bitolas e quedas de tensão</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <input type="checkbox" class="w-5 h-5 accent-yellow-400">
+                                    <span>Equipotencializar partes metálicas</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-yellow-300 font-semibold mb-3">Normas Aplicáveis</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-300">
+                                <li><strong>NBR 5410:</strong> Instalações de baixa tensão</li>
+                                <li><strong>NR-10:</strong> Segurança em serviços com eletricidade</li>
+                                <li><strong>NBR 5444:</strong> Símbolos gráficos</li>
+                                <li><strong>NBR 14039:</strong> Instalações de média tensão</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            });
+        });
+
+        function ajustarFP(modulo) {
+            let tipo = document.getElementById(modulo+'_fp_tipo').value;
+            let manual = document.getElementById(modulo+'_fp_manual');
+            manual.disabled = (tipo !== 'manual');
+            if(tipo !== 'manual') manual.value = tipo;
+        }
+
+        function getFP(modulo) {
+            let tipo = document.getElementById(modulo+'_fp_tipo').value;
+            return tipo === 'manual' ? Number(document.getElementById(modulo+'_fp_manual').value) : Number(tipo);
+        }
+
+        function calcCorrente() {
+            let P = Number(document.getElementById('corr_pot').value);
+            let V = Number(document.getElementById('corr_tensao').value);
+            let FP = getFP('corr');
+            let I = (P / (V * FP)).toFixed(2);
+            document.getElementById('res_corr').innerHTML = `
+                <strong>Corrente Calculada:</strong> <span class="text-highlight">${I} A</span><br>
+                Fator de Potência Utilizado: ${FP}<br>
+                <small>Fórmula: I = P / (V × FP)</small>
+            `;
+            document.getElementById('res_corr').classList.remove('hidden');
+        }
+
+        function calcPotencia() {
+            let V = Number(document.getElementById('pot_tensao').value);
+            let I = Number(document.getElementById('pot_corr').value);
+            let FP = getFP('pot');
+            let P = (V * I * FP).toFixed(2);
+            document.getElementById('res_pot').innerHTML = `
+                <strong>Potência Ativa:</strong> <span class="text-highlight">${P} W</span><br>
+                Fator de Potência: ${FP}
+            `;
+            document.getElementById('res_pot').classList.remove('hidden');
+        }
+
+        function calcQueda() {
+            let V = Number(document.getElementById('q_tensao').value);
+            let I = Number(document.getElementById('q_corr').value);
+            let L = Number(document.getElementById('q_comp').value);
+            let S = Number(document.getElementById('q_sec').value);
+            let quedaV = (2 * 0.0172 * L * I) / S;
+            let quedaP = (quedaV / V * 100).toFixed(2);
+            let status = quedaP > 4 ? '<span class="text-red-400 font-bold">⚠️ Acima do limite permitido (4%)</span>' : '<span class="text-green-400 font-bold">✅ Dentro do limite</span>';
+            document.getElementById('res_q').innerHTML = `
+                Queda de Tensão: <span class="text-highlight">${quedaV.toFixed(2)} V</span><br>
+                Percentual: <span class="text-highlight">${quedaP}%</span><br>
+                ${status}
+            `;
+            document.getElementById('res_q').classList.remove('hidden');
+        }
+
+        const ampacidade = {1.5:15.5, 2.5:21, 4:28, 6:36, 10:50, 16:68};
+        function calcBitola() {
+            let I = Number(document.getElementById('b_corr').value);
+            let L = Number(document.getElementById('b_comp').value);
+            let V = Number(document.getElementById('b_tensao').value);
+            let Smin = null;
+            for(let [s,iz] of Object.entries(ampacidade)) if(iz>=I) { Smin=Number(s); break; }
+            let Squeda = Math.sqrt(2*0.0172*L*I/V/0.04);
+            let Sfinal = Math.max(Smin, Math.ceil(Squeda*2)/2);
+            document.getElementById('res_b').innerHTML = `
+                Seção mínima por corrente: ${Smin} mm²<br>
+                Seção mínima por queda: ${Squeda.toFixed(2)} mm²<br>
+                <strong>Bitola recomendada: <span class="text-highlight">${Sfinal} mm²</span></strong>
+            `;
+            document.getElementById('res_b').classList.remove('hidden');
+        }
+
+        function calcDisjuntor() {
+            let I = Number(document.getElementById('d_corr').value);
+            let S = Number(document.getElementById('d_sec').value);
+            let tipo = document.getElementById('d_tipo').value;
+            let curva = tipo==='veiculo'?'D':tipo==='resistiva'?'B':'C';
+            let disj = Math.ceil(I/5)*5;
+            if(disj<10) disj=10;
+            document.getElementById('res_d').innerHTML = `
+                Disjuntor: <span class="text-highlight">${disj} A</span> (Curva ${curva})<br>
+                Capacidade do cabo: ${ampacidade[S] || 'Verificar bitola'} A
+            `;
+            document.getElementById('res_d').classList.remove('hidden');
+        }
+
+        function calcConsumo() {
+            let P = Number(document.getElementById('c_pot').value);
+            let h = Number(document.getElementById('c_hora').value);
+            let d = Number(document.getElementById('c_dia').value);
+            let preco = Number(document.getElementById('c_preco').value);
+            let kwh = (P/1000)*h*d;
+            let valor = (kwh*preco).toFixed(2);
+            document.getElementById('res_c').innerHTML = `
+                Consumo Mensal: <span class="text-highlight">${kwh.toFixed(2)} kWh</span><br>
+                Valor Estimado: <span class="text-highlight">R$ ${valor}</span>
+            `;
+            document.getElementById('res_c').classList.remove('hidden');
+        }
+
+        function calcDemanda() {
+            let total = Number(document.getElementById('fd_total').value);
+            let circ = Number(document.getElementById('fd_circ').value);
+            let fd = circ<=2 ? 0.8 : circ<=4 ? 0.7 : 0.6;
+            let demanda = total*fd;
+            document.getElementById('res_fd').innerHTML = `
+                Fator de Demanda: <span class="text-highlight">${fd}</span><br>
+                Potência de Demanda: <span class="text-highlight">${demanda.toFixed(0)} W</span>
+            `;
+            document.getElementById('res_fd').classList.remove('hidden');
+        }
+
+        function convAWG() {
+            let awg = Number(document.getElementById('conv_awg').value);
+            let tab = {14:2.08,12:3.31,10:5.26,8:8.37,6:13.3};
+            document.getElementById('res_awg').innerHTML = tab[awg] ? `${awg} AWG = <span class="text-highlight">${tab[awg]} mm²</span>` : 'Valor não encontrado';
+        }
+        function convW() {
+            let val = Number(document.getElementById('conv_w').value);
+            document.getElementById('res_w').innerHTML = val>=1000 ? `${val} W = <span class="text-highlight">${val/1000} kW</span>` : `${val} kW = <span class="text-highlight">${val*1000} W</span>`;
+        }
+
+        function calcCarga() {
+            let tipo = document.getElementById('carga_tipo').value;
+            let val = Number(document.getElementById('carga_valor').value);
+            let V = Number(document.getElementById('carga_tensao').value);
+            let FP = tipo === 'chuveiro' ? 1.0 : Number(document.getElementById('carga_fp').value);
+            let res='';
+            if(tipo==='chuveiro') {
+                let I = (val/(V*FP)).toFixed(2);
+                res=`Chuveiro ${val}W:<br>Corrente: <span class="text-highlight">${I}A</span><br>Bitola: ${val>5000?6:4}mm²<br>Disjuntor: ${Math.ceil(I/5)*5}A`;
+            } else if(tipo==='ar') {
+                let I = (val/(V*FP)).toFixed(2);
+                res=`Ar-Condicionado ${val}W:<br>Corrente: <span class="text-highlight">${I}A</span><br>Bitola: ${val>3500?6:4}mm²<br>Disjuntor Curva D: ${Math.ceil(I)}A`;
+            } else if(tipo==='motor') {
+                let potW = val*736;
+                let I = (potW/(V*FP*0.85)).toFixed(2);
+                res=`Motor ${val}CV:<br>Corrente: <span class="text-highlight">${I}A</span><br>Bitola: ${val>2?6:4}mm²<br>Disjuntor Curva D: ${Math.ceil(I*1.2)}A`;
+            }
+            document.getElementById('res_carga').innerHTML=res;
+            document.getElementById('res_carga').classList.remove('hidden');
+        }
+
+        function gerarOrcamento() {
+            let qTom = Number(document.getElementById('qtd_tomada').value);
+            let qInt = Number(document.getElementById('qtd_interruptor').value);
+            let m15 = Number(document.getElementById('m15').value);
+            let m25 = Number(document.getElementById('m25').value);
+            let m4 = Number(document.getElementById('m4').value);
+            let qDisj = Number(document.getElementById('qtd_disj').value);
+            let qCond = Number(document.getElementById('qtd_conduite').value);
+
+            let pTom = Number(document.getElementById('preco_tomada').value);
+            let pInt = Number(document.getElementById('preco_interruptor').value);
+            let pm15 = Number(document.getElementById('preco_m15').value);
+            let pm25 = Number(document.getElementById('preco_m25').value);
+            let pm4 = Number(document.getElementById('preco_m4').value);
+            let pDisj = Number(document.getElementById('preco_disj').value);
+            let pCond = Number(document.getElementById('preco_conduite').value);
+            let mao = Number(document.getElementById('mao').value);
+            let lucro = Number(document.getElementById('lucro').value)/100;
+
+            let totalMat = qTom*pTom + qInt*pInt + m15*pm15 + m25*pm25 + m4*pm4 + qDisj*pDisj + qCond*pCond;
+            let totalComLucro = totalMat * (1+lucro);
+            let totalGeral = totalComLucro + mao;
+
+            document.getElementById('res_orc').innerHTML = `
+                <strong>Materiais:</strong> R$ ${totalMat.toFixed(2)}<br>
+                <strong>Com Lucro (${lucro*100}%):</strong> R$ ${totalComLucro.toFixed(2)}<br>
+                <strong>Mão de Obra:</strong> R$ ${mao.toFixed(2)}<br>
+                <strong>Total Geral:</strong> <span class="text-highlight">R$ ${totalGeral.toFixed(2)}</span>
+            `;
+            document.getElementById('res_orc').classList.remove('hidden');
+        }
+
+        function gerarRecibo() {
+            let prestNome = document.getElementById('prestador_nome').value;
+            let prestDoc = document.getElementById('prestador_doc').value;
+            let prestEnd = document.getElementById('prestador_end').value;
+            let cliNome = document.getElementById('cliente_nome').value;
+            let cliDoc = document.getElementById('cliente_doc').value;
+            let cliEnd = document.getElementById('cliente_end').value;
+            let desc = document.getElementById('descricao').value;
+            let valor = Number(document.getElementById('valor_total').value).toFixed(2);
+            let data = document.getElementById('data_recibo').value;
+
+            document.getElementById('recibo_area').innerHTML = `
+                <div class="recibo">
+                    <h2>RECIBO DE SERVIÇO ELÉTRICO</h2>
+                    <p><strong>Prestador:</strong> ${prestNome}<br>
+                    <strong>CPF/CNPJ:</strong> ${prestDoc}<br>
+                    <strong>Endereço:</strong> ${prestEnd}</p>
+                    <hr class="my-4">
+                    <p><strong>Cliente:</strong> ${cliNome}<br>
+                    <strong>CPF:</strong> ${cliDoc}<br>
+                    <strong>Endereço da Obra:</strong> ${cliEnd}</p>
+                    <hr class="my-4">
+                    <p><strong>Serviço:</strong> ${desc}</p>
+                    <p class="text-xl font-bold mt-6">Valor Total: R$ ${valor}</p>
+                    <p class="mt-4">Data: ${data}</p>
+                    <div class="mt-10 text-center">
+                        <p>_______________________________________</p>
+                        <p>Assinatura do Prestador</p>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

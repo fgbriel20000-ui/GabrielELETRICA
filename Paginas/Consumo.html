@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumo | Elétrica Profissional</title>
+    <link rel="stylesheet" href="../css/estilo.css">
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-bar">
+            <div class="nav-buttons">
+                <a href="../index.html" class="nav-btn">Início</a>
+                <a href="corrente.html" class="nav-btn">Corrente</a>
+                <a href="potencia.html" class="nav-btn">Potência</a>
+                <a href="queda-tensao.html" class="nav-btn">Queda Tensão</a>
+                <a href="bitola-cabo.html" class="nav-btn">Bitola Cabo</a>
+                <a href="disjuntor.html" class="nav-btn">Disjuntor</a>
+                <a href="consumo.html" class="nav-btn active">Consumo</a>
+                <a href="demanda.html" class="nav-btn">Demanda</a>
+                <a href="tabelas.html" class="nav-btn">Tabelas</a>
+                <a href="conversor.html" class="nav-btn">Conversor</a>
+                <a href="cargas.html" class="nav-btn">Cargas</a>
+                <a href="orcamento.html" class="nav-btn">Orçamento</a>
+                <a href="recibo.html" class="nav-btn">Recibo</a>
+                <a href="checklist.html" class="nav-btn">Checklist</a>
+            </div>
+        </nav>
+
+        <main>
+            <div class="glass card">
+                <div class="card-header">
+                    <i class="fa fa-battery-half card-icon"></i>
+                    <h3 class="card-title">Consumo e Estimativa de Conta</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Potência do Aparelho (W)</label>
+                        <input type="number" id="c_pot" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Horas de Uso por Dia</label>
+                        <input type="number" id="c_hora" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Dias por Mês</label>
+                        <input type="number" id="c_dia" value="30" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Preço do kWh (R$)</label>
+                        <input type="number" id="c_preco" step="0.01" value="0.80" class="form-control">
+                    </div>
+                </div>
+                <button onclick="calcConsumo()" class="btn btn-primary btn-block mt-6">
+                    <i class="fa fa-calculator mr-2"></i> Calcular Consumo
+                </button>
+                <div id="res_c" class="result-box hidden"></div>
+            </div>
+        </main>
+    </div>
+    <script src="../js/scripts.js"></script>
+</body>
+</html>
 

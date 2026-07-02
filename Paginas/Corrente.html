@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corrente | Elétrica Profissional</title>
+    <link rel="stylesheet" href="../css/estilo.css">
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-bar">
+            <div class="nav-buttons">
+                <a href="../index.html" class="nav-btn">Início</a>
+                <a href="corrente.html" class="nav-btn active">Corrente</a>
+                <a href="potencia.html" class="nav-btn">Potência</a>
+                <a href="queda-tensao.html" class="nav-btn">Queda Tensão</a>
+                <a href="bitola-cabo.html" class="nav-btn">Bitola Cabo</a>
+                <a href="disjuntor.html" class="nav-btn">Disjuntor</a>
+                <a href="consumo.html" class="nav-btn">Consumo</a>
+                <a href="demanda.html" class="nav-btn">Demanda</a>
+                <a href="tabelas.html" class="nav-btn">Tabelas</a>
+                <a href="conversor.html" class="nav-btn">Conversor</a>
+                <a href="cargas.html" class="nav-btn">Cargas</a>
+                <a href="orcamento.html" class="nav-btn">Orçamento</a>
+                <a href="recibo.html" class="nav-btn">Recibo</a>
+                <a href="checklist.html" class="nav-btn">Checklist</a>
+            </div>
+        </nav>
+
+        <main>
+            <div class="glass card">
+                <div class="card-header">
+                    <i class="fa fa-plug card-icon"></i>
+                    <h3 class="card-title">Cálculo de Corrente Elétrica</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Potência Ativa (Watts)</label>
+                        <input type="number" id="corr_pot" class="form-control" placeholder="Ex: 2200">
+                    </div>
+                    <div class="form-group">
+                        <label>Tensão Nominal (Volts)</label>
+                        <select id="corr_tensao" class="form-control">
+                            <option value="127">127V</option>
+                            <option value="220" selected>220V</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Carga / Fator de Potência</label>
+                        <select id="corr_fp_tipo" class="form-control" onchange="ajustarFP('corr')">
+                            <option value="1.0">Resistiva (FP=1,0) – Chuveiro, forno</option>
+                            <option value="0.8">Indutiva Padrão (FP=0,8) – Motores, lâmpadas</option>
+                            <option value="manual">Definir valor manualmente</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fator de Potência (se manual)</label>
+                        <input type="number" id="corr_fp_manual" step="0.01" min="0.1" max="1.0" value="0.8" class="form-control">
+                    </div>
+                </div>
+                <button onclick="calcCorrente()" class="btn btn-primary btn-block mt-6">
+                    <i class="fa fa-calculator mr-2"></i> Calcular Corrente
+                </button>
+                <div id="res_corr" class="result-box hidden"></div>
+            </div>
+        </main>
+    </div>
+    <script src="../js/scripts.js"></script>
+</body>
+</html>
 

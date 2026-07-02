@@ -26,6 +26,7 @@ body {
     min-height: 100vh;
     color: var(--text);
     overflow-x: hidden;
+    line-height: 1.6;
 }
 
 @keyframes float {
@@ -115,12 +116,12 @@ body {
     border-radius: 12px;
     background: rgba(51, 65, 85, 0.5);
     border: 1px solid transparent;
-    color: var(--text);
+    color: var(--text) !important;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.25s ease;
     backdrop-filter: blur(8px);
-    text-decoration: none;
+    text-decoration: none !important;
     display: inline-block;
     text-align: center;
 }
@@ -129,11 +130,12 @@ body {
     background: rgba(245, 158, 11, 0.15);
     border-color: var(--accent);
     transform: translateY(-2px) translateZ(0);
+    color: var(--accent-light) !important;
 }
 
 .nav-btn.active {
     background: linear-gradient(135deg, var(--accent), var(--accent-light));
-    color: var(--primary);
+    color: var(--primary) !important;
     font-weight: 600;
     box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
     animation: pulse-glow 2.5s ease-in-out infinite;

@@ -3,72 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recibo | Elétrica Profissional</title>
+    <title>Recibo | Gabriel Eletro</title>
     <link rel="stylesheet" href="../CSS/estilo.css">
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div class="container">
         <nav class="nav-bar">
-            <div class="nav-buttons">
-                <a href="../index.html" class="nav-btn">Início</a>
-                <a href="calculadoras.html" class="nav-btn">Calculadoras</a>
-                <a href="tabelas.html" class="nav-btn">Tabelas</a>
-                <a href="orcamento.html" class="nav-btn">Orçamento</a>
-                <a href="recibo.html" class="nav-btn active">Recibo</a>
-                <a href="checklist.html" class="nav-btn">Checklist</a>
-            </div>
+            <a href="../index.html" class="nav-btn"><i class="fa fa-home"></i> Início</a>
+            <a href="calculadoras.html" class="nav-btn"><i class="fa fa-calculator"></i> Calculadoras</a>
+            <a href="metragem-cabos.html" class="nav-btn"><i class="fa fa-ruler"></i> Metragem Cabos</a>
+            <a href="tabelas.html" class="nav-btn"><i class="fa fa-table"></i> Tabelas</a>
+            <a href="recibo.html" class="nav-btn active"><i class="fa fa-file-text"></i> Recibo</a>
         </nav>
 
-        <main>
-            <div class="glass card">
-                <div class="card-header">
-                    <i class="fa fa-file-pdf-o card-icon"></i>
-                    <h3 class="card-title">Gerar Recibo de Serviço</h3>
+        <main class="card glass">
+            <h2 class="titulo-secao">Gerar Recibo de Serviço</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Nome do Cliente</label>
+                    <input type="text" id="cliente" class="form-control">
                 </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Nome do Prestador</label>
-                        <input type="text" id="prestador_nome" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>CPF/CNPJ</label>
-                        <input type="text" id="prestador_doc" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Endereço</label>
-                        <input type="text" id="prestador_end" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Nome do Cliente</label>
-                        <input type="text" id="cliente_nome" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>CPF do Cliente</label>
-                        <input type="text" id="cliente_doc" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Endereço da Obra</label>
-                        <input type="text" id="cliente_end" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Descrição do Serviço</label>
-                        <textarea id="descricao" rows="3" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Valor Total (R$)</label>
-                        <input type="number" id="valor_total" step="0.01" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Data</label>
-                        <input type="date" id="data_recibo" class="form-control">
-                    </div>
+                <div class="form-group">
+                    <label>Endereço da Obra</label>
+                    <input type="text" id="endereco" class="form-control">
                 </div>
-                <button onclick="gerarRecibo()" class="btn btn-primary btn-block mt-6">
-                    <i class="fa fa-print mr-2"></i> Gerar Recibo
-                </button>
-                <div id="recibo_area" class="mt-6"></div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label>Descrição do Serviço</label>
+                    <textarea id="servico" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Valor Total (R$)</label>
+                    <input type="number" id="valor" class="form-control" step="0.01">
+                </div>
             </div>
+            <button onclick="gerarRecibo()" class="btn btn-primary btn-block">Gerar Recibo</button>
+            <div id="recibo_area" class="mt-4"></div>
+            <button onclick="window.print()" class="btn btn-primary btn-block mt-4">Imprimir / Salvar PDF</button>
         </main>
     </div>
     <script src="../JS/scripts.js"></script>

@@ -1,6 +1,5 @@
-// Gabriel Eletro - Script Unificado e Atualizado
+// Gabriel Eletro - Script Unificado
 
-// Aba de navegação interna
 function mostrarAba(nome) {
     document.querySelectorAll('.conteudo-aba').forEach(aba => aba.classList.add('hidden'));
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -8,7 +7,6 @@ function mostrarAba(nome) {
     event.target.classList.add('active');
 }
 
-// Cálculo Corrente
 function calcularCorrente() {
     const P = Number(document.getElementById('corr_pot').value);
     const V = Number(document.getElementById('corr_tensao').value);
@@ -19,7 +17,6 @@ function calcularCorrente() {
     document.getElementById('res_corrente').innerHTML = `Corrente: ${I} A`;
 }
 
-// Cálculo Potência
 function calcularPotencia() {
     const V = Number(document.getElementById('pot_tensao').value);
     const I = Number(document.getElementById('pot_corr').value);
@@ -30,7 +27,6 @@ function calcularPotencia() {
     document.getElementById('res_potencia').innerHTML = `Potência: ${P} W`;
 }
 
-// Cálculo Disjuntor
 function calcularDisjuntor() {
     const I = Number(document.getElementById('disj_corr').value);
     const fator = Number(document.getElementById('disj_tipo').value);
@@ -43,7 +39,6 @@ function calcularDisjuntor() {
         `Corrente ajustada: ${correnteAjustada.toFixed(2)} A<br>Disjuntor recomendado: ${escolhido} A`;
 }
 
-// Cálculo Bitola Cabo
 function calcularBitola() {
     const I = Number(document.getElementById('bit_corr').value);
     const L = Number(document.getElementById('bit_comp').value);
@@ -63,7 +58,6 @@ function calcularBitola() {
         `Seção mínima: ${sFinal.toFixed(1)} mm²<br>Conforme NBR 5410`;
 }
 
-// Metragem Cabos
 function calcularMetragem() {
     const pontos = Number(document.getElementById('qtd_pontos').value);
     const media = Number(document.getElementById('media_percurso').value);
@@ -74,7 +68,6 @@ function calcularMetragem() {
     document.getElementById('res_metragem').innerHTML = `Total estimado: ${total} metros`;
 }
 
-// Recibo
 function gerarRecibo() {
     const nomeCliente = document.getElementById('cliente').value;
     const endereco = document.getElementById('endereco').value;

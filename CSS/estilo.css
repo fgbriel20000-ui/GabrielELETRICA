@@ -22,7 +22,6 @@ body {
     text-align: center;
 }
 
-/* Marca Gabriel Eletro */
 .logo-icon {
     font-size: 55px;
     color: #facc15;
@@ -42,7 +41,6 @@ body {
     color: #cbd5e1;
 }
 
-/* Cartão com efeito vidro */
 .glass {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(12px);
@@ -56,7 +54,6 @@ body {
     margin-bottom: 25px;
 }
 
-/* Navegação */
 .nav-bar {
     display: flex;
     gap: 12px;
@@ -83,7 +80,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* Títulos e textos */
 .titulo-secao {
     font-size: 22px;
     color: #facc15;
@@ -104,7 +100,6 @@ body {
     font-size: 17px;
 }
 
-/* Formulários */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -142,7 +137,6 @@ textarea.form-control {
     min-height: 100px;
 }
 
-/* Botões */
 .btn {
     padding: 12px 24px;
     border-radius: 8px;
@@ -167,7 +161,6 @@ textarea.form-control {
     width: 100%;
 }
 
-/* Resultados */
 .result-box {
     margin-top: 20px;
     padding: 20px;
@@ -183,7 +176,6 @@ textarea.form-control {
     display: none;
 }
 
-/* Tabelas */
 .table-container {
     overflow-x: auto;
     margin-top: 15px;
@@ -210,7 +202,6 @@ table tr:hover {
     background: rgba(255, 255, 255, 0.03);
 }
 
-/* Impressão - Recibo em UMA página */
 @media print {
     body { background: white; color: black; }
     .nav-bar, .btn { display: none; }
@@ -218,7 +209,6 @@ table tr:hover {
     .recibo-unico { width: 100%; max-width: 800px; margin: 0 auto; page-break-after: avoid; }
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .nav-bar { flex-direction: column; }
     .card { padding: 20px; }

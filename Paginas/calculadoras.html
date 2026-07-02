@@ -9,38 +9,43 @@
 </head>
 <body>
     <div class="container">
+        <!-- MENU PRINCIPAL -->
         <nav class="nav-bar">
             <div class="nav-buttons">
                 <a href="../index.html" class="nav-btn">Início</a>
                 <a href="calculadoras.html" class="nav-btn active">Calculadoras</a>
                 <a href="tabelas.html" class="nav-btn">Tabelas</a>
+                <a href="orcamento.html" class="nav-btn">Orçamento</a>
+                <a href="recibo.html" class="nav-btn">Recibo</a>
+                <a href="checklist.html" class="nav-btn">Checklist</a>
             </div>
         </nav>
 
+        <!-- BARRA DE SELEÇÃO DAS CALCULADORAS -->
+        <div class="glass card" style="margin-bottom:25px; padding:20px;">
+            <div class="form-group" style="margin:0;">
+                <label style="font-size:18px; font-weight:600; margin-bottom:10px;">
+                    <i class="fa fa-calculator mr-2"></i> Escolha o tipo de cálculo:
+                </label>
+                <select id="tipo_calc" class="form-control" onchange="mostrarSecao()" style="font-size:17px; padding:14px;">
+                    <option value="">-- Selecione --</option>
+                    <option value="corrente">Corrente Elétrica</option>
+                    <option value="potencia">Potência</option>
+                    <option value="queda">Queda de Tensão</option>
+                    <option value="bitola">Bitola do Cabo</option>
+                    <option value="disjuntor">Disjuntor</option>
+                    <option value="consumo">Consumo</option>
+                    <option value="demanda">Demanda</option>
+                    <option value="conversor">Conversor</option>
+                    <option value="carga">Cargas Específicas</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- ÁREA DE CONTEÚDO DINÂMICO -->
         <main>
             <div class="glass card">
-                <div class="card-header">
-                    <i class="fa fa-calculator card-icon"></i>
-                    <h3 class="card-title">Escolha o Cálculo que Deseja Fazer</h3>
-                </div>
-
-                <div class="form-group mb-6">
-                    <label>Selecione o tipo de cálculo:</label>
-                    <select id="tipo_calc" class="form-control" onchange="mostrarSecao()">
-                        <option value="">-- Escolha --</option>
-                        <option value="corrente">Corrente Elétrica</option>
-                        <option value="potencia">Potência</option>
-                        <option value="queda">Queda de Tensão</option>
-                        <option value="bitola">Bitola do Cabo</option>
-                        <option value="disjuntor">Disjuntor</option>
-                        <option value="consumo">Consumo</option>
-                        <option value="demanda">Demanda</option>
-                        <option value="conversor">Conversor</option>
-                        <option value="carga">Cargas Específicas</option>
-                    </select>
-                </div>
-
-                <!-- Seções dos cálculos (iguais ao anterior) -->
+                <!-- Seção: Corrente -->
                 <div id="sec_corrente" class="secao-calc hidden">
                     <h4 class="text-yellow-300 mb-4">Cálculo de Corrente Elétrica</h4>
                     <div class="form-grid">
@@ -74,6 +79,7 @@
                     <div id="res_corr" class="result-box hidden"></div>
                 </div>
 
+                <!-- Seção: Potência -->
                 <div id="sec_potencia" class="secao-calc hidden">
                     <h4 class="text-yellow-300 mb-4">Cálculo de Potência</h4>
                     <div class="form-grid">
@@ -96,6 +102,7 @@
                     <div id="res_pot" class="result-box hidden"></div>
                 </div>
 
+                <!-- Seção: Queda de Tensão -->
                 <div id="sec_queda" class="secao-calc hidden">
                     <h4 class="text-yellow-300 mb-4">Cálculo de Queda de Tensão</h4>
                     <div class="form-grid">
@@ -122,6 +129,7 @@
                     <div id="res_q" class="result-box hidden"></div>
                 </div>
 
+                <!-- Seção: Bitola do Cabo -->
                 <div id="sec_bitola" class="secao-calc hidden">
                     <h4 class="text-yellow-300 mb-4">Dimensionar Bitola do Cabo</h4>
                     <div class="form-grid">
@@ -151,6 +159,7 @@
                     <div id="res_b" class="result-box hidden"></div>
                 </div>
 
+                <!-- Seção: Disjuntor -->
                 <div id="sec_disjuntor" class="secao-calc hidden">
                     <h4 class="text-yellow-300 mb-4">Sugestão de Disjuntor</h4>
                     <div class="form-grid">
@@ -177,6 +186,7 @@
                     <div id="res_d" class="result-box hidden"></div>
                 </div>
 
+                <!-- Seção: Consumo -->
                 <div id="sec_consumo" class="secao-calc hidden">
                     <h4 class="text-yellow-300 mb-4">Consumo e Estimativa de Conta</h4>
                     <div class="form-grid">
@@ -203,6 +213,7 @@
                     <div id="res_c" class="result-box hidden"></div>
                 </div>
 
+                <!-- Seção: Demanda -->
                 <div id="sec_demanda" class="secao-calc hidden">
                     <h4 class="text-yellow-300 mb-4">Fator de Demanda Residencial</h4>
                     <div class="form-grid">
@@ -221,6 +232,7 @@
                     <div id="res_fd" class="result-box hidden"></div>
                 </div>
 
+                <!-- Seção: Conversor -->
                 <div id="sec_conversor" class="secao-calc hidden">
                     <h4 class="text-yellow-300 mb-4">Conversor de Unidades</h4>
                     <div class="form-grid">
@@ -239,6 +251,7 @@
                     </div>
                 </div>
 
+                <!-- Seção: Cargas Específicas -->
                 <div id="sec_carga" class="secao-calc hidden">
                     <h4 class="text-yellow-300 mb-4">Dimensionamento para Cargas Específicas</h4>
                     <div class="form-grid">

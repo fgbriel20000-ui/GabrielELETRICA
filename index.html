@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- =========================================
+    GS ELETRICA V2K - PÁGINA INICIAL MELHORADA
+    Desenvolvido por Gabriel
+    Versão Otimizada e Profissional
+    ========================================= -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>GS Elétrica V2K ⚡ | Sistema para Eletricistas</title>
+
+    <!-- Configurações PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GS Elétrica">
+    
+    <!-- Descrição e Ícones -->
+    <meta name="description" content="Sistema profissional completo para eletricistas: cálculos, orçamentos, recibos, gestão de clientes e normas NBR 5410 / NR-10.">
+    <link rel="icon" href="Assets/IMG/logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="Assets/IMG/icone-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="Assets/IMG/icone-512.png">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="Assets/CSS/estilo.css">
+</head>
+<body>
+
+    <!-- Componentes carregados automaticamente -->
+    <header></header>
+    <aside class="sidebar"></aside>
+
+    <!-- =========================================
+    ÁREA PRINCIPAL
+    ========================================= -->
+    <main class="main-content">
+        <section class="dashboard">
+
+            <!-- Cabeçalho da Página Inicial -->
+            <div class="boas-vindas" style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--cor-borda);">
+                <h1 style="margin: 0 0 0.5rem; font-size: 1.8rem;">Bem-vindo(a) de volta! ⚡</h1>
+                <p style="margin: 0; color: var(--cor-texto-claro);">Sistema GS Elétrica V2K — tudo o que você precisa para o seu serviço em um só lugar.</p>
+            </div>
+
+            <!-- Cards de Acesso Rápido -->
+            <h2 style="font-size: 1.25rem; margin-bottom: 1rem;">🚀 Acesso Rápido</h2>
+            <div class="dashboard-cards">
+                <a href="paginas/calculadoras.html" class="card card-destaque">
+                    <h3>🧮 Calculadoras</h3>
+                    <p>Cálculos de corrente, seção de cabos, queda de tensão e potência.</p>
+                </a>
+                <a href="paginas/orcamentos.html" class="card card-sucesso">
+                    <h3>📋 Orçamentos</h3>
+                    <p>Crie, armazene e imprima orçamentos profissionais.</p>
+                </a>
+                <a href="paginas/recibos.html" class="card">
+                    <h3>🧾 Recibos</h3>
+                    <p>Emita recibos numerados automaticamente.</p>
+                </a>
+                <a href="paginas/clientes.html" class="card">
+                    <h3>👥 Clientes</h3>
+                    <p>Gerencie seu cadastro de clientes.</p>
+                </a>
+                <a href="paginas/biblioteca.html" class="card">
+                    <h3>📚 Biblioteca</h3>
+                    <p>Consulte normas e tabelas técnicas.</p>
+                </a>
+                <a href="paginas/contrato-modelo.html" class="card card-alerta">
+                    <h3>📑 Contrato</h3>
+                    <p>Modelo pronto de prestação de serviços.</p>
+                </a>
+            </div>
+
+            <!-- Resumo Rápido -->
+            <div style="margin-top: 2rem;">
+                <h2 style="font-size: 1.25rem; margin-bottom: 1rem;">📊 Resumo Rápido</h2>
+                <div class="dashboard-cards" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <div class="card" style="text-align: center;">
+                        <h3 style="font-size: 2rem; margin: 0;">✅</h3>
+                        <p style="font-weight: 600; margin: 0.5rem 0;">Sistema Ativo</p>
+                        <p style="font-size: 0.9rem; color: var(--cor-texto-claro);">Versão 1.0</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <h3 style="font-size: 2rem; margin: 0;">📶</h3>
+                        <p style="font-weight: 600; margin: 0.5rem 0;">Funciona Offline</p>
+                        <p style="font-size: 0.9rem; color: var(--cor-texto-claro);">PWA instalado</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <h3 style="font-size: 2rem; margin: 0;">📜</h3>
+                        <p style="font-weight: 600; margin: 0.5rem 0;">Normas Técnicas</p>
+                        <p style="font-size: 0.9rem; color: var(--cor-texto-claro);">NBR 5410 / NR-10</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <footer></footer>
+    </main>
+
+    <!-- Container para modais -->
+    <div id="modal-container"></div>
+
+    <!-- Script Principal -->
+    <script src="Assets/JS/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- =========================================
+    GS ELETRICA V2K - RECIBOS DE SERVIÇO
+    Desenvolvido por Gabriel
+    Emissão e Gerenciamento de Recibos
+    ========================================= -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recibos - GS ELETRICA⚡</title>
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="Assets/CSS/estilo.css">
+
+    <!-- Ícone -->
+    <link rel="icon" href="Assets/IMG/logo.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="../manifest.json">
+
+    <!-- Meta tema para mobile -->
+    <meta name="theme-color" content="#0f172a">
+
+    <style>
+        @media print {
+            header, aside, .btn-acao, .no-imprimir { display: none !important; }
+            .area-recibo { box-shadow: none !important; margin: 0 !important; padding: 0 !important; }
+            body { background: #fff !important; }
+        }
+
+        .area-recibo {
+            border: 2px solid var(--cor-borda);
+            padding: 2rem;
+            background: #fff;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .recibo-cabecalho {
+            text-align: center;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .recibo-linha {
+            border-bottom: 1px solid #eee;
+            padding: 0.5rem 0;
+        }
+
+        .recibo-assinatura {
+            border-top: 1px solid #000;
+            width: 80%;
+            margin: 3rem auto 0;
+            text-align: center;
+            padding-top: 0.5rem;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- =========================================
+    TOPO DO SISTEMA (NAVBAR)
+    ========================================= -->
+    <header class="navbar">
+        <div class="logo">⚡ GS Eletrica V2K</div>
+        <div class="search-box">
+            <input type="text" placeholder="Pesquisar recibos...">
+        </div>
+        <div class="user-area">
+            <button class="btn-theme">🌙</button>
+            <button class="btn-profile">👤 Perfil</button>
+        </div>
+    </header>
+
+    <!-- =========================================
+    MENU LATERAL
+    ========================================= -->
+    <aside class="sidebar">
+        <ul>
+            <li><a href="../index.html">🏠 Início</a></li>
+            <li><a href="calculadoras.html">🧮 Calculadoras</a></li>
+            <li><a href="orcamentos.html">📋 Orçamentos</a></li>
+            <li><a href="recibos.html" style="background-color: rgba(37, 99, 235, 0.08); color: var(--cor-destaque); border-left-color: var(--cor-destaque);">🧾 Recibos</a></li>
+            <li><a href="clientes.html">👥 Clientes</a></li>
+            <li><a href="agenda.html">📅 Agenda</a></li>
+            <li><a href="biblioteca.html">📚 Biblioteca</a></li>
+            <li><a href="ferramentas.html">🔧 Ferramentas</a></li>
+            <li><a href="configuracoes.html">⚙️ Configurações</a></li>
+        </ul>
+    </aside>
+
+    <!-- =========================================
+    ÁREA PRINCIPAL - EMISSÃO E GERENCIAMENTO
+    ========================================= -->
+    <main class="main-content">
+
+        <section class="dashboard">
+
+            <h1>🧾 Recibos de Serviço</h1>
+            <p>Emita, armazene e imprima recibos profissionais para seus clientes.</p>
+
+            <!-- =========================================
+            BARRA DE AÇÕES
+            ========================================= -->
+            <div style="margin-bottom: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <button onclick="abrirModalRecibo()" style="padding: 0.75rem 1.25rem; background-color: var(--cor-destaque); color: #fff; border: none; border-radius: var(--raio-borda); font-weight: 500; cursor: pointer;">
+                    ➕ Novo Recibo
+                </button>
+            </div>
+
+            <!-- =========================================
+            VISUALIZAÇÃO DO RECIBO
+            ========================================= -->
+            <div id="visualizacao-recibo" style="display: none; margin-bottom: 2rem;">
+                <div class="area-recibo">
+                    <div class="recibo-cabecalho">
+                        <h3 style="margin: 0 0 0.5rem;">⚡ GS ELÉTRICA</h3>
+                        <p style="margin: 0.25rem 0; font-size: 0.95rem;">CNPJ: <span id="recibo-cnpj"></span> | Tel: <span id="recibo-tel"></span></p>
+                        <p style="margin: 0.25rem 0; font-size: 0.9rem;">Natal/RN</p>
+                        <h2 style="margin: 1rem 0 0.5rem;">RECIBO DE PAGAMENTO</h2>
+                        <p style="margin: 0;">Nº <span id="recibo-numero" style="font-weight: 600;"></span></p>
+                    </div>
+
+                    <div class="recibo-linha">
+                        <p style="margin: 0.5rem 0;">Recebemos de: <strong id="recibo-cliente"></strong></p>
+                        <p style="margin: 0.5rem 0;">CPF/CNPJ: <span id="recibo-doc"></span></p>
+                        <p style="margin: 0.5rem 0;">Endereço: <span id="recibo-endereco"></span></p>
+                    </div>
+
+                    <div class="recibo-linha" style="margin: 1rem 0;">
+                        <p style="margin: 0.5rem 0; font-size: 1.1rem;">Valor: <strong id="recibo-valor" style="color: #16a34a; font-size: 1.3rem;"></strong></p>
+                        <p style="margin: 0.5rem 0;">Referente a: <span id="recibo-servico"></span></p>
+                        <p style="margin: 0.5rem 0;">Observações: <span id="recibo-obs"></span></p>
+                    </div>
+
+                    <p style="text-align: right; margin: 1rem 0;">Natal, <span id="recibo-data"></span></p>
+
+                    <div class="recibo-assinatura">
+                        Assinatura do Responsável<br>
+                        <span style="font-size: 0.9rem;">GS Elétrica</span>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 1.5rem;" class="no-imprimir">
+                    <button onclick="window.print()" style="padding: 0.8rem 1.5rem; background-color: #16a34a; color: #fff; border: none; border-radius: var(--raio-borda); font-weight: 600; cursor: pointer;">🖨️ Imprimir Recibo</button>
+                    <button onclick="fecharVisualizacao()" style="padding: 0.8rem 1.5rem; background-color: #ef4444; color: #fff; border: none; border-radius: var(--raio-borda); font-weight: 600; cursor: pointer; margin-left: 0.75rem;">✖️ Fechar</button>
+                </div>
+            </div>
+
+            <!-- =========================================
+            LISTA DE RECIBOS EMITIDOS
+            ========================================= -->
+            <div class="card">
+                <h2 style="font-size: 1.25rem; margin-bottom: 1rem;">📋 Recibos Emitidos</h2>
+                <div id="lista-recibos">
+                    <p style="color: var(--cor-texto-claro); text-align: center; padding: 2rem;">Nenhum recibo emitido ainda.</p>
+                </div>
+            </div>
+
+        </section>
+
+            <!-- =========================================
+            MODAL: NOVO RECIBO
+            ========================================= -->
+            <div id="modal-recibo" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; padding: 1rem;">
+                <div class="card" style="max-width: 520px; width: 100%; max-height: 90vh; overflow-y: auto;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                        <h3 style="margin: 0;">➕ Novo Recibo</h3>
+                        <button onclick="fecharModalRecibo()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--cor-texto-claro);">&times;</button>
+                    </div>
+
+                    <form id="form-recibo">
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Nome do Cliente *</label>
+                            <input type="text" id="rec-cli-nome" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); background: var(--cor-fundo); color: var(--cor-texto);">
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">CPF/CNPJ</label>
+                                <input type="text" id="rec-cli-doc" style="width: 100%; padding: 0.75rem; border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); background: var(--cor-fundo); color: var(--cor-texto);">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Valor (R$) *</label>
+                                <input type="number" id="rec-valor" step="0.01" min="0" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); background: var(--cor-fundo); color: var(--cor-texto);">
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Endereço</label>
+                            <input type="text" id="rec-cli-end" style="width: 100%; padding: 0.75rem; border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); background: var(--cor-fundo); color: var(--cor-texto);">
+                        </div>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Serviço Prestado *</label>
+                            <input type="text" id="rec-servico" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); background: var(--cor-fundo); color: var(--cor-texto);">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Observações</label>
+                            <textarea id="rec-obs" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); background: var(--cor-fundo); color: var(--cor-texto); resize: vertical;"></textarea>
+                        </div>
+
+                        <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+                            <button type="button" onclick="fecharModalRecibo()" style="padding: 0.75rem 1.25rem; border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); background: transparent; color: var(--cor-texto); font-weight: 500;">Cancelar</button>
+                            <button type="submit" style="padding: 0.75rem 1.25rem; background: var(--cor-destaque); color: #fff; border: none; border-radius: var(--raio-borda); font-weight: 500;">Gerar Recibo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+
+        <footer class="footer">
+            <p>⚡ GS Eletrica V2K - Recibos válidos para pagamento de serviços prestados</p>
+            <p>Dados armazenados localmente no seu dispositivo</p>
+        </footer>
+
+    </main>
+
+
+    <!-- =========================================
+    SCRIPTS
+    ========================================= -->
+    <script src="Assets/JS/script.js"></script>
+    <script>
+        function abrirModalRecibo() {
+            document.getElementById('modal-recibo').style.display = 'flex';
+        }
+
+        function fecharModalRecibo() {
+            document.getElementById('modal-recibo').style.display = 'none';
+            document.getElementById('form-recibo').reset();
+        }
+
+        function fecharVisualizacao() {
+            document.getElementById('visualizacao-recibo').style.display = 'none';
+        }
+
+        function atualizarListaRecibos() {
+            const lista = document.getElementById('lista-recibos');
+            const recibos = JSON.parse(localStorage.getItem('gs-recibos') || '[]');
+            
+            if (!recibos.length) {
+                lista.innerHTML = '<p style="color: var(--cor-texto-claro); text-align: center; padding: 2rem;">Nenhum recibo emitido ainda.</p>';
+                return;
+            }
+
+            lista.innerHTML = recibos.map(r => `
+                <div style="padding: 1rem; border-bottom: 1px solid var(--cor-borda); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+                    <div>
+                        <strong>Nº ${r.numero}</strong> — ${r.cliente}<br>
+                        <span style="font-size: 0.9rem; color: var(--cor-texto-claro);">R$ ${r.valor.toFixed(2).replace('.', ',')} | ${r.data}</span>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button onclick="carregarRecibo(${r.numero})" style="padding: 0.5rem 0.8rem; background: var(--cor-secundaria); border: none; border-radius: var(--raio-borda); cursor: pointer;">👁️ Ver</button>
+                        <button onclick="excluirRecibo(${r.numero})" style="padding: 0.5rem 0.8rem; background: #ef4444; color: #fff; border: none; border-radius: var(--raio-borda); cursor: pointer;">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function carregarRecibo(numero) {
+            const recibos = JSON.parse(localStorage.getItem('gs-recibos') || '[]');
+            const r = recibos.find(x => x.numero === numero);
+            if (!r) return;
+
+            document.getElementById('recibo-numero').textContent = r.numero;
+            document.getElementById('recibo-cliente').textContent = r.cliente;
+            document.getElementById('recibo-doc').textContent = r.documento || 'Não informado';
+            document.getElementById('recibo-endereco').textContent = r.endereco || 'Não informado';
+            document.getElementById('recibo-valor').textContent = `R$ ${r.valor.toFixed(2).replace('.', ',')}`;
+            document.getElementById('recibo-servico').textContent = r.servico;
+            document.getElementById('recibo-obs').textContent = r.observacoes || 'Nenhuma';
+            document.getElementById('recibo-data').textContent = r.data;
+
+            const perfil = JSON.parse(localStorage.getItem('gs-perfil') || {});
+            document.getElementById('recibo-cnpj').textContent = perfil.cnpj || 'Não informado';
+            document.getElementById('recibo-tel').textContent = perfil.telefone || 'Não informado';
+
+            document.getElementById('visualizacao-recibo').style.display = 'block';
+            fecharModalRecibo();
+        }
+
+        function excluirRecibo(numero) {
+            if (!confirm('Excluir este recibo permanentemente?')) return;
+            let recibos = JSON.parse(localStorage.getItem('gs-recibos') || '[]');
+            recibos = recibos.filter(r => r.numero !== numero);
+            localStorage.setItem('gs-recibos', JSON.stringify(recibos));
+            atualizarListaRecibos();
+        }
+
+        document.getElementById('form-recibo').addEventListener('submit', e => {
+            e.preventDefault();
+            
+            const recibos = JSON.parse(localStorage.getItem('gs-recibos') || '[]');
+            const novoNumero = recibos.length ? recibos[0].numero + 1 : 1;
+            const hoje = new Date();
+            const dataFormatada = `${hoje.getDate()}/${hoje.getMonth()+1}/${hoje.getFullYear()}`;
+
+            const novoRecibo = {
+                numero: novoNumero,
+                cliente: document.getElementById('rec-cli-nome').value.trim(),
+                documento: document.getElementById('rec-cli-doc').value.trim(),
+                endereco: document.getElementById('rec-cli-end').value.trim(),
+                valor: parseFloat(document.getElementById('rec-valor').value),
+                servico: document.getElementById('rec-servico').value.trim(),
+                observacoes: document.getElementById('rec-obs').value.trim(),
+                data: dataFormatada
+            };
+
+            recibos.unshift(novoRecibo);
+            localStorage.setItem('gs-recibos', JSON.stringify(recibos));
+            
+            atualizarListaRecibos();
+            carregarRecibo(novoNumero);
+            alert('✅ Recibo gerado com sucesso!');
+        });
+
+        // Inicializa
+        atualizarListaRecibos();
+
+        // Funções globais
+        const btnTheme = document.querySelector(".btn-theme");
+        btnTheme.addEventListener("click", () => document.body.classList.toggle("dark-mode"));
+    </script>
+
+</body>
+</html>

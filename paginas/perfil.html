@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- =========================================
+    GS ELETRICA V2K - PERFIL
+    Desenvolvido por Gabriel
+    ========================================= -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Perfil - GS ELETRICA⚡</title>
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="Assets/CSS/estilo.css">
+
+    <!-- Ícone -->
+    <link rel="icon" href="Assets/IMG/logo.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="../manifest.json">
+
+    <!-- Meta tema para mobile -->
+    <meta name="theme-color" content="#0f172a">
+
+</head>
+
+<body>
+
+    <!-- =========================================
+    TOPO DO SISTEMA (NAVBAR)
+    ========================================= -->
+    <header class="navbar">
+
+        <div class="logo">
+            ⚡ GS Eletrica V2K
+        </div>
+
+        <div class="search-box">
+            <input type="text" placeholder="Pesquisar...">
+        </div>
+
+        <div class="user-area">
+            <button class="btn-theme">🌙</button>
+            <button class="btn-profile" style="background-color: rgba(255,255,255,0.2);">👤 Perfil</button>
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+    MENU LATERAL (SIDEBAR)
+    ========================================= -->
+    <aside class="sidebar">
+
+        <ul>
+            <li><a href="../index.html">🏠 Início</a></li>
+            <li><a href="calculadoras.html">🧮 Calculadoras</a></li>
+            <li><a href="orcamentos.html">📋 Orçamentos</a></li>
+            <li><a href="recibos.html">🧾 Recibos</a></li>
+            <li><a href="clientes.html">👥 Clientes</a></li>
+            <li><a href="agenda.html">📅 Agenda</a></li>
+            <li><a href="biblioteca.html">📚 Biblioteca</a></li>
+            <li><a href="ferramentas.html">🔧 Ferramentas</a></li>
+            <li><a href="configuracoes.html">⚙️ Configurações</a></li>
+        </ul>
+
+    </aside>
+
+    <!-- =========================================
+    ÁREA PRINCIPAL - PERFIL
+    ========================================= -->
+    <main class="main-content">
+
+        <section class="dashboard">
+
+            <h1>👤 Meu Perfil</h1>
+            <p>Dados profissionais e informações do seu cadastro no sistema.</p>
+
+            <!-- =========================================
+            CARD DE INFORMAÇÕES DO PERFIL
+            ========================================= -->
+            <div class="dashboard-cards" style="grid-template-columns: 1fr;">
+                <div class="card">
+                    <h3 style="margin-bottom: 1.25rem;">📝 Dados Cadastrais</h3>
+
+                    <form id="form-perfil">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Nome Completo</label>
+                                <input type="text" id="perfil-nome" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); background-color: var(--cor-fundo); color: var(--cor-texto);">
+                            </div>
+
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Telefone / WhatsApp</label>
+                                <input type="tel" id="perfil-telefone" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); background-color: var(--cor-fundo); color: var(--cor-texto);">
+                            </div>
+
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">E-mail</label>
+                                <input type="email" id="perfil-email" style="width: 100%; padding: 0.75rem; border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); background-color: var(--cor-fundo); color: var(--cor-texto);">
+                            </div>
+
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Cidade / Estado</label>
+                                <input type="text" id="perfil-cidade" value="Natal - RN" style="width: 100%; padding: 0.75rem; border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); background-color: var(--cor-fundo); color: var(--cor-texto);">
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Especialidade / Observações</label>
+                            <textarea id="perfil-observacoes" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); background-color: var(--cor-fundo); color: var(--cor-texto); resize: vertical;"></textarea>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end;">
+                            <button type="submit" style="padding: 0.75rem 1.5rem; background-color: var(--cor-destaque); color: #ffffff; border: none; border-radius: var(--raio-borda); font-weight: 500; cursor: pointer; transition: var(--transicao);">💾 Salvar Alterações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- =========================================
+            DADOS DO SISTEMA
+            ========================================= -->
+            <div class="dashboard-cards" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 1rem;">
+                <div class="card" style="text-align: center;">
+                    <h3>📦 Versão</h3>
+                    <p style="font-size: 1.1rem; font-weight: 600; color: var(--cor-destaque); margin-top: 0.5rem;">V2K</p>
+                </div>
+
+                <div class="card" style="text-align: center;">
+                    <h3>📅 Data de Criação</h3>
+                    <p style="font-size: 1.1rem; font-weight: 600; color: var(--cor-destaque); margin-top: 0.5rem;">07/2026</p>
+                </div>
+
+                <div class="card" style="text-align: center;">
+                    <h3>👨💻 Desenvolvedor</h3>
+                    <p style="font-size: 1.1rem; font-weight: 600; color: var(--cor-destaque); margin-top: 0.5rem;">Gabriel</p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- =========================================
+        RODAPÉ
+        ========================================= -->
+        <footer class="footer">
+            <p>⚡ GS Eletrica V2K - Sistema Profissional</p>
+            <p>Desenvolvido para eletricistas autônomos</p>
+        </footer>
+
+    </main>
+
+
+    <!-- =========================================
+    SCRIPTS PRINCIPAIS
+    ========================================= -->
+    <script src="../Assets/JS/script.js"></script>
+
+    <script>
+        // =========================================
+        // CARREGAR DADOS SALVOS AO ABRIR
+        // =========================================
+        function carregarPerfil() {
+            const dados = JSON.parse(localStorage.getItem('gs-perfil') || '{}');
+            
+            if (dados.nome) document.getElementById('perfil-nome').value = dados.nome;
+            if (dados.telefone) document.getElementById('perfil-telefone').value = dados.telefone;
+            if (dados.email) document.getElementById('perfil-email').value = dados.email;
+            if (dados.cidade) document.getElementById('perfil-cidade').value = dados.cidade;
+            if (dados.observacoes) document.getElementById('perfil-observacoes').value = dados.observacoes;
+        }
+
+
+        // =========================================
+        // SALVAR DADOS DO PERFIL
+        // =========================================
+        document.getElementById('form-perfil').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const perfil = {
+                nome: document.getElementById('perfil-nome').value,
+                telefone: document.getElementById('perfil-telefone').value,
+                email: document.getElementById('perfil-email').value,
+                cidade: document.getElementById('perfil-cidade').value,
+                observacoes: document.getElementById('perfil-observacoes').value
+            };
+
+            localStorage.setItem('gs-perfil', JSON.stringify(perfil));
+            alert('✅ Perfil salvo com sucesso!');
+        });
+
+
+        // Carrega os dados ao abrir a página
+        carregarPerfil();
+
+        // Funções globais mantidas
+        const btnTheme = document.querySelector(".btn-theme");
+        btnTheme.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+        });
+
+        const searchInput = document.querySelector(".search-box input");
+        searchInput.addEventListener("input", function () {
+            let value = this.value.toLowerCase();
+            console.log("Pesquisando:", value);
+        });
+    </script>
+
+</body>
+</html>

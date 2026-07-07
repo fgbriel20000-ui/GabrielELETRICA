@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- =========================================
+    GS ELETRICA V2K - MODELO DE CONTRATO DE PRESTAÇÃO DE SERVIÇOS
+    Desenvolvido por Gabriel
+    Versão Profissional e Caprichada
+    ========================================= -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contrato de Serviços - GS ELÉTRICA</title>
+
+    <link rel="stylesheet" href="Assets/CSS/estilo.css">
+    <link rel="icon" href="Assets/IMG/logo.png">
+    <link rel="manifest" href="../manifest.json">
+    <meta name="theme-color" content="#0f172a">
+
+    <style>
+        @media print {
+            header, aside, .btn-acao, .area-acoes { display: none !important; }
+            .contrato { box-shadow: none !important; margin: 0 !important; padding: 0 !important; border: none; }
+            body { background: #fff !important; }
+        }
+
+        .contrato {
+            max-width: 780px;
+            margin: 2rem auto;
+            padding: 3rem;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.7;
+            color: #1e293b;
+        }
+
+        .contrato-cabecalho {
+            text-align: center;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contrato-cabecalho h2 {
+            color: #2563eb;
+            margin: 0.5rem 0;
+            font-size: 1.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contrato-cabecalho p {
+            margin: 0.3rem 0;
+            font-size: 0.95rem;
+        }
+
+        .clausula {
+            margin-bottom: 1.25rem;
+            text-align: justify;
+        }
+
+        .clausula strong {
+            color: #2563eb;
+        }
+
+        .partes {
+            margin: 1.5rem 0;
+            padding: 1.25rem;
+            background-color: #f8fafc;
+            border-left: 4px solid #2563eb;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .partes h4 {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            color: #1e293b;
+        }
+
+        .assinaturas {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .linha-assinatura {
+            border-top: 1px solid #000;
+            width: 280px;
+            text-align: center;
+            padding-top: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .area-acoes {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .btn-imprimir {
+            padding: 0.9rem 1.8rem;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-imprimir:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+        }
+
+        .local-data {
+            margin-top: 2rem;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">⚡ GS Eletrica V2K</div>
+        <div class="search-box"><input type="text" placeholder="Pesquisar..."></div>
+        <div class="user-area">
+            <button class="btn-theme">🌙</button>
+            <button class="btn-profile">👤 Perfil</button>
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <ul>
+            <li><a href="../index.html">🏠 Início</a></li>
+            <li><a href="calculadoras.html">🧮 Calculadoras</a></li>
+            <li><a href="orcamentos.html">📋 Orçamentos</a></li>
+            <li><a href="recibos.html">🧾 Recibos</a></li>
+            <li><a href="clientes.html">👥 Clientes</a></li>
+            <li><a href="agenda.html">📅 Agenda</a></li>
+            <li><a href="biblioteca.html">📚 Biblioteca</a></li>
+            <li><a href="ferramentas.html">🔧 Ferramentas</a></li>
+            <li><a href="contrato-modelo.html" style="background-color: rgba(37, 99, 235, 0.08); color: var(--cor-destaque); border-left-color: var(--cor-destaque);">📑 Contrato</a></li>
+            <li><a href="configuracoes.html">⚙️ Configurações</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="area-acoes">
+            <button class="btn-imprimir" onclick="window.print()">🖨️ Imprimir Contrato</button>
+        </div>
+
+        <div class="contrato">
+            <div class="contrato-cabecalho">
+                <h3 style="margin: 0;">⚡ GS ELÉTRICA</h3>
+                <h2>Contrato de Prestação de Serviços Elétricos</h2>
+                <p>CNPJ: ________________________ | Telefone: (84) 9XXXX-XXXX</p>
+                <p>Endereço: Natal/RN</p>
+            </div>
+
+            <div class="partes">
+                <h4>📜 PARTES CONTRATANTES</h4>
+                <p><strong>CONTRATANTE:</strong><br>
+                Nome: _________________________________________________________<br>
+                CPF/CNPJ: ________________________ | Telefone: ____________________<br>
+                Endereço: _____________________________________________________</p>
+
+                <p style="margin-top: 1rem;"><strong>CONTRATADA:</strong><br>
+                Razão Social: GS ELÉTRICA – Gabriel<br>
+                CNPJ: ________________________ | Telefone: (84) 9XXXX-XXXX<br>
+                Endereço: Natal/RN</p>
+            </div>
+
+            <div class="clausula">
+                <strong>CLÁUSULA 1ª – OBJETO DO CONTRATO</strong><br>
+                O presente contrato tem como objeto a prestação de serviços elétricos pela CONTRATADA, consistentes em: _________________________________________________________________
+                ____________________________________________________________________________________, conforme proposta previamente aprovada pelo CONTRATANTE.
+            </div>
+
+            <div class="clausula">
+                <strong>CLÁUSULA 2ª – BASE TÉCNICA E NORMATIVA</strong><br>
+                Os serviços serão executados em estrita observância às normas vigentes, em especial a <strong>NBR 5410</strong> (Instalações Elétricas de Baixa Tensão) e a <strong>NR-10</strong> (Segurança em Instalações e Serviços com Eletricidade), garantindo qualidade, segurança e conformidade legal.
+            </div>
+
+            <div class="clausula">
+                <strong>CLÁUSULA 3ª – VALOR E FORMA DE PAGAMENTO</strong><br>
+                O valor total dos serviços é de <strong>R$ _______________ (____________________________________________)</strong>, a ser pago da seguinte forma: ____________________________________________________________________________________.
+            </div>
+
+            <div class="clausula">
+                <strong>CLÁUSULA 4ª – PRAZO DE EXECUÇÃO</strong><br>
+                Os serviços terão início em ___/___/____ e previsão de conclusão em ___/___/____, podendo ser alterado por acordo entre as partes ou por motivos de força maior.
+            </div>
+
+            <div class="clausula">
+                <strong>CLÁUSULA 5ª – OBRIGAÇÕES DA CONTRATADA</strong><br>
+                I – Executar os serviços com profissionalismo, qualidade e dentro das normas técnicas e de segurança;<br>
+                II – Responsabilizar-se por seus equipamentos e ferramentas de trabalho;<br>
+                III – Manter o ambiente de trabalho organizado durante e após os serviços;<br>
+                IV – Prestar esclarecimentos técnicos ao CONTRATANTE sempre que solicitado.
+            </div>
+
+            <div class="clausula">
+                <strong>CLÁUSULA 6ª – OBRIGAÇÕES DA CONTRATANTE</strong><br>
+                I – Fornecer acesso ao local dos serviços e todas as informações necessárias à execução dos trabalhos;<br>
+                II – Efetuar os pagamentos nas condições e valores pactuados;<br>
+                III – Providenciar materiais de sua responsabilidade, quando acordado previamente.
+            </div>
+
+            <div class="clausula">
+                <strong>CLÁUSULA 7ª – GARANTIA DOS SERVIÇOS</strong><br>
+                Os serviços executados possuem garantia de ___ meses, contados da data de conclusão, cobrindo defeitos relacionados diretamente à mão de obra aplicada. A garantia não abrange danos causados por uso inadequado, alterações posteriores ou desgaste natural.
+            </div>
+
+            <div class="clausula">
+                <strong>CLÁUSULA 8ª – DISPOSIÇÕES GERAIS</strong><br>
+                Este contrato passa a ter validade a partir da data de sua assinatura, vinculando as partes e seus sucessores. Fica eleito o Foro da Comarca de Natal/RN para dirimir quaisquer dúvidas ou conflitos oriundos deste instrumento.
+            </div>
+
+            <div class="local-data">
+                Natal/RN, ___ de _______________ de ______.
+            </div>
+
+            <div class="assinaturas">
+                <div class="linha-assinatura">
+                    Assinatura do Contratante<br><br>
+                    ______________________________
+                </div>
+                <div class="linha-assinatura">
+                    Assinatura da Contratada<br><br>
+                    ______________________________<br>
+                    GS Elétrica – Gabriel
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="footer">
+            <p>⚡ GS Elétrica V2K | Modelo de Contrato Profissional</p>
+            <p>Documento meramente como modelo; consulte profissional habilitado para validação jurídica.</p>
+        </footer>
+
+    </main>
+
+    <script src="Assets/JS/script.js"></script>
+    <script>
+        const btnTheme = document.querySelector(".btn-theme");
+        btnTheme.addEventListener("click", () => document.body.classList.toggle("dark-mode"));
+    </script>
+
+</body>
+</html>

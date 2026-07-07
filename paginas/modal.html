@@ -1,0 +1,165 @@
+<!-- =========================================
+GS ELETRICA V2K - COMPONENTE MODAL
+Desenvolvido por Gabriel
+Padrão Único para Todo o Sistema
+========================================= -->
+
+<style>
+    /* ESTILOS PADRÃO DO MODAL */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.55);
+        z-index: 200;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+
+    .modal-conteudo {
+        background-color: var(--cor-fundo-card);
+        border-radius: var(--raio-borda, 10px);
+        width: 100%;
+        max-width: 550px;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 1.75rem;
+        box-shadow: var(--sombra-media, 0 8px 32px rgba(0,0,0,0.15));
+        animation: modalAbertura 0.25s ease-out;
+    }
+
+    @keyframes modalAbertura {
+        from { opacity: 0; transform: translateY(-15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-cabecalho {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--cor-borda);
+    }
+
+    .modal-titulo {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--cor-texto);
+        margin: 0;
+    }
+
+    .modal-fechar {
+        background: none;
+        border: none;
+        font-size: 1.6rem;
+        cursor: pointer;
+        color: var(--cor-texto-claro);
+        transition: color 0.2s;
+        line-height: 1;
+        padding: 0;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-fechar:hover {
+        color: #ef4444;
+    }
+
+    .modal-corpo {
+        margin-bottom: 1.5rem;
+    }
+
+    .modal-rodape {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: flex-end;
+        padding-top: 0.75rem;
+        border-top: 1px solid var(--cor-borda);
+    }
+
+    .modal-btn-cancelar {
+        padding: 0.75rem 1.25rem;
+        border: 1px solid var(--cor-borda);
+        border-radius: var(--raio-borda, 8px);
+        background-color: transparent;
+        color: var(--cor-texto);
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .modal-btn-cancelar:hover {
+        background-color: rgba(0,0,0,0.03);
+    }
+
+    .modal-btn-confirmar {
+        padding: 0.75rem 1.25rem;
+        border: none;
+        border-radius: var(--raio-borda, 8px);
+        background-color: var(--cor-destaque, #2563eb);
+        color: #fff;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .modal-btn-confirmar:hover {
+        filter: brightness(1.05);
+    }
+
+    /* Ajuste para modo escuro */
+    .dark-mode .modal-conteudo {
+        background-color: #1e293b;
+    }
+</style>
+
+<!-- ESTRUTURA PADRÃO -->
+<div id="modal-padrao" class="modal-overlay">
+    <div class="modal-conteudo">
+        <div class="modal-cabecalho">
+            <h3 id="modal-titulo" class="modal-titulo">Título do Modal</h3>
+            <button type="button" class="modal-fechar" onclick="fecharModalPadrao()">&times;</button>
+        </div>
+
+        <div id="modal-corpo" class="modal-corpo">
+            <!-- Conteúdo variável entra aqui -->
+        </div>
+
+        <div class="modal-rodape">
+            <button type="button" class="modal-btn-cancelar" onclick="fecharModalPadrao()">Cancelar</button>
+            <button type="button" id="modal-btn-acao" class="modal-btn-confirmar">Confirmar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // FUNÇÕES DE CONTROLE PADRÃO
+    function abrirModalPadrao(titulo, conteudo, textoBotao = 'Confirmar', funcaoAcao = null) {
+        document.getElementById('modal-titulo').textContent = titulo;
+        document.getElementById('modal-corpo').innerHTML = conteudo;
+        document.getElementById('modal-btn-acao').textContent = textoBotao;
+        
+        const botaoAcao = document.getElementById('modal-btn-acao');
+        botaoAcao.onclick = funcaoAcao || fecharModalPadrao;
+
+        document.getElementById('modal-padrao').style.display = 'flex';
+    }
+
+    function fecharModalPadrao() {
+        document.getElementById('modal-padrao').style.display = 'none';
+    }
+
+    // Fecha ao clicar fora do conteúdo
+    document.getElementById('modal-padrao').addEventListener('click', function(e) {
+        if (e.target === this) fecharModalPadrao();
+    });
+</script>

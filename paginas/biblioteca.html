@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- =========================================
+    GS ELETRICA V2K - BIBLIOTECA TÉCNICA
+    Desenvolvido por Gabriel
+    Normas e Consultas Técnicas
+    ========================================= -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Biblioteca Técnica - GS ELETRICA⚡</title>
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="Assets/CSS/estilo.css">
+
+    <!-- Ícone -->
+    <link rel="icon" href="Assets/IMG/logo.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="../manifest.json">
+
+    <!-- Meta tema para mobile -->
+    <meta name="theme-color" content="#0f172a">
+
+</head>
+
+<body>
+
+    <!-- =========================================
+    TOPO DO SISTEMA (NAVBAR)
+    ========================================= -->
+    <header class="navbar">
+
+        <div class="logo">
+            ⚡ GS Eletrica V2K
+        </div>
+
+        <div class="search-box">
+            <input type="text" placeholder="Pesquisar na biblioteca...">
+        </div>
+
+        <div class="user-area">
+            <button class="btn-theme">🌙</button>
+            <button class="btn-profile">👤 Perfil</button>
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+    MENU LATERAL (SIDEBAR)
+    ========================================= -->
+    <aside class="sidebar">
+
+        <ul>
+            <li><a href="../index.html">🏠 Início</a></li>
+            <li><a href="calculadoras.html">🧮 Calculadoras</a></li>
+            <li><a href="orcamentos.html">📋 Orçamentos</a></li>
+            <li><a href="recibos.html">🧾 Recibos</a></li>
+            <li><a href="clientes.html">👥 Clientes</a></li>
+            <li><a href="agenda.html">📅 Agenda</a></li>
+            <li><a href="biblioteca.html" style="background-color: rgba(37, 99, 235, 0.08); color: var(--cor-destaque); border-left-color: var(--cor-destaque);">📚 Biblioteca</a></li>
+            <li><a href="ferramentas.html">🔧 Ferramentas</a></li>
+            <li><a href="configuracoes.html">⚙️ Configurações</a></li>
+        </ul>
+
+    </aside>
+
+    <!-- =========================================
+    ÁREA PRINCIPAL - BIBLIOTECA TÉCNICA
+    ========================================= -->
+    <main class="main-content">
+
+        <section class="dashboard">
+
+            <h1>📚 Biblioteca Técnica</h1>
+            <p>Normas, tabelas e guias de consulta rápida conforme NBR e NR-10.</p>
+
+            <!-- =========================================
+            NAVEGAÇÃO POR CATEGORIAS
+            ========================================= -->
+            <div style="margin-bottom: 2rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <button onclick="mostrarSecao('normas')" style="padding: 0.7rem 1.1rem; background-color: var(--cor-destaque); color: #fff; border: none; border-radius: var(--raio-borda); font-weight: 500; cursor: pointer;">📜 Normas Técnicas</button>
+                <button onclick="mostrarSecao('tabelas')" style="padding: 0.7rem 1.1rem; background-color: var(--cor-fundo-card); color: var(--cor-texto); border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); font-weight: 500; cursor: pointer;">📊 Tabelas Práticas</button>
+                <button onclick="mostrarSecao('seguranca')" style="padding: 0.7rem 1.1rem; background-color: var(--cor-fundo-card); color: var(--cor-texto); border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); font-weight: 500; cursor: pointer;">🛡️ Segurança</button>
+            </div>
+
+            <!-- =========================================
+            SEÇÃO: NORMAS TÉCNICAS
+            ========================================= -->
+            <div id="secao-normas">
+                <div class="dashboard-cards" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                    <div class="card">
+                        <h3>📘 NBR 5410</h3>
+                        <p style="color: var(--cor-texto-claro); margin-bottom: 0.5rem;">Instalações elétricas de baixa tensão</p>
+                        <p style="font-size: 0.9rem;">Estabelece requisitos para projeto, execução e manutenção de instalações até 1000V, garantindo segurança e desempenho.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>📘 NBR 14713</h3>
+                        <p style="color: var(--cor-texto-claro); margin-bottom: 0.5rem;">Condutores de cobre isolados</p>
+                        <p style="font-size: 0.9rem;">Especifica dimensões, resistência e características de cabos elétricos para uso geral em instalações prediais.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>📗 NR-10</h3>
+                        <p style="color: var(--cor-texto-claro); margin-bottom: 0.5rem;">Segurança em instalações e serviços com eletricidade</p>
+                        <p style="font-size: 0.9rem;">Define medidas de controle, riscos, qualificação de profissionais e procedimentos seguros de trabalho.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>📘 NBR 5419</h3>
+                        <p style="color: var(--cor-texto-claro); margin-bottom: 0.5rem;">Proteção contra descargas atmosféricas</p>
+                        <p style="font-size: 0.9rem;">Diretrizes para projeto e instalação de sistemas de proteção contra raios (SPDA).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================
+            SEÇÃO: TABELAS PRÁTICAS
+            ========================================= -->
+            <div id="secao-tabelas" style="display: none;">
+                <div class="card">
+                    <h3 style="margin-bottom: 1.25rem;">📏 Capacidade de Corrente por Seção de Cabo (Cobre PVC 70°C)</h3>
+                    
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: var(--cor-destaque); color: #fff;">
+                                    <th style="padding: 0.8rem; text-align: left; border-radius: 6px 0 0 0;">Seção (mm²)</th>
+                                    <th style="padding: 0.8rem; text-align: center;">Corrente Máxima (A)</th>
+                                    <th style="padding: 0.8rem; text-align: center; border-radius: 0 6px 0 0;">Aplicação Típica</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid var(--cor-borda);">
+                                    <td style="padding: 0.75rem; font-weight: 500;">1,5 mm²</td>
+                                    <td style="padding: 0.75rem; text-align: center;">15 A</td>
+                                    <td style="padding: 0.75rem;">Iluminação</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--cor-borda); background-color: rgba(37,99,235,0.03);">
+                                    <td style="padding: 0.75rem; font-weight: 500;">2,5 mm²</td>
+                                    <td style="padding: 0.75rem; text-align: center;">20 A</td>
+                                    <td style="padding: 0.75rem;">Tomadas gerais</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--cor-borda);">
+                                    <td style="padding: 0.75rem; font-weight: 500;">4,0 mm²</td>
+                                    <td style="padding: 0.75rem; text-align: center;">25 A</td>
+                                    <td style="padding: 0.75rem;">Tomadas de maior potência</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--cor-borda); background-color: rgba(37,99,235,0.03);">
+                                    <td style="padding: 0.75rem; font-weight: 500;">6,0 mm²</td>
+                                    <td style="padding: 0.75rem; text-align: center;">32 A</td>
+                                    <td style="padding: 0.75rem;">Chuveiros e cargas altas</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--cor-borda);">
+                                    <td style="padding: 0.75rem; font-weight: 500;">10,0 mm²</td>
+                                    <td style="padding: 0.75rem; text-align: center;">42 A</td>
+                                    <td style="padding: 0.75rem;">Circuitos principais</td>
+                                </tr>
+                                <tr style="background-color: rgba(37,99,235,0.03);">
+                                    <td style="padding: 0.75rem; font-weight: 500;">16,0 mm²</td>
+                                    <td style="padding: 0.75rem; text-align: center;">57 A</td>
+                                    <td style="padding: 0.75rem;">Entrada de energia residencial</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h3 style="margin-bottom: 1.25rem;">📊 Limites de Queda de Tensão Permitidos</h3>
+                    <ul style="line-height: 1.8;">
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--cor-borda);">✅ Circuitos terminais: <strong>máximo 4%</strong> da tensão nominal</li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--cor-borda);">✅ Circuitos de distribuição: <strong>máximo 5%</strong> da tensão nominal</li>
+                        <li style="padding: 0.5rem 0;">✅ Instalações com gerador próprio: <strong>máximo 7%</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- =========================================
+            SEÇÃO: SEGURANÇA NO TRABALHO
+            ========================================= -->
+            <div id="secao-seguranca" style="display: none;">
+                <div class="dashboard-cards" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+                    <div class="card">
+                        <h3>🥼 EPIs Obrigatórios</h3>
+                        <ul style="margin-top: 0.75rem; line-height: 1.7; font-size: 0.95rem;">
+                            <li>Calçado com solado isolante</li>
+                            <li>Luva de proteção isolante</li>
+                            <li>Óculos de proteção</li>
+                            <li>Capacete</li>
+                            <li>Roupa anti-chama</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>⚠️ Procedimentos Seguros</h3>
+                        <ul style="margin-top: 0.75rem; line-height: 1.7; font-size: 0.95rem;">
+                            <li>Desligue a energia antes de mexer</li>
+                            <li>Use testador de tensão sempre</li>
+                            <li>Não trabalhe sozinho em locais de risco</li>
+                            <li>Sinalize a área de serviço</li>
+                            <li>Evite contato com superfícies úmidas</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>🚨 Procedimento de Emergência</h3>
+                        <ul style="margin-top: 0.75rem; line-height: 1.7; font-size: 0.95rem;">
+                            <li>Desligue a fonte de energia imediatamente</li>
+                            <li>Não toque na vítima diretamente se estiver energizada</li>
+                            <li>Ligue 192 (SAMU) ou 193 (Bombeiros)</li>
+                            <li>Inicie primeiros socorros se capacitado</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- =========================================
+        RODAPÉ
+        ========================================= -->
+        <footer class="footer">
+            <p>⚡ GS Eletrica V2K - Conteúdo baseado em normas técnicas oficiais</p>
+            <p>Consulte sempre a versão atualizada das normas</p>
+        </footer>
+
+    </main>
+
+
+    <!-- =========================================
+    SCRIPTS
+    ========================================= -->
+    <script src="../Assets/JS/script.js"></script>
+    <script>
+        function mostrarSecao(nome) {
+            document.querySelectorAll('[id^="secao-"]').forEach(s => s.style.display = 'none');
+            document.getElementById(`secao-${nome}`).style.display = 'block';
+            
+            // Atualiza estilo dos botões
+            document.querySelectorAll('.dashboard button').forEach(btn => {
+                btn.style.backgroundColor = 'var(--cor-fundo-card)';
+                btn.style.color = 'var(--cor-texto)';
+                btn.style.border = '1px solid var(--cor-borda)';
+            });
+            event.target.style.backgroundColor = 'var(--cor-destaque)';
+            event.target.style.color = '#fff';
+            event.target.style.border = 'none';
+        }
+
+        // Funções globais
+        const btnTheme = document.querySelector(".btn-theme");
+        btnTheme.addEventListener("click", () => document.body.classList.toggle("dark-mode"));
+
+        const searchInput = document.querySelector(".search-box input");
+        searchInput.addEventListener("input", function () {
+            const termo = this.value.toLowerCase();
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.display = card.textContent.toLowerCase().includes(termo) ? '' : 'none';
+            });
+        });
+    </script>
+
+</body>
+</html>

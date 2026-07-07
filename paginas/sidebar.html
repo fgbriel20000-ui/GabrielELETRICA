@@ -1,0 +1,106 @@
+<!-- =========================================
+GS ELETRICA V2K - COMPONENTE BARRA LATERAL
+Desenvolvido por Gabriel
+Navegação Padronizada do Sistema
+========================================= -->
+
+<style>
+    /* ESTILOS PADRÃO DA BARRA LATERAL */
+    .sidebar {
+        width: 260px;
+        height: calc(100vh - 70px);
+        position: fixed;
+        top: 70px;
+        left: 0;
+        background-color: var(--cor-fundo-card);
+        border-right: 1px solid var(--cor-borda);
+        padding: 1.25rem 0;
+        overflow-y: auto;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar li {
+        margin-bottom: 0.25rem;
+    }
+
+    .sidebar a {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.85rem 1.5rem;
+        color: var(--cor-texto);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        border-left: 3px solid transparent;
+    }
+
+    .sidebar a:hover {
+        background-color: rgba(37, 99, 235, 0.06);
+        color: var(--cor-destaque);
+        padding-left: 1.75rem;
+    }
+
+    .sidebar a.ativo {
+        background-color: rgba(37, 99, 235, 0.08);
+        color: var(--cor-destaque);
+        border-left-color: var(--cor-destaque);
+    }
+
+    /* Ajuste para modo escuro */
+    .dark-mode .sidebar {
+        background-color: #1e293b;
+    }
+
+    /* Responsividade para telas menores */
+    @media (max-width: 768px) {
+        .sidebar {
+            transform: translateX(-100%);
+            z-index: 150;
+        }
+        
+        .sidebar.visivel {
+            transform: translateX(0);
+        }
+    }
+</style>
+
+<!-- ESTRUTURA DA BARRA LATERAL -->
+<aside class="sidebar" id="barra-lateral">
+    <ul>
+        <li><a href="../index.html" data-pagina="inicio">🏠 Início</a></li>
+        <li><a href="calculadoras.html" data-pagina="calculadoras">🧮 Calculadoras</a></li>
+        <li><a href="orcamentos.html" data-pagina="orcamentos">📋 Orçamentos</a></li>
+        <li><a href="recibos.html" data-pagina="recibos">🧾 Recibos</a></li>
+        <li><a href="clientes.html" data-pagina="clientes">👥 Clientes</a></li>
+        <li><a href="agenda.html" data-pagina="agenda">📅 Agenda</a></li>
+        <li><a href="biblioteca.html" data-pagina="biblioteca">📚 Biblioteca</a></li>
+        <li><a href="ferramentas.html" data-pagina="ferramentas">🔧 Ferramentas</a></li>
+        <li><a href="configuracoes.html" data-pagina="configuracoes">⚙️ Configurações</a></li>
+    </ul>
+</aside>
+
+<script>
+    // DESTACA AUTOMATICAMENTE A PÁGINA ATIVA
+    document.addEventListener('DOMContentLoaded', function() {
+        const caminhoAtual = window.location.pathname.split('/').pop();
+        document.querySelectorAll('.sidebar a').forEach(link => {
+            if (link.getAttribute('href') === caminhoAtual || 
+                (caminhoAtual === '' && link.getAttribute('data-pagina') === 'inicio')) {
+                link.classList.add('ativo');
+            }
+        });
+    });
+
+    // FUNÇÃO PARA ABRIR/FECHAR NO MOBILE
+    function alternarSidebar() {
+        document.getElementById('barra-lateral').classList.toggle('visivel');
+    }
+</script>

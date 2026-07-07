@@ -1,0 +1,99 @@
+<!-- =========================================
+GS ELETRICA V2K - COMPONENTE CARDS
+Desenvolvido por Gabriel
+Blocos de Conteúdo Padronizados
+========================================= -->
+
+<style>
+    .card {
+        background-color: var(--cor-fundo-card);
+        border: 1px solid var(--cor-borda);
+        border-radius: var(--raio-borda, 10px);
+        padding: 1.5rem;
+        box-shadow: var(--sombra-suave, 0 2px 8px rgba(0,0,0,0.05));
+        transition: all 0.25s ease;
+        box-sizing: border-box;
+    }
+
+    .card:hover {
+        box-shadow: var(--sombra-media, 0 4px 16px rgba(0,0,0,0.1));
+        transform: translateY(-2px);
+    }
+
+    /* Variantes de Card */
+    .card-destaque {
+        border-left: 4px solid var(--cor-destaque, #2563eb);
+    }
+
+    .card-sucesso {
+        border-left: 4px solid #16a34a;
+    }
+
+    .card-alerta {
+        border-left: 4px solid #f59e0b;
+    }
+
+    .card-perigo {
+        border-left: 4px solid #ef4444;
+    }
+
+    /* Estrutura Interna */
+    .card-titulo {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--cor-texto);
+        margin: 0 0 0.75rem;
+    }
+
+    .card-subtitulo {
+        font-size: 0.9rem;
+        color: var(--cor-texto-claro);
+        margin: 0 0 1rem;
+    }
+
+    .card-conteudo {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: var(--cor-texto);
+    }
+
+    .card-rodape {
+        margin-top: 1.25rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--cor-borda);
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    /* Modo Escuro */
+    .dark-mode .card {
+        background-color: #1e293b;
+        border-color: #334155;
+    }
+
+    /* Responsividade */
+    @media (max-width: 480px) {
+        .card {
+            padding: 1.25rem;
+        }
+    }
+</style>
+
+<!-- EXEMPLO DE USO BÁSICO -->
+<div class="card">
+    <h3 class="card-titulo">Título do Card</h3>
+    <p class="card-subtitulo">Breve descrição ou informação complementar</p>
+    <div class="card-conteudo">
+        Conteúdo principal do bloco, com textos, listas, tabelas ou qualquer informação que você precisar apresentar.
+    </div>
+    <div class="card-rodape">
+        <button style="padding: 0.5rem 1rem; border-radius: 6px; border: none; background: var(--cor-destaque); color: #fff; cursor: pointer;">Ação</button>
+    </div>
+</div>
+
+<!-- EXEMPLO DE USO COM DESTAQUE -->
+<div class="card card-destaque" style="margin-top: 1rem;">
+    <h3 class="card-titulo">📘 NBR 5410</h3>
+    <p class="card-conteudo">Estabelece requisitos para projeto, execução e manutenção de instalações elétricas de baixa tensão.</p>
+</div>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- =========================================
+    GS ELETRICA V2K - CONFIGURAÇÕES
+    Desenvolvido por Gabriel
+    Personalização e Gerenciamento do Sistema
+    ========================================= -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Configurações - GS ELETRICA⚡</title>
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="Assets/CSS/estilo.css">
+
+    <!-- Ícone -->
+    <link rel="icon" href="Assets/IMG/logo.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="../manifest.json">
+
+    <!-- Meta tema para mobile -->
+    <meta name="theme-color" content="#0f172a">
+
+</head>
+
+<body>
+
+    <!-- =========================================
+    TOPO DO SISTEMA (NAVBAR)
+    ========================================= -->
+    <header class="navbar">
+
+        <div class="logo">
+            ⚡ GS Eletrica V2K
+        </div>
+
+        <div class="search-box">
+            <input type="text" placeholder="Pesquisar...">
+        </div>
+
+        <div class="user-area">
+            <button class="btn-theme">🌙</button>
+            <button class="btn-profile">👤 Perfil</button>
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+    MENU LATERAL (SIDEBAR)
+    ========================================= -->
+    <aside class="sidebar">
+
+        <ul>
+            <li><a href="../index.html">🏠 Início</a></li>
+            <li><a href="calculadoras.html">🧮 Calculadoras</a></li>
+            <li><a href="orcamentos.html">📋 Orçamentos</a></li>
+            <li><a href="recibos.html">🧾 Recibos</a></li>
+            <li><a href="clientes.html">👥 Clientes</a></li>
+            <li><a href="agenda.html">📅 Agenda</a></li>
+            <li><a href="biblioteca.html">📚 Biblioteca</a></li>
+            <li><a href="ferramentas.html">🔧 Ferramentas</a></li>
+            <li><a href="configuracoes.html" style="background-color: rgba(37, 99, 235, 0.08); color: var(--cor-destaque); border-left-color: var(--cor-destaque);">⚙️ Configurações</a></li>
+        </ul>
+
+    </aside>
+
+    <!-- =========================================
+    ÁREA PRINCIPAL - CONFIGURAÇÕES
+    ========================================= -->
+    <main class="main-content">
+
+        <section class="dashboard">
+
+            <h1>⚙️ Configurações do Sistema</h1>
+            <p>Personalize aparência, gerencie dados e mantenha suas informações.</p>
+
+            <div class="dashboard-cards" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+                
+                <!-- =========================================
+                CARD: APARENCIA
+                ========================================= -->
+                <div class="card">
+                    <h3>🎨 Aparência</h3>
+                    <div style="margin-top: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0;">
+                            <span>Modo Escuro</span>
+                            <label class="switch" style="position: relative; display: inline-block; width: 50px; height: 26px;">
+                                <input type="checkbox" id="toggle-tema" onchange="alternarTema()">
+                                <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius: 13px; transition: .3s;"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =========================================
+                CARD: GERENCIAMENTO DE DADOS
+                ========================================= -->
+                <div class="card">
+                    <h3>💾 Gerenciamento de Dados</h3>
+                    <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                        <button onclick="exportarTodosDados()" style="padding: 0.75rem; background-color: var(--cor-secundaria); color: var(--cor-primaria); border: none; border-radius: var(--raio-borda); font-weight: 500; cursor: pointer;">📤 Exportar Todos os Dados</button>
+                        <button onclick="document.getElementById('importar-arquivo').click()" style="padding: 0.75rem; background-color: var(--cor-fundo-card); color: var(--cor-texto); border: 1px solid var(--cor-borda); border-radius: var(--raio-borda); font-weight: 500; cursor: pointer;">📥 Importar Dados</button>
+                        <input type="file" id="importar-arquivo" accept=".json" style="display: none;" onchange="importarDados(event)">
+                        <button onclick="limparTodosDados()" style="padding: 0.75rem; background-color: #ef4444; color: #fff; border: none; border-radius: var(--raio-borda); font-weight: 500; cursor: pointer;">🗑️ Limpar Todos os Dados</button>
+                    </div>
+                </div>
+
+                <!-- =========================================
+                CARD: INFORMAÇÕES DO SISTEMA
+                ========================================= -->
+                <div class="card">
+                    <h3>ℹ️ Sobre o Sistema</h3>
+                    <div style="margin-top: 1rem; line-height: 1.8;">
+                        <p><strong>Versão:</strong> GS Eletrica V2K</p>
+                        <p><strong>Atualização:</strong> Julho de 2026</p>
+                        <p><strong>Desenvolvido por:</strong> Gabriel</p>
+                        <p><strong>Base Normativa:</strong> NBR 5410 / NR-10</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =========================================
+        RODAPÉ
+        ========================================= -->
+        <footer class="footer">
+            <p>⚡ GS Eletrica V2K - Sistema Profissional</p>
+            <p>Todos os dados são armazenados localmente no seu dispositivo</p>
+        </footer>
+
+    </main>
+
+
+    <!-- =========================================
+    SCRIPTS PRINCIPAIS
+    ========================================= -->
+    <script src="../Assets/JS/script.js"></script>
+
+    <script>
+        // =========================================
+        // CONTROLE DE TEMA
+        // =========================================
+        function carregarTema() {
+            const temaSalvo = localStorage.getItem('gs-tema');
+            if (temaSalvo === 'escuro' || (!temaSalvo && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.body.classList.add('dark-mode');
+                document.getElementById('toggle-tema').checked = true;
+            }
+        }
+
+        function alternarTema() {
+            const modoEscuro = document.getElementById('toggle-tema').checked;
+            document.body.classList.toggle('dark-mode', modoEscuro);
+            localStorage.setItem('gs-tema', modoEscuro ? 'escuro' : 'claro');
+        }
+
+
+        // =========================================
+        // GERENCIAMENTO DE DADOS
+        // =========================================
+        function exportarTodosDados() {
+            const dados = {
+                perfil: JSON.parse(localStorage.getItem('gs-perfil') || '{}'),
+                clientes: JSON.parse(localStorage.getItem('gs-clientes') || '[]'),
+                agenda: JSON.parse(localStorage.getItem('gs-agenda') || '[]'),
+                orcamentos: JSON.parse(localStorage.getItem('gs-orcamentos') || '[]'),
+                recibos: JSON.parse(localStorage.getItem('gs-recibos') || '[]'),
+                dataExportacao: new Date().toLocaleString('pt-BR')
+            };
+
+            const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `gs-dados-backup-${new Date().toLocaleDateString('pt-BR').replaceAll('/', '-')}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            alert('✅ Dados exportados com sucesso!');
+        }
+
+        function importarDados(event) {
+            const arquivo = event.target.files[0];
+            if (!arquivo) return;
+
+            if (!confirm('⚠️ Isso substituirá todos os dados atuais. Deseja continuar?')) {
+                event.target.value = '';
+                return;
+            }
+
+            const leitor = new FileReader();
+            leitor.onload = function(e) {
+                try {
+                    const dados = JSON.parse(e.target.result);
+                    if (dados.perfil) localStorage.setItem('gs-perfil', JSON.stringify(dados.perfil));
+                    if (dados.clientes) localStorage.setItem('gs-clientes', JSON.stringify(dados.clientes));
+                    if (dados.agenda) localStorage.setItem('gs-agenda', JSON.stringify(dados.agenda));
+                    if (dados.orcamentos) localStorage.setItem('gs-orcamentos', JSON.stringify(dados.orcamentos));
+                    if (dados.recibos) localStorage.setItem('gs-recibos', JSON.stringify(dados.recibos));
+                    
+                    alert('✅ Dados importados com sucesso! Recarregue as páginas para ver as alterações.');
+                } catch (erro) {
+                    alert('❌ Arquivo inválido ou corrompido!');
+                }
+                event.target.value = '';
+            };
+            leitor.readAsText(arquivo);
+        }
+
+        function limparTodosDados() {
+            if (confirm('⚠️ ATENÇÃO! Essa ação apagará PERMANENTEMENTE todos os dados do sistema. Tem certeza absoluta?')) {
+                if (confirm('⚠️ Confirme novamente: deseja realmente apagar TUDO?')) {
+                    localStorage.clear();
+                    alert('✅ Todos os dados foram removidos.');
+                    window.location.reload();
+                }
+            }
+        }
+
+
+        // Inicializa ao carregar
+        carregarTema();
+
+        // Mantém busca funcional
+        const searchInput = document.querySelector(".search-box input");
+        searchInput.addEventListener("input", function () {
+            console.log("Pesquisando:", this.value.toLowerCase());
+        });
+    </script>
+
+</body>
+</html>

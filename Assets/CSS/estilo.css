@@ -1,0 +1,233 @@
+/* =========================================
+GS ELETRICA V2K - ESTILOS GLOBAIS
+Desenvolvido por Gabriel
+Design Responsivo e Profissional
+========================================= */
+
+/* ========== VARIÁVEIS DE CORES E PADRÕES ========== */
+:root {
+    --cor-fundo: #f8fafc;
+    --cor-fundo-card: #ffffff;
+    --cor-texto: #1e293b;
+    --cor-texto-claro: #64748b;
+    --cor-borda: #e2e8f0;
+    --cor-destaque: #2563eb;
+    --cor-sucesso: #16a34a;
+    --cor-alerta: #f59e0b;
+    --cor-perigo: #ef4444;
+    --raio-borda: 10px;
+    --sombra-suave: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --sombra-media: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* ========== MODO ESCURO ========== */
+.dark-mode {
+    --cor-fundo: #0f172a;
+    --cor-fundo-card: #1e293b;
+    --cor-texto: #f1f5f9;
+    --cor-texto-claro: #94a3b8;
+    --cor-borda: #334155;
+}
+
+/* ========== RESET GERAL ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.6;
+    padding-top: 70px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+    transition: all 0.25s ease;
+}
+
+input, select, textarea {
+    font-family: inherit;
+    transition: border-color 0.25s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--cor-destaque);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* ========== ESTRUTURA PRINCIPAL ========== */
+.main-content {
+    margin-left: 260px;
+    padding: 2rem;
+    min-height: calc(100vh - 70px);
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: 1.25rem;
+    }
+}
+
+/* ========== CARDS ========== */
+.card {
+    background-color: var(--cor-fundo-card);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-borda);
+    padding: 1.5rem;
+    box-shadow: var(--sombra-suave);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: var(--sombra-media);
+    transform: translateY(-3px);
+}
+
+.card-destaque {
+    border-left: 4px solid var(--cor-destaque);
+}
+
+.card-sucesso {
+    border-left: 4px solid var(--cor-sucesso);
+}
+
+.card-alerta {
+    border-left: 4px solid var(--cor-alerta);
+}
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+
+/* ========== NAVBAR ========== */
+.navbar {
+    height: 70px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--cor-fundo-card);
+    border-bottom: 1px solid var(--cor-borda);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    z-index: 160;
+}
+
+.navbar .logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--cor-destaque);
+}
+
+.search-box input {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: 20px;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    width: 280px;
+}
+
+.user-area {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn-theme, .btn-profile {
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    padding: 0.6rem;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--cor-texto);
+}
+
+.btn-theme:hover, .btn-profile:hover {
+    background-color: rgba(37, 99, 235, 0.08);
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 70px;
+    width: 260px;
+    height: calc(100vh - 70px);
+    background-color: var(--cor-fundo-card);
+    border-right: 1px solid var(--cor-borda);
+    overflow-y: auto;
+    z-index: 150;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 1rem 0;
+}
+
+.sidebar li a {
+    display: block;
+    padding: 0.85rem 1.5rem;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+}
+
+.sidebar li a:hover {
+    background-color: rgba(37, 99, 235, 0.06);
+    color: var(--cor-destaque);
+    border-left-color: var(--cor-destaque);
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.visivel {
+        transform: translateX(0);
+    }
+}
+
+/* ========== RODAPÉ ========== */
+.footer {
+    background-color: var(--cor-fundo-card);
+    border-top: 1px solid var(--cor-borda);
+    padding: 1.5rem;
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--cor-texto-claro);
+    font-size: 0.9rem;
+}
+
+/* ========== BOTÕES GERAIS ========== */
+button.btn-principal {
+    background: linear-gradient(135deg, var(--cor-destaque) 0%, #1d4ed8 100%);
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--raio-borda);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+button.btn-principal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+}

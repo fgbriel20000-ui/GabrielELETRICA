@@ -1,49 +1,31 @@
 <!-- =========================================
-GS ELETRICA V2K - COMPONENTE RODAPÉ
-Desenvolvido por Gabriel
-Padrão Único para Todo o Sistema
+GS ELETRICA V2K - RODAPÉ
+Atualizado: Cores Laranja & Preto
 ========================================= -->
 
 <style>
-    /* ESTILOS PADRÃO DO RODAPÉ */
-    .footer {
-        background-color: var(--cor-fundo-card);
-        border-top: 1px solid var(--cor-borda);
-        padding: 1.5rem 2rem;
+    footer.rodape-principal {
+        background-color: #0a0a0a;
+        border-top: 1px solid #333333;
+        padding: 1.5rem;
         text-align: center;
         margin-top: 2rem;
+        color: #999999;
         font-size: 0.9rem;
-        color: var(--cor-texto-claro);
-        line-height: 1.6;
     }
 
-    .footer p {
-        margin: 0.35rem 0;
+    .rodape-principal p {
+        margin: 0.3rem 0;
     }
 
-    .footer strong {
-        color: var(--cor-destaque);
-    }
-
-    /* Ajuste para modo escuro */
-    .dark-mode .footer {
-        background-color: #1e293b;
-        border-top-color: #334155;
-    }
-
-    /* Responsividade */
-    @media (max-width: 768px) {
-        .footer {
-            padding: 1.25rem 1rem;
-            font-size: 0.85rem;
-        }
+    .rodape-principal .destaque {
+        color: #ff7a00;
+        font-weight: 600;
     }
 </style>
 
-<!-- ESTRUTURA DO RODAPÉ -->
-<footer class="footer">
-    <p>⚡ <strong>GS Elétrica V2K</strong> - Sistema Profissional para Eletricistas</p>
-    <p>Base normativa: NBR 5410 • NR-10 • NBR 14713</p>
-    <p>Desenvolvido por Gabriel | Natal/RN</p>
-    <p style="font-size: 0.8rem; margin-top: 0.5rem;">Todos os dados armazenados localmente no seu dispositivo</p>
+<footer class="rodape-principal">
+    <p>⚡ <span class="destaque">GS Elétrica V2K</span> | Sistema Profissional para Eletricistas</p>
+    <p>Desenvolvido por Gabriel — Natal/RN</p>
+    <p>Versão 1.0 | Julho de 2026</p>
 </footer>

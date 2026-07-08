@@ -1,7 +1,6 @@
 <!-- =========================================
-GS ELETRICA V2K - COMPONENTE CABEÇALHO
-Desenvolvido por Gabriel
-Estrutura Semântica Padronizada
+GS ELETRICA V2K - CABEÇALHO
+Atualizado: Cores Laranja & Preto
 ========================================= -->
 
 <style>
@@ -11,8 +10,8 @@ Estrutura Semântica Padronizada
         position: fixed;
         top: 0;
         left: 0;
-        background-color: var(--cor-fundo-card);
-        border-bottom: 1px solid var(--cor-borda);
+        background-color: #000000;
+        border-bottom: 2px solid #ff7a00;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -28,91 +27,64 @@ Estrutura Semântica Padronizada
     }
 
     .btn-menu {
-        display: none;
         background: transparent;
         border: none;
         font-size: 1.5rem;
-        color: var(--cor-texto);
+        color: #ffffff;
         cursor: pointer;
         padding: 0.5rem;
         border-radius: 50%;
-        transition: background 0.2s;
+        transition: all 0.2s;
     }
 
     .btn-menu:hover {
-        background-color: rgba(37, 99, 235, 0.08);
+        background-color: rgba(255, 122, 0, 0.15);
+        color: #ff7a00;
     }
 
     .marca-projeto {
         font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--cor-destaque);
+        font-weight: 800;
+        color: #ff7a00;
         display: flex;
         align-items: center;
         gap: 0.5rem;
         text-decoration: none;
     }
 
-    .area-pesquisa {
-        display: flex;
-        align-items: center;
-    }
-
     .area-pesquisa input {
         padding: 0.6rem 1rem;
-        border: 1px solid var(--cor-borda);
-        border-radius: 20px;
-        background-color: var(--cor-fundo);
-        color: var(--cor-texto);
+        border: 1px solid #333;
+        border-radius: 25px;
+        background-color: #1a1a1a;
+        color: #fff;
         width: 260px;
-        font-size: 0.9rem;
     }
 
     .area-pesquisa input:focus {
-        outline: none;
-        border-color: var(--cor-destaque);
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
-
-    .area-acoes {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
+        border-color: #ff7a00;
+        box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.2);
     }
 
     .btn-cabecalho {
         background: transparent;
         border: none;
         font-size: 1.3rem;
-        color: var(--cor-texto);
+        color: #fff;
         cursor: pointer;
         padding: 0.6rem;
         border-radius: 50%;
-        transition: background 0.2s;
+        transition: all 0.2s;
     }
 
     .btn-cabecalho:hover {
-        background-color: rgba(37, 99, 235, 0.08);
+        background-color: rgba(255, 122, 0, 0.15);
+        color: #ff7a00;
     }
 
-    /* Modo Escuro */
-    .dark-mode header.cabecalho-principal {
-        background-color: #1e293b;
-    }
-
-    /* Responsividade */
     @media (max-width: 768px) {
-        .btn-menu {
-            display: block;
-        }
-
-        .area-pesquisa {
-            display: none;
-        }
-
-        header.cabecalho-principal {
-            padding: 0 1rem;
-        }
+        .btn-menu { display: block; }
+        .area-pesquisa { display: none; }
     }
 </style>
 
@@ -131,22 +103,3 @@ Estrutura Semântica Padronizada
         <button class="btn-cabecalho" aria-label="Perfil do usuário">👤</button>
     </div>
 </header>
-
-<script>
-    // Controle do menu lateral
-    document.getElementById('btn-menu-lateral')?.addEventListener('click', () => {
-        document.getElementById('barra-lateral')?.classList.toggle('visivel');
-    });
-
-    // Sincroniza tema salvo
-    document.addEventListener('DOMContentLoaded', () => {
-        if (localStorage.getItem('gs-tema') === 'escuro') {
-            document.body.classList.add('dark-mode');
-        }
-    });
-
-    document.getElementById('alternar-tema')?.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        localStorage.setItem('gs-tema', document.body.classList.contains('dark-mode') ? 'escuro' : 'claro');
-    });
-</script>

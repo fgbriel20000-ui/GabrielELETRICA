@@ -1,32 +1,33 @@
 /* =========================================
 GS ELETRICA V2K - ESTILOS GLOBAIS
-Desenvolvido por Gabriel
-Design Responsivo e Profissional
+Cores: Laranja + Preto
+Design Moderno e Forte
 ========================================= */
 
-/* ========== VARIÁVEIS DE CORES E PADRÕES ========== */
+/* ========== VARIÁVEIS DE CORES ========== */
 :root {
-    --cor-fundo: #f8fafc;
-    --cor-fundo-card: #ffffff;
-    --cor-texto: #1e293b;
-    --cor-texto-claro: #64748b;
-    --cor-borda: #e2e8f0;
-    --cor-destaque: #2563eb;
-    --cor-sucesso: #16a34a;
+    --cor-fundo: #121212;
+    --cor-fundo-card: #1e1e1e;
+    --cor-texto: #ffffff;
+    --cor-texto-claro: #b0b0b0;
+    --cor-borda: #333333;
+    --cor-destaque: #ff7a00;
+    --cor-destaque-escuro: #e65c00;
+    --cor-sucesso: #22c55e;
     --cor-alerta: #f59e0b;
     --cor-perigo: #ef4444;
-    --raio-borda: 10px;
-    --sombra-suave: 0 2px 8px rgba(0, 0, 0, 0.05);
-    --sombra-media: 0 4px 16px rgba(0, 0, 0, 0.1);
+    --raio-borda: 8px;
+    --sombra-suave: 0 2px 10px rgba(0, 0, 0, 0.4);
+    --sombra-laranja: 0 4px 15px rgba(255, 122, 0, 0.3);
 }
 
-/* ========== MODO ESCURO ========== */
-.dark-mode {
-    --cor-fundo: #0f172a;
-    --cor-fundo-card: #1e293b;
-    --cor-texto: #f1f5f9;
-    --cor-texto-claro: #94a3b8;
-    --cor-borda: #334155;
+/* ========== MODO CLARO (OPCIONAL) ========== */
+.dark-mode-off {
+    --cor-fundo: #f8f8f8;
+    --cor-fundo-card: #ffffff;
+    --cor-texto: #1a1a1a;
+    --cor-texto-claro: #666666;
+    --cor-borda: #e0e0e0;
 }
 
 /* ========== RESET GERAL ========== */
@@ -37,7 +38,7 @@ Design Responsivo e Profissional
 }
 
 body {
-    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
     background-color: var(--cor-fundo);
     color: var(--cor-texto);
     line-height: 1.6;
@@ -52,17 +53,23 @@ a {
 button {
     font-family: inherit;
     transition: all 0.25s ease;
+    border: none;
+    cursor: pointer;
 }
 
 input, select, textarea {
     font-family: inherit;
-    transition: border-color 0.25s ease;
+    transition: all 0.25s ease;
+    border-radius: var(--raio-borda);
+    border: 1px solid var(--cor-borda);
+    background: var(--cor-fundo-card);
+    color: var(--cor-texto);
 }
 
 input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: var(--cor-destaque);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.2);
 }
 
 /* ========== ESTRUTURA PRINCIPAL ========== */
@@ -90,8 +97,9 @@ input:focus, select:focus, textarea:focus {
 }
 
 .card:hover {
-    box-shadow: var(--sombra-media);
+    box-shadow: var(--sombra-laranja);
     transform: translateY(-3px);
+    border-color: var(--cor-destaque);
 }
 
 .card-destaque {
@@ -119,8 +127,8 @@ input:focus, select:focus, textarea:focus {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: var(--cor-fundo-card);
-    border-bottom: 1px solid var(--cor-borda);
+    background-color: #000000;
+    border-bottom: 2px solid var(--cor-destaque);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -129,18 +137,23 @@ input:focus, select:focus, textarea:focus {
 }
 
 .navbar .logo {
-    font-size: 1.3rem;
-    font-weight: 700;
+    font-size: 1.4rem;
+    font-weight: 800;
     color: var(--cor-destaque);
+    letter-spacing: 0.5px;
 }
 
 .search-box input {
-    padding: 0.6rem 1rem;
-    border: 1px solid var(--cor-borda);
-    border-radius: 20px;
-    background-color: var(--cor-fundo);
-    color: var(--cor-texto);
+    padding: 0.65rem 1rem;
+    border: 1px solid #444;
+    border-radius: 25px;
+    background-color: #1a1a1a;
+    color: #fff;
     width: 280px;
+}
+
+.search-box input:focus {
+    border-color: var(--cor-destaque);
 }
 
 .user-area {
@@ -151,15 +164,16 @@ input:focus, select:focus, textarea:focus {
 .btn-theme, .btn-profile {
     background: transparent;
     border: none;
-    font-size: 1.25rem;
-    padding: 0.6rem;
+    font-size: 1.3rem;
+    padding: 0.65rem;
     border-radius: 50%;
     cursor: pointer;
-    color: var(--cor-texto);
+    color: #fff;
 }
 
 .btn-theme:hover, .btn-profile:hover {
-    background-color: rgba(37, 99, 235, 0.08);
+    background-color: rgba(255, 122, 0, 0.15);
+    color: var(--cor-destaque);
 }
 
 /* ========== SIDEBAR ========== */
@@ -169,7 +183,7 @@ input:focus, select:focus, textarea:focus {
     top: 70px;
     width: 260px;
     height: calc(100vh - 70px);
-    background-color: var(--cor-fundo-card);
+    background-color: #0f0f0f;
     border-right: 1px solid var(--cor-borda);
     overflow-y: auto;
     z-index: 150;
@@ -182,13 +196,15 @@ input:focus, select:focus, textarea:focus {
 
 .sidebar li a {
     display: block;
-    padding: 0.85rem 1.5rem;
+    padding: 0.9rem 1.5rem;
     font-weight: 500;
+    color: #ccc;
     border-left: 3px solid transparent;
+    transition: all 0.2s ease;
 }
 
 .sidebar li a:hover {
-    background-color: rgba(37, 99, 235, 0.06);
+    background-color: rgba(255, 122, 0, 0.1);
     color: var(--cor-destaque);
     border-left-color: var(--cor-destaque);
 }
@@ -206,7 +222,7 @@ input:focus, select:focus, textarea:focus {
 
 /* ========== RODAPÉ ========== */
 .footer {
-    background-color: var(--cor-fundo-card);
+    background-color: #0a0a0a;
     border-top: 1px solid var(--cor-borda);
     padding: 1.5rem;
     text-align: center;
@@ -217,17 +233,17 @@ input:focus, select:focus, textarea:focus {
 
 /* ========== BOTÕES GERAIS ========== */
 button.btn-principal {
-    background: linear-gradient(135deg, var(--cor-destaque) 0%, #1d4ed8 100%);
-    color: #fff;
+    background: linear-gradient(135deg, var(--cor-destaque) 0%, var(--cor-destaque-escuro) 100%);
+    color: #000;
+    font-weight: 700;
     border: none;
-    padding: 0.8rem 1.5rem;
+    padding: 0.85rem 1.8rem;
     border-radius: var(--raio-borda);
-    font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    box-shadow: var(--sombra-laranja);
 }
 
 button.btn-principal:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 6px 20px rgba(255, 122, 0, 0.45);
 }

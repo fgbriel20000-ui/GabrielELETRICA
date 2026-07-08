@@ -1,20 +1,31 @@
 // =========================================
 // GS ELETRICA V2K - SCRIPT PRINCIPAL
+// Atualizado: Cores Laranja & Preto
 // Desenvolvido por Gabriel
-// Coração do Sistema - Integração e Funcionalidades
 // =========================================
+
+// ========== CONFIGURAÇÕES DE CORES (PADRÃO DO SISTEMA) ==========
+const COR_DESTAQUE = '#ff7a00';
+const COR_DESTAQUE_ESCURO = '#e65c00';
+const COR_FUNDO = '#121212';
+const COR_SUCESSO = '#22c55e';
+const COR_ALERTA = '#f59e0b';
+const COR_PERIGO = '#ef4444';
 
 // ========== CONTROLE DE TEMA ==========
 function inicializarTema() {
     const temaSalvo = localStorage.getItem('gs-tema');
-    if (temaSalvo === 'escuro') {
-        document.body.classList.add('dark-mode');
+    if (temaSalvo === 'claro') {
+        document.body.classList.add('modo-claro');
+    } else {
+        // Mantém padrão escuro (Preto/Laranja)
+        document.body.classList.remove('modo-claro');
     }
 }
 
 function alternarTema() {
-    document.body.classList.toggle('dark-mode');
-    const temaAtual = document.body.classList.contains('dark-mode') ? 'escuro' : 'claro';
+    document.body.classList.toggle('modo-claro');
+    const temaAtual = document.body.classList.contains('modo-claro') ? 'claro' : 'escuro';
     localStorage.setItem('gs-tema', temaAtual);
 }
 
@@ -34,32 +45,31 @@ async function carregarComponentes() {
                 const resposta = await fetch(comp.caminho);
                 if (resposta.ok) {
                     elemento.innerHTML = await resposta.text();
-                    // Re-vincula eventos após carregar componente
                     vincularEventosComponentes();
                 }
             } catch (erro) {
-                console.log(`ℹ️ Componente não carregado: ${comp.caminho}`, erro);
+                console.log(`ℹ️ Componente: ${comp.caminho} não carregado`, erro);
             }
         }
     }
 }
 
-// ========== EVENTOS DOS COMPONENTES ==========
+// ========== VINCULA EVENTOS AOS ELEMENTOS ==========
 function vincularEventosComponentes() {
-    // Botão de tema
+    // Botão de Tema
     document.querySelector('.btn-theme')?.addEventListener('click', alternarTema);
     
-    // Botão do menu mobile
+    // Botão Menu Mobile
     document.getElementById('btn-menu-lateral')?.addEventListener('click', alternarSidebar);
 }
 
-// ========== CONTROLE DO MENU LATERAL ==========
+// ========== CONTROLE MENU LATERAL ==========
 function alternarSidebar() {
     const sidebar = document.querySelector('.sidebar');
     if (sidebar) sidebar.classList.toggle('visivel');
 }
 
-// Fecha menu ao clicar fora em telas menores
+// Fecha menu ao clicar fora (celulares)
 document.addEventListener('click', (e) => {
     const sidebar = document.querySelector('.sidebar');
     const btnMenu = document.getElementById('btn-menu-lateral');
@@ -71,18 +81,18 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// ========== REGISTRO DO SERVICE WORKER / PWA ==========
+// ========== REGISTRO PWA / SERVICE WORKER ==========
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
-            .then(registro => console.log('✅ Service Worker registrado com sucesso:', registro.scope))
-            .catch(erro => console.log('❌ Erro ao registrar Service Worker:', erro));
+            .then(registro => console.log('✅ SW registrado:', registro.scope))
+            .catch(erro => console.log('❌ Erro SW:', erro));
     });
 }
 
-// ========== INICIALIZAÇÃO GERAL DO SISTEMA ==========
+// ========== INICIALIZAÇÃO GERAL ==========
 document.addEventListener('DOMContentLoaded', async () => {
     inicializarTema();
     await carregarComponentes();
-    console.log('✅ Sistema GS Elétrica V2K inicializado com sucesso!');
+    console.log('✅ Sistema GS Elétrica V2K | Cores Laranja & Preto | Inicializado!');
 });

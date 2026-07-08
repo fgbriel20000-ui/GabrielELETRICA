@@ -1,82 +1,74 @@
 // =========================================
 // GS ELETRICA V2K - SERVICE WORKER
+// Funcionamento Offline e Cache
 // Desenvolvido por Gabriel
-// Funcionamento Offline e PWA
 // =========================================
 
-const NOME_CACHE = 'gs-eletrica-v2k-cache-v1';
-const ARQUIVOS_CACHE = [
-    '/',
-    '/index.html',
-    '/Assets/CSS/estilo.css',
-    '/Assets/JS/script.js',
-    '/Assets/IMG/logo.png',
-    '/Assets/IMG/icone-192.png',
-    '/Assets/IMG/icone-512.png',
-    '/manifest.json',
-    '/paginas/calculadoras.html',
-    '/paginas/orcamentos.html',
-    '/paginas/recibos.html',
-    '/paginas/clientes.html',
-    '/paginas/agenda.html',
-    '/paginas/biblioteca.html',
-    '/paginas/ferramentas.html',
-    '/paginas/configuracoes.html',
-    '/paginas/modal.html',
-    '/paginas/sidebar.html',
-    '/paginas/footer.html',
-    '/dados/aparelhos.json',
-    '/dados/cabos.json',
-    '/dados/clientes.json'
+const NOME_CACHE = 'gs-eletrica-v2k-cache';
+const VERSAO_CACHE = '1.0.0';
+const CACHE_ATUAL = `${NOME_CACHE}-${VERSAO_CACHE}`;
+
+// ========== ARQUIVOS PARA SALVAR NO CACHE ==========
+const ARQUIVOS_ESSENCIAIS = [
+    './',
+    './index.html',
+    './loading.html',
+    './manifest.json',
+    './Assets/CSS/estilo.css',
+    './Assets/JS/script.js',
+    './Assets/IMG/logo.png',
+    './Assets/IMG/icone-192.png',
+    './Assets/IMG/icone-512.png',
+    './paginas/header.html',
+    './paginas/sidebar.html',
+    './paginas/footer.html',
+    './paginas/modal.html'
 ];
 
-// INSTALAÇÃO: Armazena arquivos no cache
-self.addEventListener('install', evento => {
-    console.log('[Service Worker] Instalando...');
+// ========== INSTALAÇÃO ==========
+self.addEventListener('install', (evento) => {
+    console.log('✅ Instalando Service Worker...');
     evento.waitUntil(
-        caches.open(NOME_CACHE)
+        caches.open(CACHE_ATUAL)
             .then(cache => {
-                console.log('[Service Worker] Arquivos em cache');
-                return cache.addAll(ARQUIVOS_CACHE);
+                console.log('📂 Salvando arquivos no cache...');
+                return cache.addAll(ARQUIVOS_ESSENCIAIS);
             })
             .then(() => self.skipWaiting())
     );
 });
 
-// ATUALIZAÇÃO: Limpa cache antigo se houver nova versão
-self.addEventListener('activate', evento => {
-    console.log('[Service Worker] Ativando...');
+// ========== ATUALIZAÇÃO / LIMPEZA DE CACHE ANTIGO ==========
+self.addEventListener('activate', (evento) => {
+    console.log('✅ Ativando novo Service Worker...');
     evento.waitUntil(
         caches.keys().then(listaCaches => {
             return Promise.all(
-                listaCaches.filter(nome => nome !== NOME_CACHE)
-                    .map(nomeAntigo => caches.delete(nomeAntigo))
+                listaCaches.map(nomeCache => {
+                    if (nomeCache !== CACHE_ATUAL) {
+                        console.log('🗑️ Removendo cache antigo:', nomeCache);
+                        return caches.delete(nomeCache);
+                    }
+                })
             );
         }).then(() => self.clients.claim())
     );
 });
 
-// BUSCA: Responde com cache se disponível, senão busca na rede
-self.addEventListener('fetch', evento => {
+// ========== BUSCAR ARQUIVOS (OFFLINE FIRST) ==========
+self.addEventListener('fetch', (evento) => {
     evento.respondWith(
         caches.match(evento.request)
             .then(respostaCache => {
-                // Retorna cache se encontrar, senão busca na rede
+                // Se encontrar no cache, usa ele; senão busca na internet
                 return respostaCache || fetch(evento.request)
-                    .then(respostaRede => {
-                        // Armazena nova resposta no cache para próximas vezes
-                        return caches.open(NOME_CACHE)
+                    .then(respostaInternet => {
+                        return caches.open(CACHE_ATUAL)
                             .then(cache => {
-                                cache.put(evento.request, respostaRede.clone());
-                                return respostaRede;
+                                cache.put(evento.request, respostaInternet.clone());
+                                return respostaInternet;
                             });
                     });
-            })
-            .catch(() => {
-                // Fallback para página offline se não houver conexão
-                if (evento.request.destination === 'document') {
-                    return caches.match('/index.html');
-                }
             })
     );
 });

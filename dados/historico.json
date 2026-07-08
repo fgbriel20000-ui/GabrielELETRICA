@@ -1,0 +1,28 @@
+{
+    "informacoes_gerais": {
+        "projeto": "GS ELETRICA V2K",
+        "descricao": "Registro de Histórico de Operações e Atividades",
+        "versao": "1.0",
+        "atualizacao": "07/2026",
+        "armazenamento": "Local no dispositivo"
+    },
+
+    "registros": [
+        {
+            "id_registro": 1,
+            "data_hora": "03/07/2026 18:00:00",
+            "tipo_operacao": "criacao",
+            "modulo": "sistema",
+            "descricao": "Inicialização do sistema GS Elétrica V2K",
+            "detalhes": "Estrutura básica criada com todos os módulos funcionais"
+        }
+    ],
+
+    "estatisticas": {
+        "total_calculos_realizados": 0,
+        "total_orcamentos_emitidos": 0,
+        "total_recibos_gerados": 0,
+        "total_clientes_cadastrados": 0,
+        "ultima_atualizacao": "03/07/2026 18:00:00"
+    }
+}

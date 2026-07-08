@@ -1,0 +1,32 @@
+{
+    "informacoes_gerais": {
+        "projeto": "GS ELETRICA V2K",
+        "descricao": "Banco de Dados - Cadastro de Clientes",
+        "versao": "1.0",
+        "atualizacao": "07/2026",
+        "formato_armazenamento": "JSON"
+    },
+
+    "clientes_cadastrados": [
+        {
+            "id": 1,
+            "nome_completo_razao": "Exemplo: Maria da Silva Souza",
+            "telefone_whatsapp": "(84) 9XXXX-XXXX",
+            "cpf_cnpj": "000.000.000-00",
+            "endereco_completo": "Rua das Flores, 123, Bairro Centro - Natal/RN",
+            "email": "maria.silva@email.com",
+            "observacoes": "Residência com sistema de ar-condicionado em 3 ambientes",
+            "data_cadastro": "07/07/2026"
+        },
+        {
+            "id": 2,
+            "nome_completo_razao": "Exemplo: Construções Rápidas Ltda",
+            "telefone_whatsapp": "(84) 3XXX-XXXX | (84) 9XXXX-XXXX",
+            "cpf_cnpj": "00.000.000/0001-00",
+            "endereco_completo": "Av. Engenheiro Roberto Freire, 5000, Bairro Ponta Negra - Natal/RN",
+            "email": "contato@construcoesrapidas.com.br",
+            "observacoes": "Cliente comercial, contrata serviços periódicos de manutenção preventiva",
+            "data_cadastro": "07/07/2026"
+        }
+    ]
+}

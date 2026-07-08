@@ -1,0 +1,88 @@
+{
+    "informacoes_gerais": {
+        "projeto": "GS ELETRICA V2K",
+        "descricao": "Banco de dados de tabelas técnicas e normas aplicáveis",
+        "versao": "1.0",
+        "atualizacao": "07/2026",
+        "base_normativa": "NBR 5410 / NR-10 / NBR 14713"
+    },
+
+    "queda_tensao_permitida": {
+        "circuitos_terminais": 4,
+        "circuitos_distribuicao": 5,
+        "sistemas_com_gerador": 7,
+        "unidade": "%"
+    },
+
+    "tensao_padrao_brasil": {
+        "residencial": ["127V", "220V"],
+        "comercial_industrial": ["220V", "380V", "440V"],
+        "media_tensao": "13.8kV"
+    },
+
+    "fator_potencia_referencia": {
+        "minimo_recomendado": 0.92,
+        "limite_ultrapassagem": 0.85,
+        "unidade": "cos φ"
+    },
+
+    "disjuntores_curva_caracteristica": [
+        {
+            "tipo": "Curva B",
+            "faixa_disparo": "3~5x corrente nominal",
+            "aplicacao": "Cargas resistivas, iluminação, circuitos gerais"
+        },
+        {
+            "tipo": "Curva C",
+            "faixa_disparo": "5~10x corrente nominal",
+            "aplicacao": "Motores, aparelhos com alta corrente de partida"
+        },
+        {
+            "tipo": "Curva D",
+            "faixa_disparo": "10~20x corrente nominal",
+            "aplicacao": "Cargas de alta indução, equipamentos industriais"
+        }
+    ],
+
+    "secao_minima_cabos": [
+        {
+            "uso": "Iluminação",
+            "secao_minima_mm2": 1.5
+        },
+        {
+            "uso": "Tomadas",
+            "secao_minima_mm2": 2.5
+        },
+        {
+            "uso": "Força / Motores",
+            "secao_minima_mm2": 4.0
+        },
+        {
+            "uso": "Entrada de energia",
+            "secao_minima_mm2": 10.0
+        }
+    ],
+
+    "temperatura_ambiente_correcao": [
+        {
+            "temperatura_c": 20,
+            "fator_correcao": 1.13
+        },
+        {
+            "temperatura_c": 25,
+            "fator_correcao": 1.06
+        },
+        {
+            "temperatura_c": 30,
+            "fator_correcao": 1.00
+        },
+        {
+            "temperatura_c": 35,
+            "fator_correcao": 0.94
+        },
+        {
+            "temperatura_c": 40,
+            "fator_correcao": 0.87
+        }
+    ]
+}

@@ -1,0 +1,146 @@
+{
+    "informacoes": {
+        "projeto": "GS ELETRICA V2K",
+        "descricao": "Banco de dados de aparelhos e equipamentos elétricos",
+        "atualizacao": "07/2026",
+        "responsavel": "Gabriel"
+    },
+
+    "categorias": [
+        {
+            "nome": "Iluminação",
+            "itens": [
+                {
+                    "codigo": "ILU001",
+                    "nome": "Lâmpada LED 9W",
+                    "potencia_watts": 9,
+                    "tensao_v": "127/220",
+                    "tipo": "Resistivo",
+                    "fator_potencia": 1.0
+                },
+                {
+                    "codigo": "ILU002",
+                    "nome": "Lâmpada LED 12W",
+                    "potencia_watts": 12,
+                    "tensao_v": "127/220",
+                    "tipo": "Resistivo",
+                    "fator_potencia": 1.0
+                },
+                {
+                    "codigo": "ILU003",
+                    "nome": "Luminária LED 18W",
+                    "potencia_watts": 18,
+                    "tensao_v": "127/220",
+                    "tipo": "Resistivo",
+                    "fator_potencia": 0.95
+                }
+            ]
+        },
+
+        {
+            "nome": "Eletrodomésticos",
+            "itens": [
+                {
+                    "codigo": "EDO001",
+                    "nome": "Geladeira / Refrigerador",
+                    "potencia_watts": 150,
+                    "tensao_v": "127/220",
+                    "tipo": "Indutivo",
+                    "fator_potencia": 0.85
+                },
+                {
+                    "codigo": "EDO002",
+                    "nome": "Micro-ondas",
+                    "potencia_watts": 1200,
+                    "tensao_v": "127/220",
+                    "tipo": "Indutivo",
+                    "fator_potencia": 0.90
+                },
+                {
+                    "codigo": "EDO003",
+                    "nome": "Chuveiro Elétrico 5500W",
+                    "potencia_watts": 5500,
+                    "tensao_v": "220",
+                    "tipo": "Resistivo",
+                    "fator_potencia": 1.0
+                },
+                {
+                    "codigo": "EDO004",
+                    "nome": "Chuveiro Elétrico 6800W",
+                    "potencia_watts": 6800,
+                    "tensao_v": "220",
+                    "tipo": "Resistivo",
+                    "fator_potencia": 1.0
+                },
+                {
+                    "codigo": "EDO005",
+                    "nome": "Ferro de Passar",
+                    "potencia_watts": 1000,
+                    "tensao_v": "127/220",
+                    "tipo": "Resistivo",
+                    "fator_potencia": 1.0
+                }
+            ]
+        },
+
+        {
+            "nome": "Ferramentas Elétricas",
+            "itens": [
+                {
+                    "codigo": "FER001",
+                    "nome": "Furadeira",
+                    "potencia_watts": 600,
+                    "tensao_v": "127/220",
+                    "tipo": "Indutivo",
+                    "fator_potencia": 0.80
+                },
+                {
+                    "codigo": "FER002",
+                    "nome": "Serra Circular",
+                    "potencia_watts": 1200,
+                    "tensao_v": "127/220",
+                    "tipo": "Indutivo",
+                    "fator_potencia": 0.75
+                },
+                {
+                    "codigo": "FER003",
+                    "nome": "Parafusadeira",
+                    "potencia_watts": 300,
+                    "tensao_v": "127/220",
+                    "tipo": "Indutivo",
+                    "fator_potencia": 0.82
+                }
+            ]
+        },
+
+        {
+            "nome": "Climatização",
+            "itens": [
+                {
+                    "codigo": "CLI001",
+                    "nome": "Ventilador de Teto",
+                    "potencia_watts": 60,
+                    "tensao_v": "127/220",
+                    "tipo": "Indutivo",
+                    "fator_potencia": 0.75
+                },
+                {
+                    "codigo": "CLI002",
+                    "nome": "Ar Condicionado 9.000 BTUs",
+                    "potencia_watts": 950,
+                    "tensao_v": "220",
+                    "tipo": "Indutivo",
+                    "fator_potencia": 0.80
+                },
+                {
+                    "codigo": "CLI003",
+                    "nome": "Ar Condicionado 12.000 BTUs",
+                    "potencia_watts": 1250,
+                    "tensao_v": "220",
+                    "tipo": "Indutivo",
+                    "fator_potencia": 0.80
+                }
+            ]
+        }
+    ]
+}

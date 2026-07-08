@@ -1,55 +1,42 @@
 {
     "name": "GS Elétrica V2K",
     "short_name": "GS Elétrica",
-    "description": "Sistema profissional para eletricistas: cálculos, orçamentos, gestão de clientes e normas técnicas conforme NBR 5410 e NR-10.",
-    "start_url": "./index.html",
+    "description": "Sistema profissional para eletricistas: cálculos, orçamentos, gestão de clientes e normas NBR/NR-10",
+    "start_url": "index.html",
     "display": "standalone",
-    "background_color": "#0f172a",
-    "theme_color": "#2563eb",
+    "background_color": "#121212",
+    "theme_color": "#000000",
     "orientation": "portrait-primary",
-    "scope": "./",
-    "lang": "pt-BR",
-    "author": "Gabriel - GS Elétrica",
-    
     "icons": [
         {
-            "src": "./Assets/IMG/icone-192.png",
+            "src": "Assets/IMG/icone-192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "./Assets/IMG/icone-512.png",
+            "src": "Assets/IMG/icone-512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
         }
     ],
-
-    "screenshots": [
-        {
-            "src": "./Assets/IMG/screenshot-inicio.png",
-            "sizes": "1080x1920",
-            "type": "image/png",
-            "form_factor": "narrow"
-        }
-    ],
-
     "categories": ["business", "productivity", "utilities"],
+    "screenshots": [],
     "shortcuts": [
         {
-            "name": "Nova Calculadora",
+            "name": "Calculadoras",
             "short_name": "Cálculos",
-            "description": "Abrir ferramentas de cálculo elétrico",
-            "url": "./paginas/calculadoras.html",
-            "icons": [{"src": "./Assets/IMG/icone-192.png", "sizes": "192x192"}]
+            "description": "Acessar ferramentas de cálculo elétrico",
+            "url": "paginas/calculadoras.html",
+            "icons": [{"src": "Assets/IMG/icone-192.png", "sizes": "192x192"}]
         },
         {
-            "name": "Novo Orçamento",
-            "short_name": "Orçamento",
-            "description": "Criar novo orçamento de serviço",
-            "url": "./paginas/orcamentos.html",
-            "icons": [{"src": "./Assets/IMG/icone-192.png", "sizes": "192x192"}]
+            "name": "Orçamentos",
+            "short_name": "Orçamentos",
+            "description": "Criar novo orçamento",
+            "url": "paginas/orcamentos.html",
+            "icons": [{"src": "Assets/IMG/icone-192.png", "sizes": "192x192"}]
         }
     ]
 }

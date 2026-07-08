@@ -1,111 +1,103 @@
-<!-- =========================================
-GS ELETRICA V2K - TELA DE CARREGAMENTO
-Desenvolvido por Gabriel
-Padrão Único do Sistema
-========================================= -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GS Elétrica | Inicializando</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
 
-    body {
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-family: system-ui, -apple-system, sans-serif;
-        color: #fff;
-    }
+        .loading-container {
+            text-align: center;
+            max-width: 320px;
+            width: 100%;
+        }
 
-    .container-loading {
-        text-align: center;
-        padding: 2rem;
-    }
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ff7a00;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
 
-    .icone-loading {
-        font-size: 4rem;
-        margin-bottom: 1.5rem;
-        display: inline-block;
-        animation: pulso 1.5s ease-in-out infinite;
-    }
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #333333;
+            border-top: 4px solid #ff7a00;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 0 15px rgba(255, 122, 0, 0.3);
+        }
 
-    @keyframes pulso {
-        0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.15); opacity: 0.8; }
-    }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-    .spinner {
-        width: 60px;
-        height: 60px;
-        border: 4px solid rgba(37, 99, 235, 0.2);
-        border-top-color: #2563eb;
-        border-radius: 50%;
-        margin: 1.5rem auto;
-        animation: girar 0.8s linear infinite;
-    }
+        .loading-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #cccccc;
+        }
 
-    @keyframes girar {
-        to { transform: rotate(360deg); }
-    }
+        .loading-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #222222;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
 
-    .texto-loading {
-        font-size: 1.2rem;
-        font-weight: 500;
-        margin-bottom: 0.5rem;
-    }
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ff7a00, #ff9a3c);
+            border-radius: 3px;
+            width: 0%;
+            animation: progressAnimation 1.5s ease-in-out forwards;
+        }
 
-    .subtexto-loading {
-        font-size: 0.9rem;
-        color: #94a3b8;
-    }
+        @keyframes progressAnimation {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
 
-    .barra-carregamento {
-        width: 250px;
-        height: 6px;
-        background: rgba(255,255,255,0.1);
-        border-radius: 3px;
-        margin: 1.5rem auto 0;
-        overflow: hidden;
-    }
-
-    .progresso {
-        height: 100%;
-        width: 0%;
-        background: linear-gradient(90deg, #2563eb, #60a5fa);
-        border-radius: 3px;
-        animation: carregar 2s ease-out forwards;
-    }
-
-    @keyframes carregar {
-        to { width: 100%; }
-    }
-</style>
-
-<div class="container-loading">
-    <div class="icone-loading">⚡</div>
-    <h1 class="texto-loading">GS Elétrica V2K</h1>
-    <p class="subtexto-loading">Carregando sistema...</p>
-    
-    <div class="spinner"></div>
-    
-    <div class="barra-carregamento">
-        <div class="progresso"></div>
+        .powered-by {
+            font-size: 0.85rem;
+            color: #666666;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="logo">GS ELÉTRICA</div>
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Inicializando Sistema V2K</div>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+        <div class="powered-by">Desenvolvido por Gabriel</div>
     </div>
-</div>
-
-<script>
-    // Função para fechar automaticamente após carregamento
-    function finalizarCarregamento(tempoEspera = 2000) {
-        setTimeout(() => {
-            window.location.href = './index.html';
-        }, tempoEspera);
-    }
-
-    // Inicia redirecionamento automático
-    finalizarCarregamento();
-</script>
+</body>
+</html>

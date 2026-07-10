@@ -1,0 +1,90 @@
+<!-- =========================================================
+     GS ELÉTRICA — MENU LATERAL PADRÃO
+     ========================================================= -->
+<style>
+    .gs-lateral {
+        position: fixed;
+        top: var(--gs-altura-header);
+        left: 0;
+        width: var(--gs-largura-sidebar);
+        height: calc(100vh - var(--gs-altura-header));
+        background-color: var(--gs-fundo-card);
+        border-right: 1px solid var(--gs-borda);
+        padding: 1.25rem 0;
+        overflow-y: auto;
+        z-index: 250;
+        transition: transform 0.25s ease;
+    }
+
+    .gs-lateral ul { list-style: none; }
+
+    .gs-lateral a {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.8rem 1.5rem;
+        color: var(--gs-texto);
+        font-weight: 500;
+        font-size: 0.95rem;
+        border-left: 3px solid transparent;
+        transition: all 0.2s ease;
+    }
+
+    .gs-lateral a:hover {
+        background-color: rgba(245, 180, 0, 0.1);
+        color: var(--gs-amarelo-forte);
+    }
+
+    .gs-lateral a.gs-ativo {
+        background-color: rgba(245, 180, 0, 0.14);
+        color: var(--gs-amarelo-forte);
+        border-left-color: var(--gs-amarelo);
+        font-weight: 700;
+    }
+
+    @media (max-width: 860px) {
+        .gs-lateral {
+            transform: translateX(-100%);
+            box-shadow: var(--gs-sombra-media);
+        }
+        .gs-lateral.gs-visivel { transform: translateX(0); }
+    }
+</style>
+
+<aside class="gs-lateral" id="gs-menu-lateral">
+    <ul>
+        <li><a href="index.html" data-pagina="inicio">🏠 Início</a></li>
+        <li><a href="paginas/orcamentos.html" data-pagina="orcamentos">📋 Orçamentos</a></li>
+        <li><a href="paginas/calculadoras.html" data-pagina="calculadoras">🧮 Calculadoras</a></li>
+        <li><a href="paginas/clientes.html" data-pagina="clientes">👥 Clientes</a></li>
+        <li><a href="paginas/agenda.html" data-pagina="agenda">📅 Agenda</a></li>
+        <li><a href="paginas/mais.html" data-pagina="mais">🗂️ Mais</a></li>
+    </ul>
+</aside>
+
+<script>
+    (function() {
+        const base = document.body.dataset.base || './';
+        const pagina = document.body.dataset.pagina || 'inicio';
+
+        document.querySelectorAll('.gs-lateral a').forEach(link => {
+            // Ajusta o href de acordo com a profundidade da página atual
+            const alvo = link.getAttribute('href');
+            link.setAttribute('href', base + alvo);
+
+            if (link.dataset.pagina === pagina) {
+                link.classList.add('gs-ativo');
+            }
+        });
+
+        // Fecha o menu ao clicar fora, no mobile
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('gs-menu-lateral');
+            const botao = document.getElementById('gs-btn-abrir-sidebar');
+            if (!menu || !menu.classList.contains('gs-visivel')) return;
+            if (!menu.contains(e.target) && e.target !== botao) {
+                menu.classList.remove('gs-visivel');
+            }
+        });
+    })();
+</script>

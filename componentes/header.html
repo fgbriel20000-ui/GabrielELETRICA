@@ -1,0 +1,84 @@
+<!-- =========================================================
+     GS ELÉTRICA — CABEÇALHO PADRÃO
+     ========================================================= -->
+<style>
+    .gs-topo {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%;
+        height: var(--gs-altura-header);
+        background-color: var(--gs-azul-profundo);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1.5rem;
+        z-index: 300;
+        box-shadow: var(--gs-sombra);
+    }
+
+    .gs-topo-esquerda { display: flex; align-items: center; gap: 1rem; }
+
+    .gs-topo-marca {
+        display: flex; align-items: center; gap: 0.6rem;
+        font-family: var(--gs-fonte-titulo);
+        font-weight: 700;
+        font-size: 1.3rem;
+        color: var(--gs-branco);
+    }
+    .gs-topo-marca span { color: var(--gs-amarelo); }
+
+    .gs-btn-menu {
+        display: none;
+        background: transparent;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--gs-branco);
+        padding: 0.4rem;
+    }
+
+    .gs-topo-direita { display: flex; align-items: center; gap: 0.6rem; }
+
+    .gs-btn-topo {
+        background: transparent;
+        border: none;
+        font-size: 1.25rem;
+        color: var(--gs-branco);
+        padding: 0.55rem;
+        border-radius: 50%;
+        transition: background 0.2s;
+    }
+    .gs-btn-topo:hover { background-color: rgba(255,255,255,0.1); }
+
+    @media (max-width: 860px) {
+        .gs-btn-menu { display: block; }
+    }
+</style>
+
+<header class="gs-topo">
+    <div class="gs-topo-esquerda">
+        <button class="gs-btn-menu" id="gs-btn-abrir-sidebar" aria-label="Abrir menu">☰</button>
+        <a href="#" id="gs-link-home" class="gs-topo-marca">⚡ GS <span>Elétrica</span></a>
+    </div>
+
+    <div class="gs-topo-direita">
+        <button class="gs-btn-topo" id="gs-btn-tema" aria-label="Alternar tema claro/escuro">🌙</button>
+    </div>
+</header>
+
+<script>
+    document.getElementById('gs-btn-abrir-sidebar')?.addEventListener('click', () => {
+        document.getElementById('gs-menu-lateral')?.classList.toggle('gs-visivel');
+    });
+
+    document.getElementById('gs-btn-tema')?.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('gs-tema', document.body.classList.contains('dark-mode') ? 'escuro' : 'claro');
+    });
+
+    // Ajusta o link da marca conforme a profundidade da página (definida em data-base do <body>)
+    (function() {
+        const base = document.body.dataset.base || './';
+        const link = document.getElementById('gs-link-home');
+        if (link) link.setAttribute('href', `${base}index.html`);
+    })();
+</script>

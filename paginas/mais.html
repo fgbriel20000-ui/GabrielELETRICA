@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mais — GS Elétrica</title>
+
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0B1F3A">
+<link rel="apple-touch-icon" href="../icones/icone-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/estilo.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+    body { padding-top: var(--gs-altura-header); }
+    @media (min-width: 861px) {
+        main, #gs-footer { margin-left: var(--gs-largura-sidebar); }
+    }
+
+    .pagina-cabecalho { padding: 2rem 0 1rem; }
+    .pagina-cabecalho h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .pagina-cabecalho p { color: var(--gs-texto-claro); }
+
+    /* ===== Abas ===== */
+    .abas {
+        display: flex;
+        gap: 0.5rem;
+        border-bottom: 1px solid var(--gs-borda);
+        margin-bottom: 2rem;
+        overflow-x: auto;
+    }
+    .aba-botao {
+        background: none;
+        border: none;
+        padding: 0.85rem 1.25rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--gs-texto-claro);
+        border-bottom: 3px solid transparent;
+        white-space: nowrap;
+    }
+    .aba-botao.ativa {
+        color: var(--gs-amarelo-forte);
+        border-bottom-color: var(--gs-amarelo);
+    }
+
+    .painel-aba { display: none; padding-bottom: 3rem; }
+    .painel-aba.ativa { display: block; }
+
+    /* ===== Recibos ===== */
+    .layout-recibo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
+    @media (max-width: 980px) { .layout-recibo { grid-template-columns: 1fr; } }
+
+    #folha-recibo {
+        background: #fff; color: #101828;
+        padding: 2rem; border: 1px solid var(--gs-borda); border-radius: var(--gs-raio);
+        font-size: 0.92rem;
+    }
+    .rc-cabecalho { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; }
+    .rc-marca { display: flex; align-items: center; gap: 0.6rem; }
+    .rc-logo {
+        width: 46px; height: 46px; border-radius: 8px;
+        background: linear-gradient(135deg, var(--gs-amarelo), var(--gs-laranja));
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 700; color: #0B1F3A; font-family: var(--gs-fonte-titulo); font-size: 1.1rem;
+    }
+    .rc-marca-texto strong { display: block; font-size: 1.05rem; }
+    .rc-marca-texto span { font-size: 0.78rem; color: #5B6472; }
+    .rc-doc-info { text-align: right; font-size: 0.82rem; color: #5B6472; }
+    .rc-doc-info strong { color: #101828; display: block; font-size: 1.15rem; font-family: var(--gs-fonte-titulo); }
+    .rc-divisor { border: none; border-top: 1px solid #E3E7EE; margin: 1rem 0; }
+    .rc-valor { text-align: center; padding: 1.25rem 0; }
+    .rc-valor .numero { font-family: var(--gs-fonte-titulo); font-weight: 700; font-size: 2rem; color: var(--gs-amarelo-forte); }
+    .rc-assinatura { margin-top: 2.5rem; text-align: center; }
+    .rc-assinatura .linha { border-top: 1px solid #101828; width: 260px; margin: 0 auto 0.4rem; }
+    .rc-vazio { text-align: center; color: #9AA6B8; padding: 3rem 1rem; }
+
+    /* ===== Biblioteca ===== */
+    .grade-normas { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+    .card-norma { border-top: 3px solid var(--gs-amarelo); }
+    .card-norma h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+    .card-norma p { font-size: 0.9rem; color: var(--gs-texto-claro); }
+
+    table.tabela-tecnica { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+    table.tabela-tecnica th, table.tabela-tecnica td {
+        border: 1px solid var(--gs-borda); padding: 0.6rem 0.75rem; text-align: center; font-size: 0.9rem;
+    }
+    table.tabela-tecnica th { background: rgba(245,180,0,0.1); color: var(--gs-texto); }
+
+    /* ===== Configurações ===== */
+    .lista-config { display: flex; flex-direction: column; gap: 1rem; max-width: 480px; }
+    .linha-config {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 1rem 1.25rem;
+    }
+    .linha-config h4 { font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .linha-config p { font-size: 0.82rem; color: var(--gs-texto-claro); }
+
+    .interruptor { position: relative; width: 46px; height: 26px; flex-shrink: 0; }
+    .interruptor input { opacity: 0; width: 0; height: 0; }
+    .interruptor .trilho {
+        position: absolute; inset: 0; background: var(--gs-borda); border-radius: 999px; cursor: pointer; transition: 0.2s;
+    }
+    .interruptor .trilho::before {
+        content: ''; position: absolute; width: 20px; height: 20px; left: 3px; top: 3px;
+        background: #fff; border-radius: 50%; transition: 0.2s;
+    }
+    .interruptor input:checked + .trilho { background: var(--gs-amarelo); }
+    .interruptor input:checked + .trilho::before { transform: translateX(20px); }
+
+    @media print {
+        #gs-header, #gs-sidebar, #gs-footer, .abas, .pagina-cabecalho, .layout-recibo > div:first-child { display: none !important; }
+        main, #gs-footer { margin-left: 0 !important; }
+        #folha-recibo { border: none; padding: 0; }
+    }
+</style>
+</head>
+<body data-base="../" data-pagina="mais">
+
+<div id="gs-header"></div>
+<div id="gs-sidebar"></div>
+
+<main>
+    <div class="container pagina-cabecalho">
+        <h1>Mais</h1>
+        <p>Recibos, biblioteca técnica e configurações do sistema, tudo em um só lugar.</p>
+    </div>
+
+    <div class="container">
+        <div class="abas">
+            <button class="aba-botao ativa" data-aba="recibos">🧾 Recibos</button>
+            <button class="aba-botao" data-aba="biblioteca">📚 Biblioteca</button>
+            <button class="aba-botao" data-aba="configuracoes">⚙️ Configurações</button>
+        </div>
+
+        <!-- ===================== ABA: RECIBOS ===================== -->
+        <section class="painel-aba ativa" id="painel-recibos">
+            <div class="layout-recibo">
+                <div class="card">
+                    <h2 style="margin-bottom:1rem; font-size:1.05rem;">Novo recibo</h2>
+                    <form id="form-recibo">
+                        <div class="campo"><label for="rc-cliente">Nome do cliente</label><input type="text" id="rc-cliente" required></div>
+                        <div class="campo"><label for="rc-servico">Referente a</label><input type="text" id="rc-servico" placeholder="Ex: Instalação elétrica" required></div>
+                        <div class="campo"><label for="rc-valor">Valor recebido (R$)</label><input type="number" id="rc-valor" min="0" step="0.01" required></div>
+                        <div class="campo"><label for="rc-forma">Forma de pagamento</label>
+                            <select id="rc-forma">
+                                <option>Dinheiro</option>
+                                <option>Pix</option>
+                                <option>Cartão de Crédito</option>
+                                <option>Boleto</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primario btn-bloco">Gerar recibo</button>
+                    </form>
+                </div>
+
+                <div>
+                    <div id="folha-recibo">
+                        <div class="rc-vazio" id="rc-vazio">🧾 Preencha o formulário para gerar o recibo aqui.</div>
+                        <div id="rc-conteudo" style="display:none;">
+                            <div class="rc-cabecalho">
+                                <div class="rc-marca">
+                                    <div class="rc-logo">GS</div>
+                                    <div class="rc-marca-texto"><strong>GS Elétrica</strong><span>Recibo de pagamento</span></div>
+                                </div>
+                                <div class="rc-doc-info"><strong id="rc-numero">—</strong><span id="rc-data">—</span></div>
+                            </div>
+                            <hr class="rc-divisor">
+                            <p>Recebi de <strong id="rc-out-cliente">—</strong> o valor referente a <strong id="rc-out-servico">—</strong>.</p>
+                            <div class="rc-valor">
+                                <div class="numero" id="rc-out-valor">R$ 0,00</div>
+                                <p id="rc-out-forma" class="texto-claro">—</p>
+                            </div>
+                            <hr class="rc-divisor">
+                            <div class="rc-assinatura">
+                                <div class="linha"></div>
+                                <span>Assinatura GS Elétrica</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="acoes-form mt-1" id="rc-acoes" style="display:none; gap:0.75rem;">
+                        <button type="button" class="btn btn-secundario" id="btn-baixar-recibo">Baixar PDF</button>
+                        <button type="button" class="btn btn-contorno" id="btn-imprimir-recibo">Imprimir</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== ABA: BIBLIOTECA ===================== -->
+        <section class="painel-aba" id="painel-biblioteca">
+            <div class="grade-normas">
+                <div class="card card-norma">
+                    <h3>NBR 5410</h3>
+                    <p>Instalações elétricas de baixa tensão — dimensionamento, proteção e segurança.</p>
+                </div>
+                <div class="card card-norma">
+                    <h3>NR-10</h3>
+                    <p>Segurança em instalações e serviços em eletricidade.</p>
+                </div>
+                <div class="card card-norma">
+                    <h3>NBR 14713</h3>
+                    <p>Disjuntores de baixa tensão — requisitos e ensaios.</p>
+                </div>
+            </div>
+
+            <h3 class="mb-1">Bitola x corrente máxima (referência geral, cobre, PVC)</h3>
+            <table class="tabela-tecnica">
+                <thead><tr><th>Bitola (mm²)</th><th>Corrente máx. (A)</th></tr></thead>
+                <tbody>
+                    <tr><td>1,5</td><td>17,5</td></tr>
+                    <tr><td>2,5</td><td>24</td></tr>
+                    <tr><td>4</td><td>32</td></tr>
+                    <tr><td>6</td><td>41</td></tr>
+                    <tr><td>10</td><td>57</td></tr>
+                    <tr><td>16</td><td>76</td></tr>
+                </tbody>
+            </table>
+            <p class="texto-claro" style="font-size:0.85rem;">Valores de referência para método de instalação B1, cabos unipolares. Sempre confirme com a tabela oficial da NBR 5410 para o método de instalação real.</p>
+        </section>
+
+        <!-- ===================== ABA: CONFIGURAÇÕES ===================== -->
+        <section class="painel-aba" id="painel-configuracoes">
+            <div class="lista-config">
+                <div class="card linha-config">
+                    <div>
+                        <h4>Tema escuro</h4>
+                        <p>Alterna entre tema claro e escuro no sistema.</p>
+                    </div>
+                    <label class="interruptor">
+                        <input type="checkbox" id="config-tema-escuro">
+                        <span class="trilho"></span>
+                    </label>
+                </div>
+
+                <div class="card linha-config">
+                    <div>
+                        <h4>Fazer backup dos dados</h4>
+                        <p>Baixa um arquivo com clientes, orçamentos e agenda.</p>
+                    </div>
+                    <button class="btn btn-contorno" id="btn-exportar-backup">Exportar</button>
+                </div>
+
+                <div class="card linha-config">
+                    <div>
+                        <h4>Restaurar backup</h4>
+                        <p>Importa um arquivo de backup salvo anteriormente.</p>
+                    </div>
+                    <label class="btn btn-contorno" style="cursor:pointer;">
+                        Importar
+                        <input type="file" id="input-importar-backup" accept="application/json" style="display:none;">
+                    </label>
+                </div>
+
+                <div class="card linha-config">
+                    <div>
+                        <h4>Limpar todos os dados</h4>
+                        <p>Apaga clientes, orçamentos, recibos e agenda deste aparelho.</p>
+                    </div>
+                    <button class="btn btn-contorno" style="border-color:var(--gs-erro); color:var(--gs-erro);" id="btn-limpar-dados">Limpar</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<div id="gs-footer"></div>
+<div id="gs-modal-slot"></div>
+
+<script src="../js/componentes.js"></script>
+<script src="../js/mais.js"></script>
+
+</body>
+</html>

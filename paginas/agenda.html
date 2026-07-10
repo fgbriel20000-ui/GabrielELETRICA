@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agenda — GS Elétrica</title>
+
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0B1F3A">
+<link rel="apple-touch-icon" href="../icones/icone-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/estilo.css">
+
+<style>
+    body { padding-top: var(--gs-altura-header); }
+    @media (min-width: 861px) {
+        main, #gs-footer { margin-left: var(--gs-largura-sidebar); }
+    }
+
+    .pagina-cabecalho {
+        padding: 2rem 0 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .pagina-cabecalho h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .pagina-cabecalho p { color: var(--gs-texto-claro); }
+
+    /* ===== Card de destaque: próximo compromisso ===== */
+    .card-proximo {
+        background: linear-gradient(135deg, var(--gs-azul-profundo) 0%, var(--gs-azul) 100%);
+        color: #fff;
+        border-radius: var(--gs-raio);
+        padding: 1.75rem;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+    .card-proximo::after {
+        content: '';
+        position: absolute;
+        right: -40px; top: -40px;
+        width: 220px; height: 220px;
+        background: radial-gradient(circle, rgba(245,180,0,0.18) 0%, transparent 70%);
+    }
+    .card-proximo .rotulo {
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: var(--gs-amarelo);
+        margin-bottom: 0.5rem;
+    }
+    .card-proximo h2 { color: #fff; font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .card-proximo p { color: #C9D4E8; font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .card-proximo .contagem {
+        display: inline-block;
+        margin-top: 0.75rem;
+        background: rgba(245, 180, 0, 0.16);
+        color: var(--gs-amarelo);
+        font-weight: 700;
+        padding: 0.35rem 0.9rem;
+        border-radius: 999px;
+        font-size: 0.85rem;
+    }
+
+    .barra-acoes { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem; }
+    .barra-acoes h3 { font-size: 1.1rem; }
+
+    .lista-compromissos { display: flex; flex-direction: column; gap: 0.75rem; padding-bottom: 3rem; }
+
+    .item-compromisso {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.25rem;
+    }
+
+    .item-data {
+        text-align: center;
+        min-width: 62px;
+        border-right: 1px solid var(--gs-borda);
+        padding-right: 1rem;
+    }
+    .item-data .dia { font-family: var(--gs-fonte-titulo); font-weight: 700; font-size: 1.4rem; color: var(--gs-amarelo-forte); line-height: 1; }
+    .item-data .mes { font-size: 0.75rem; color: var(--gs-texto-claro); text-transform: uppercase; }
+
+    .item-info { flex: 1; }
+    .item-info h4 { font-size: 1rem; margin-bottom: 0.2rem; }
+    .item-info p { font-size: 0.88rem; color: var(--gs-texto-claro); }
+
+    .item-acoes { display: flex; gap: 0.5rem; }
+    .item-acoes button { background: none; border: none; font-size: 1.1rem; padding: 0.4rem; color: var(--gs-texto-claro); }
+    .item-acoes button:hover { color: var(--gs-erro); }
+
+    .item-passado { opacity: 0.5; }
+
+    .estado-vazio { text-align: center; color: var(--gs-texto-claro); padding: 3rem 1rem; }
+
+    .aviso-notificacao {
+        display: none;
+        background: rgba(245, 180, 0, 0.12);
+        border: 1px solid var(--gs-amarelo);
+        border-radius: var(--gs-raio-peq);
+        padding: 0.85rem 1.1rem;
+        font-size: 0.88rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+</style>
+</head>
+<body data-base="../" data-pagina="agenda">
+
+<div id="gs-header"></div>
+<div id="gs-sidebar"></div>
+
+<main>
+    <div class="container pagina-cabecalho">
+        <div>
+            <h1>Agenda</h1>
+            <p>Veja o próximo trabalho e todos os compromissos marcados.</p>
+        </div>
+        <button class="btn btn-primario" id="btn-novo-compromisso">+ Novo compromisso</button>
+    </div>
+
+    <div class="container">
+        <div class="aviso-notificacao" id="aviso-notificacao">
+            <span>🔔 Ative as notificações pra ser avisado quando um compromisso estiver chegando.</span>
+            <button class="btn btn-contorno" id="btn-ativar-notificacao">Ativar notificações</button>
+        </div>
+
+        <div id="card-proximo"></div>
+
+        <div class="barra-acoes">
+            <h3>Todos os compromissos</h3>
+        </div>
+
+        <div class="lista-compromissos" id="lista-compromissos"></div>
+    </div>
+</main>
+
+<div id="gs-footer"></div>
+<div id="gs-modal-slot"></div>
+
+<script src="../js/componentes.js"></script>
+<script src="../js/agenda.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orçamentos — GS Elétrica</title>
+
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0B1F3A">
+<link rel="apple-touch-icon" href="../icones/icone-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/estilo.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+    body { padding-top: var(--gs-altura-header); }
+    @media (min-width: 861px) {
+        main, #gs-footer { margin-left: var(--gs-largura-sidebar); }
+    }
+
+    .pagina-cabecalho { padding: 2rem 0 1rem; }
+    .pagina-cabecalho h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .pagina-cabecalho p { color: var(--gs-texto-claro); }
+
+    .layout-orcamento {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        padding-bottom: 3rem;
+        align-items: start;
+    }
+    @media (max-width: 980px) { .layout-orcamento { grid-template-columns: 1fr; } }
+
+    .card-form h2, .card-preview h2 {
+        font-size: 1.05rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--gs-borda);
+    }
+
+    fieldset { border: none; margin-bottom: 1.25rem; }
+    legend {
+        font-family: var(--gs-fonte-titulo);
+        font-weight: 700;
+        color: var(--gs-amarelo-forte);
+        font-size: 0.95rem;
+        margin-bottom: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .checkbox-linha { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; font-size: 0.92rem; }
+    .checkbox-linha input { width: auto; }
+
+    .acoes-form { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+
+    /* ===== Preview do orçamento (o que vira PDF) ===== */
+    .card-preview { position: sticky; top: calc(var(--gs-altura-header) + 1.5rem); }
+
+    #folha-orcamento {
+        background: #fff;
+        color: #101828;
+        padding: 2rem;
+        border: 1px solid var(--gs-borda);
+        border-radius: var(--gs-raio);
+        font-size: 0.92rem;
+    }
+
+    .of-cabecalho { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; }
+    .of-marca { display: flex; align-items: center; gap: 0.6rem; }
+    .of-logo {
+        width: 46px; height: 46px; border-radius: 8px;
+        background: linear-gradient(135deg, var(--gs-amarelo), var(--gs-laranja));
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 700; color: #0B1F3A; font-family: var(--gs-fonte-titulo); font-size: 1.1rem;
+    }
+    .of-marca-texto strong { display: block; font-size: 1.05rem; }
+    .of-marca-texto span { font-size: 0.78rem; color: #5B6472; }
+
+    .of-doc-info { text-align: right; font-size: 0.82rem; color: #5B6472; }
+    .of-doc-info strong { color: #101828; display: block; font-size: 1.15rem; font-family: var(--gs-fonte-titulo); }
+
+    .of-divisor { border: none; border-top: 1px solid #E3E7EE; margin: 1rem 0; }
+
+    .of-bloco-titulo { font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: #5B6472; margin-bottom: 0.4rem; }
+
+    .of-grade { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .of-grade p { margin-bottom: 0.15rem; }
+
+    .of-tabela-servico { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    .of-tabela-servico th, .of-tabela-servico td { text-align: left; padding: 0.6rem 0.5rem; border-bottom: 1px solid #E3E7EE; font-size: 0.9rem; }
+    .of-tabela-servico th { color: #5B6472; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; }
+    .of-total { text-align: right; font-weight: 700; font-size: 1.1rem; margin-top: 0.5rem; }
+    .of-total span { color: var(--gs-amarelo-forte); }
+
+    .of-assinatura { margin-top: 2.5rem; text-align: center; }
+    .of-assinatura .linha { border-top: 1px solid #101828; width: 260px; margin: 0 auto 0.4rem; }
+
+    .of-vazio { text-align: center; color: #9AA6B8; padding: 3rem 1rem; }
+
+    @media print {
+        #gs-header, #gs-sidebar, #gs-footer, .card-form, .pagina-cabecalho, .btn { display: none !important; }
+        main, #gs-footer { margin-left: 0 !important; }
+        .card-preview { position: static; }
+        #folha-orcamento { border: none; padding: 0; }
+    }
+</style>
+</head>
+<body data-base="../" data-pagina="orcamentos">
+
+<div id="gs-header"></div>
+<div id="gs-sidebar"></div>
+
+<main>
+    <div class="container pagina-cabecalho">
+        <h1>Orçamentos</h1>
+        <p>Preencha os dados do cliente e do serviço para gerar um orçamento detalhado.</p>
+    </div>
+
+    <div class="container layout-orcamento">
+
+        <!-- ===== FORMULÁRIO ===== -->
+        <section class="card card-form">
+            <h2>Novo orçamento</h2>
+            <form id="form-orcamento">
+
+                <fieldset>
+                    <legend>Dados do cliente</legend>
+                    <div class="campo">
+                        <label for="cliente-nome">Nome do cliente</label>
+                        <input type="text" id="cliente-nome" required>
+                    </div>
+                    <div class="linha-campos">
+                        <div class="campo">
+                            <label for="cliente-telefone">Telefone</label>
+                            <input type="tel" id="cliente-telefone" placeholder="(00) 00000-0000" required>
+                        </div>
+                        <div class="campo">
+                            <label for="cliente-cpf">CPF</label>
+                            <input type="text" id="cliente-cpf" placeholder="000.000.000-00" required>
+                        </div>
+                    </div>
+                    <div class="campo">
+                        <label for="cliente-endereco">Endereço</label>
+                        <input type="text" id="cliente-endereco" placeholder="Rua, número, bairro, cidade" required>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Dados do serviço</legend>
+                    <div class="campo">
+                        <label for="servico-descricao">O que foi o serviço</label>
+                        <textarea id="servico-descricao" rows="3" required></textarea>
+                    </div>
+                    <div class="linha-campos">
+                        <div class="campo">
+                            <label for="servico-valor">Valor (R$)</label>
+                            <input type="number" id="servico-valor" min="0" step="0.01" required>
+                        </div>
+                        <div class="campo">
+                            <label for="servico-local">Local do serviço</label>
+                            <input type="text" id="servico-local" placeholder="Onde o serviço foi realizado" required>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Condições</legend>
+                    <div class="linha-campos">
+                        <div class="campo">
+                            <label for="validade-dias">Validade do orçamento (dias)</label>
+                            <input type="number" id="validade-dias" value="7" min="1">
+                        </div>
+                        <div class="campo">
+                            <label for="garantia-dias">Garantia da mão de obra (dias)</label>
+                            <input type="number" id="garantia-dias" value="90" min="0">
+                        </div>
+                    </div>
+
+                    <label style="font-weight:600; font-size:0.9rem; display:block; margin-bottom:0.5rem;">Formas de pagamento aceitas</label>
+                    <div class="checkbox-linha"><input type="checkbox" id="pg-dinheiro" checked><label for="pg-dinheiro">Dinheiro</label></div>
+                    <div class="checkbox-linha"><input type="checkbox" id="pg-cartao" checked><label for="pg-cartao">Cartão de Crédito</label></div>
+                    <div class="checkbox-linha"><input type="checkbox" id="pg-boleto"><label for="pg-boleto">Boleto</label></div>
+                    <div class="checkbox-linha"><input type="checkbox" id="pg-pix" checked><label for="pg-pix">Pix</label></div>
+
+                    <div class="campo mt-1">
+                        <label for="observacoes">Observações adicionais</label>
+                        <textarea id="observacoes" rows="2"></textarea>
+                    </div>
+                </fieldset>
+
+                <div class="acoes-form">
+                    <button type="submit" class="btn btn-primario">Gerar orçamento</button>
+                    <button type="button" class="btn btn-contorno" id="btn-limpar">Limpar</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- ===== PREVIEW / DOCUMENTO GERADO ===== -->
+        <section class="card card-preview">
+            <h2>Pré-visualização</h2>
+
+            <div id="folha-orcamento">
+                <div class="of-vazio" id="of-vazio">
+                    📋 Preencha o formulário e clique em <strong>Gerar orçamento</strong> para ver o documento aqui.
+                </div>
+
+                <div id="of-conteudo" style="display:none;">
+                    <div class="of-cabecalho">
+                        <div class="of-marca">
+                            <div class="of-logo">GS</div>
+                            <div class="of-marca-texto">
+                                <strong>GS Elétrica</strong>
+                                <span>Instalações e manutenções elétricas</span>
+                            </div>
+                        </div>
+                        <div class="of-doc-info">
+                            <strong id="of-numero">—</strong>
+                            <span id="of-data">—</span>
+                        </div>
+                    </div>
+
+                    <hr class="of-divisor">
+
+                    <div class="of-grade">
+                        <div>
+                            <p class="of-bloco-titulo">Cliente</p>
+                            <p id="of-cliente-nome">—</p>
+                            <p id="of-cliente-telefone">—</p>
+                            <p id="of-cliente-cpf">—</p>
+                        </div>
+                        <div>
+                            <p class="of-bloco-titulo">Endereço / Local</p>
+                            <p id="of-cliente-endereco">—</p>
+                            <p id="of-servico-local">—</p>
+                        </div>
+                    </div>
+
+                    <p class="of-bloco-titulo">Serviço</p>
+                    <table class="of-tabela-servico">
+                        <thead><tr><th>Descrição</th><th>Valor</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td id="of-servico-descricao">—</td>
+                                <td id="of-servico-valor">—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="of-total">Total: <span id="of-total">R$ 0,00</span></p>
+
+                    <hr class="of-divisor">
+
+                    <p class="of-bloco-titulo">Condições</p>
+                    <p id="of-condicoes">—</p>
+
+                    <p class="of-bloco-titulo mt-1">Observações</p>
+                    <p id="of-observacoes">—</p>
+
+                    <div class="of-assinatura">
+                        <div class="linha"></div>
+                        <span>Assinatura GS Elétrica</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="acoes-form" id="acoes-preview" style="display:none;">
+                <button type="button" class="btn btn-secundario" id="btn-baixar-pdf">Baixar PDF</button>
+                <button type="button" class="btn btn-contorno" id="btn-imprimir">Imprimir</button>
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<div id="gs-footer"></div>
+<div id="gs-modal-slot"></div>
+
+<script src="../js/componentes.js"></script>
+<script src="../js/orcamentos.js"></script>
+
+</body>
+</html>

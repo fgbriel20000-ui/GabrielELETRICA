@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clientes — GS Elétrica</title>
+
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0B1F3A">
+<link rel="apple-touch-icon" href="../icones/icone-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/estilo.css">
+
+<style>
+    body { padding-top: var(--gs-altura-header); }
+    @media (min-width: 861px) {
+        main, #gs-footer { margin-left: var(--gs-largura-sidebar); }
+    }
+
+    .pagina-cabecalho {
+        padding: 2rem 0 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .pagina-cabecalho h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .pagina-cabecalho p { color: var(--gs-texto-claro); }
+
+    .barra-busca { padding-bottom: 1.5rem; }
+    .barra-busca input {
+        width: 100%;
+        max-width: 360px;
+        padding: 0.75rem 1rem;
+        border: 1.5px solid var(--gs-borda);
+        border-radius: var(--gs-raio-peq);
+        font-size: 0.95rem;
+    }
+    .barra-busca input:focus { outline: none; border-color: var(--gs-amarelo); }
+
+    .grade-clientes {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.25rem;
+        padding-bottom: 3rem;
+    }
+
+    .card-cliente {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .card-cliente-topo { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+
+    .avatar-cliente {
+        width: 42px; height: 42px;
+        border-radius: 50%;
+        background: rgba(245, 180, 0, 0.16);
+        color: var(--gs-amarelo-forte);
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 700;
+        font-family: var(--gs-fonte-titulo);
+        flex-shrink: 0;
+    }
+
+    .card-cliente h3 { font-size: 1rem; }
+    .card-cliente p { font-size: 0.88rem; color: var(--gs-texto-claro); }
+
+    .card-cliente-acoes { display: flex; gap: 0.6rem; margin-top: 0.75rem; }
+    .link-acao {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--gs-amarelo-forte);
+        background: none;
+        border: none;
+        padding: 0;
+    }
+    .link-acao.excluir { color: var(--gs-erro); }
+
+    .estado-vazio {
+        text-align: center;
+        color: var(--gs-texto-claro);
+        padding: 3.5rem 1rem;
+        grid-column: 1 / -1;
+    }
+
+    .lista-historico { list-style: none; }
+    .lista-historico li {
+        padding: 0.6rem 0;
+        border-bottom: 1px solid var(--gs-borda);
+        font-size: 0.9rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+    .lista-historico li:last-child { border-bottom: none; }
+</style>
+</head>
+<body data-base="../" data-pagina="clientes">
+
+<div id="gs-header"></div>
+<div id="gs-sidebar"></div>
+
+<main>
+    <div class="container pagina-cabecalho">
+        <div>
+            <h1>Clientes</h1>
+            <p>Clientes cadastrados manualmente e clientes com orçamentos já gerados.</p>
+        </div>
+        <button class="btn btn-primario" id="btn-novo-cliente">+ Novo cliente</button>
+    </div>
+
+    <div class="container barra-busca">
+        <input type="search" id="busca-cliente" placeholder="Buscar cliente por nome ou telefone...">
+    </div>
+
+    <div class="container grade-clientes" id="grade-clientes">
+        <!-- Cards de cliente são inseridos aqui via JS -->
+    </div>
+</main>
+
+<div id="gs-footer"></div>
+<div id="gs-modal-slot"></div>
+
+<script src="../js/componentes.js"></script>
+<script src="../js/clientes.js"></script>
+
+</body>
+</html>

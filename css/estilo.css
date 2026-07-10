@@ -1,0 +1,220 @@
+/* =========================================================
+   GS ELÉTRICA — DESIGN SYSTEM
+   Paleta: amarelo energia, azul confiança, laranja fio/cobre
+   ========================================================= */
+
+:root {
+    /* Paleta principal */
+    --gs-azul-profundo: #0B1F3A;   /* fundo escuro / header / rodapé */
+    --gs-azul: #14356B;             /* azul secundário, cards escuros */
+    --gs-amarelo: #F5B400;          /* cor de destaque principal */
+    --gs-amarelo-forte: #E0A100;    /* hover/estados do amarelo */
+    --gs-laranja: #FF6A1A;          /* acento de "fio/cobre", usado com moderação */
+
+    /* Neutros */
+    --gs-fundo: #F7F8FA;
+    --gs-fundo-card: #FFFFFF;
+    --gs-borda: #E3E7EE;
+    --gs-texto: #101828;
+    --gs-texto-claro: #5B6472;
+    --gs-branco: #FFFFFF;
+
+    /* Estados */
+    --gs-sucesso: #1F9D55;
+    --gs-erro: #E23D3D;
+    --gs-aviso: #F5B400;
+
+    /* Layout */
+    --gs-raio: 10px;
+    --gs-raio-peq: 6px;
+    --gs-sombra: 0 2px 10px rgba(11, 31, 58, 0.08);
+    --gs-sombra-media: 0 8px 28px rgba(11, 31, 58, 0.14);
+    --gs-largura-max: 1180px;
+    --gs-altura-header: 76px;
+    --gs-largura-sidebar: 250px;
+
+    /* Tipografia */
+    --gs-fonte-titulo: 'Rajdhani', 'Segoe UI', sans-serif;
+    --gs-fonte-corpo: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Modo escuro (opcional, aplicado via classe no body) */
+.dark-mode {
+    --gs-fundo: #0B1420;
+    --gs-fundo-card: #14213A;
+    --gs-borda: #223252;
+    --gs-texto: #F1F4F9;
+    --gs-texto-claro: #9AA6B8;
+}
+
+/* =========================================================
+   RESET E BASE
+   ========================================================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--gs-fonte-corpo);
+    background-color: var(--gs-fundo);
+    color: var(--gs-texto);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--gs-fonte-titulo);
+    font-weight: 700;
+    color: var(--gs-texto);
+    line-height: 1.2;
+}
+
+a { color: inherit; text-decoration: none; }
+
+img { max-width: 100%; display: block; }
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* Foco visível para acessibilidade (navegação por teclado) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--gs-laranja);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+.container {
+    width: 100%;
+    max-width: var(--gs-largura-max);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* =========================================================
+   ELEMENTO DE ASSINATURA: FAIXA ELÉTRICA
+   Listra amarelo/azul usada com moderação como divisor
+   de seção — referência visual à fita de sinalização elétrica
+   ========================================================= */
+.faixa-eletrica {
+    height: 6px;
+    width: 100%;
+    background: repeating-linear-gradient(
+        135deg,
+        var(--gs-amarelo) 0px,
+        var(--gs-amarelo) 22px,
+        var(--gs-azul-profundo) 22px,
+        var(--gs-azul-profundo) 44px
+    );
+}
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.6rem;
+    border-radius: var(--gs-raio-peq);
+    border: none;
+    font-weight: 600;
+    font-size: 0.98rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.btn-primario {
+    background-color: var(--gs-amarelo);
+    color: var(--gs-azul-profundo);
+}
+.btn-primario:hover { filter: brightness(1.05); transform: translateY(-1px); box-shadow: var(--gs-sombra-media); }
+
+.btn-secundario {
+    background-color: var(--gs-azul-profundo);
+    color: var(--gs-branco);
+}
+.btn-secundario:hover { filter: brightness(1.15); transform: translateY(-1px); }
+
+.btn-contorno {
+    background-color: transparent;
+    border: 1.5px solid var(--gs-borda);
+    color: var(--gs-texto);
+}
+.btn-contorno:hover { border-color: var(--gs-amarelo); }
+
+.btn-bloco { width: 100%; }
+
+/* =========================================================
+   FORMULÁRIOS
+   ========================================================= */
+.campo {
+    margin-bottom: 1.1rem;
+}
+
+.campo label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    color: var(--gs-texto);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    border: 1.5px solid var(--gs-borda);
+    border-radius: var(--gs-raio-peq);
+    background-color: var(--gs-fundo-card);
+    color: var(--gs-texto);
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: var(--gs-amarelo);
+    box-shadow: 0 0 0 3px rgba(245, 180, 0, 0.18);
+}
+
+.linha-campos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 640px) {
+    .linha-campos { grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+.card {
+    background-color: var(--gs-fundo-card);
+    border: 1px solid var(--gs-borda);
+    border-radius: var(--gs-raio);
+    padding: 1.5rem;
+    box-shadow: var(--gs-sombra);
+}
+
+/* =========================================================
+   UTILITÁRIOS
+   ========================================================= */
+.texto-destaque { color: var(--gs-amarelo-forte); }
+.texto-laranja { color: var(--gs-laranja); }
+.texto-claro { color: var(--gs-texto-claro); }
+.mt-1 { margin-top: 1rem; } .mt-2 { margin-top: 2rem; } .mt-3 { margin-top: 3rem; }
+.mb-1 { margin-bottom: 1rem; } .mb-2 { margin-bottom: 2rem; } .mb-3 { margin-bottom: 3rem; }

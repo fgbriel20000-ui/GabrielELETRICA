@@ -1,0 +1,26 @@
+{
+  "name": "GS Elétrica",
+  "short_name": "GS Elétrica",
+  "description": "Orçamentos, clientes e agenda para instalações e manutenções elétricas.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0B1F3A",
+  "theme_color": "#0B1F3A",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "icones/icone-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icones/icone-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

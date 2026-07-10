@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GS Elétrica — Instalações e Manutenções Elétricas</title>
+<meta name="description" content="GS Elétrica: orçamentos, instalações e manutenções elétricas residenciais e comerciais em Natal/RN.">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0B1F3A">
+<link rel="apple-touch-icon" href="icones/icone-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css">
+
+<style>
+    /* ===== Estilos específicos da Home ===== */
+    body { padding-top: var(--gs-altura-header); }
+
+    @media (min-width: 861px) {
+        main, #gs-footer { margin-left: var(--gs-largura-sidebar); }
+    }
+
+    .hero {
+        background: linear-gradient(135deg, var(--gs-azul-profundo) 0%, var(--gs-azul) 100%);
+        color: var(--gs-branco);
+        padding: 5rem 0 4rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::after {
+        content: '';
+        position: absolute;
+        right: -60px; top: -60px;
+        width: 320px; height: 320px;
+        background: radial-gradient(circle, rgba(245,180,0,0.18) 0%, transparent 70%);
+    }
+
+    .hero-conteudo { max-width: 620px; position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--gs-amarelo);
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.2rem, 5vw, 3.4rem);
+        color: var(--gs-branco);
+        margin-bottom: 1.1rem;
+    }
+
+    .hero h1 span { color: var(--gs-amarelo); }
+
+    .hero p {
+        color: #C9D4E8;
+        font-size: 1.08rem;
+        margin-bottom: 2rem;
+        max-width: 520px;
+    }
+
+    .hero-acoes { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .secao { padding: 4rem 0; }
+
+    .secao-titulo { text-align: center; max-width: 640px; margin: 0 auto 2.5rem; }
+    .secao-titulo h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin-bottom: 0.6rem; }
+    .secao-titulo p { color: var(--gs-texto-claro); }
+
+    .grade-servicos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .card-servico {
+        text-align: left;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border-top: 3px solid var(--gs-amarelo);
+    }
+    .card-servico:hover { transform: translateY(-4px); box-shadow: var(--gs-sombra-media); }
+
+    .card-servico .icone {
+        width: 48px; height: 48px;
+        border-radius: 50%;
+        background: rgba(245, 180, 0, 0.14);
+        color: var(--gs-amarelo-forte);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .card-servico h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .card-servico p { color: var(--gs-texto-claro); font-size: 0.94rem; }
+
+    .faixa-cta {
+        background-color: var(--gs-azul-profundo);
+        color: var(--gs-branco);
+        text-align: center;
+        padding: 3.5rem 0;
+    }
+    .faixa-cta h2 { color: var(--gs-branco); margin-bottom: 0.75rem; }
+    .faixa-cta p { color: #C9D4E8; margin-bottom: 1.75rem; }
+
+    .selo-normas {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 3rem;
+        color: var(--gs-texto-claro);
+        font-size: 0.85rem;
+    }
+    .selo-normas span { border: 1px solid var(--gs-borda); border-radius: 999px; padding: 0.4rem 0.9rem; }
+</style>
+</head>
+<body data-base="./" data-pagina="inicio">
+
+<div id="gs-header"></div>
+<div id="gs-sidebar"></div>
+
+<main>
+
+    <section class="hero">
+        <div class="container hero-conteudo">
+            <p class="hero-eyebrow">⚡ Instalações &amp; Manutenções Elétricas</p>
+            <h1>Energia com segurança, <span>do orçamento à entrega</span>.</h1>
+            <p>Atendimento profissional para residências e empresas em Natal/RN — orçamento detalhado, prazos claros e serviço dentro das normas técnicas (NBR 5410).</p>
+            <div class="hero-acoes">
+                <button class="btn btn-primario" id="btn-abrir-orcamento">Fazer orçamento</button>
+                <a href="#servicos" class="btn btn-contorno" style="color:#fff;border-color:rgba(255,255,255,0.3);">Ver serviços</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="faixa-eletrica"></div>
+
+    <section class="secao" id="servicos">
+        <div class="container">
+            <div class="secao-titulo">
+                <h2>O que a GS Elétrica faz por você</h2>
+                <p>Serviços elétricos completos, do diagnóstico à instalação final.</p>
+            </div>
+
+            <div class="grade-servicos">
+                <div class="card card-servico">
+                    <div class="icone">🔌</div>
+                    <h3>Instalações elétricas</h3>
+                    <p>Instalação completa de fiação, quadros de distribuição e pontos de luz e tomada.</p>
+                </div>
+                <div class="card card-servico">
+                    <div class="icone">🛠️</div>
+                    <h3>Manutenção e reparos</h3>
+                    <p>Diagnóstico de falhas, curtos-circuitos e manutenção preventiva.</p>
+                </div>
+                <div class="card card-servico">
+                    <div class="icone">📋</div>
+                    <h3>Orçamento detalhado</h3>
+                    <p>Orçamento por escrito, com valores, prazos e garantia da mão de obra.</p>
+                </div>
+                <div class="card card-servico">
+                    <div class="icone">📅</div>
+                    <h3>Agendamento de visitas</h3>
+                    <p>Marque uma visita técnica no horário que for melhor pra você.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faixa-cta">
+        <div class="container">
+            <h2>Precisa de um orçamento?</h2>
+            <p>Preencha os dados do serviço e receba um orçamento detalhado em minutos.</p>
+            <button class="btn btn-primario" id="btn-cta-orcamento">Fazer orçamento agora</button>
+
+            <div class="selo-normas">
+                <span>NBR 5410</span>
+                <span>NR-10</span>
+                <span>Garantia de mão de obra</span>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<div id="gs-footer"></div>
+<div id="gs-modal-slot"></div>
+
+<script src="js/componentes.js"></script>
+<script>
+    // Botões da home levam para a página de orçamento
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'btn-abrir-orcamento' || e.target.id === 'btn-cta-orcamento') {
+            window.location.href = 'paginas/orcamentos.html';
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -193,6 +193,20 @@
                     </div>
                 </fieldset>
 
+                <fieldset>
+                    <legend>Assinatura</legend>
+                    <p class="texto-claro" style="font-size:0.85rem; margin-bottom:0.6rem;">
+                        Desenhe sua assinatura abaixo. Ela fica salva neste dispositivo e é usada automaticamente em todos os orçamentos.
+                    </p>
+                    <div class="assinatura-pad-wrap">
+                        <canvas id="assinatura-canvas" class="assinatura-pad"></canvas>
+                    </div>
+                    <div class="assinatura-acoes">
+                        <span class="assinatura-status" id="assinatura-status">Nenhuma assinatura salva</span>
+                        <button type="button" class="btn btn-contorno" id="btn-limpar-assinatura">Limpar assinatura</button>
+                    </div>
+                </fieldset>
+
                 <div class="acoes-form">
                     <button type="submit" class="btn btn-primario">Gerar orçamento</button>
                     <button type="button" class="btn btn-contorno" id="btn-limpar">Limpar</button>
@@ -261,7 +275,8 @@
                     <p id="of-observacoes">—</p>
 
                     <div class="of-assinatura">
-                        <div class="linha"></div>
+                        <img id="of-assinatura-imagem" style="display:none; max-height:70px; margin:0 auto 0.4rem;">
+                        <div class="linha" id="of-assinatura-linha"></div>
                         <span>Assinatura GS Elétrica</span>
                     </div>
                 </div>

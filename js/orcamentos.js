@@ -5,11 +5,21 @@
 (function () {
     const CHAVE_HISTORICO = 'gs-historico-orcamentos';
     const CHAVE_CONTADOR = 'gs-contador-orcamentos';
+    const CHAVE_ASSINATURA = 'gs-assinatura-eletricista';
 
     const form = document.getElementById('form-orcamento');
     const areaVazia = document.getElementById('of-vazio');
     const areaConteudo = document.getElementById('of-conteudo');
     const acoesPreview = document.getElementById('acoes-preview');
+
+    const canvasAssinatura = document.getElementById('assinatura-canvas');
+    const ctxAssinatura = canvasAssinatura.getContext('2d');
+    const statusAssinatura = document.getElementById('assinatura-status');
+    const imagemPreviewAssinatura = document.getElementById('of-assinatura-imagem');
+    const linhaPreviewAssinatura = document.getElementById('of-assinatura-linha');
+
+    let desenhandoAssinatura = false;
+    let assinaturaFoiAlterada = false;
 
     function formatarMoeda(valor) {
         return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -44,6 +54,90 @@
         if (document.getElementById('pg-pix').checked) formas.push('Pix');
         return formas.join(' / ') || 'A combinar';
     }
+
+    /* ===== Assinatura digital ===== */
+
+    canvasAssinatura.width = canvasAssinatura.clientWidth;
+    canvasAssinatura.height = canvasAssinatura.clientHeight;
+    ctxAssinatura.lineWidth = 2;
+    ctxAssinatura.lineCap = 'round';
+    ctxAssinatura.strokeStyle = '#101828';
+
+    function posicaoDoEvento(evento) {
+        const retangulo = canvasAssinatura.getBoundingClientRect();
+        const origem = evento.touches ? evento.touches[0] : evento;
+        return {
+            x: origem.clientX - retangulo.left,
+            y: origem.clientY - retangulo.top
+        };
+    }
+
+    function iniciarTraco(evento) {
+        evento.preventDefault();
+        desenhandoAssinatura = true;
+        const pos = posicaoDoEvento(evento);
+        ctxAssinatura.beginPath();
+        ctxAssinatura.moveTo(pos.x, pos.y);
+    }
+
+    function desenharTraco(evento) {
+        if (!desenhandoAssinatura) return;
+        evento.preventDefault();
+        const pos = posicaoDoEvento(evento);
+        ctxAssinatura.lineTo(pos.x, pos.y);
+        ctxAssinatura.stroke();
+        assinaturaFoiAlterada = true;
+    }
+
+    function finalizarTraco() {
+        if (!desenhandoAssinatura) return;
+        desenhandoAssinatura = false;
+        if (assinaturaFoiAlterada) {
+            localStorage.setItem(CHAVE_ASSINATURA, canvasAssinatura.toDataURL('image/png'));
+            atualizarStatusAssinatura();
+        }
+    }
+
+    canvasAssinatura.addEventListener('mousedown', iniciarTraco);
+    canvasAssinatura.addEventListener('mousemove', desenharTraco);
+    window.addEventListener('mouseup', finalizarTraco);
+
+    canvasAssinatura.addEventListener('touchstart', iniciarTraco, { passive: false });
+    canvasAssinatura.addEventListener('touchmove', desenharTraco, { passive: false });
+    canvasAssinatura.addEventListener('touchend', finalizarTraco);
+
+    function atualizarStatusAssinatura() {
+        const salva = localStorage.getItem(CHAVE_ASSINATURA);
+        if (salva) {
+            statusAssinatura.textContent = 'Assinatura salva ✓';
+            statusAssinatura.classList.add('salva');
+            canvasAssinatura.classList.add('tem-assinatura');
+        } else {
+            statusAssinatura.textContent = 'Nenhuma assinatura salva';
+            statusAssinatura.classList.remove('salva');
+            canvasAssinatura.classList.remove('tem-assinatura');
+        }
+    }
+
+    function carregarAssinaturaSalva() {
+        const dados = localStorage.getItem(CHAVE_ASSINATURA);
+        atualizarStatusAssinatura();
+        if (!dados) return;
+        const imagem = new Image();
+        imagem.onload = function () {
+            ctxAssinatura.drawImage(imagem, 0, 0, canvasAssinatura.width, canvasAssinatura.height);
+        };
+        imagem.src = dados;
+    }
+
+    carregarAssinaturaSalva();
+
+    document.getElementById('btn-limpar-assinatura').addEventListener('click', function () {
+        ctxAssinatura.clearRect(0, 0, canvasAssinatura.width, canvasAssinatura.height);
+        assinaturaFoiAlterada = false;
+        localStorage.removeItem(CHAVE_ASSINATURA);
+        atualizarStatusAssinatura();
+    });
 
     form.addEventListener('submit', function (evento) {
         evento.preventDefault();
@@ -90,6 +184,16 @@
             `Validade do orçamento: ${dados.validadeDias} dias • Garantia da mão de obra: ${dados.garantiaDias} dias • Formas de pagamento aceitas: ${dados.formasPagamento}`;
 
         document.getElementById('of-observacoes').textContent = dados.observacoes || 'Nenhuma observação adicional.';
+
+        const assinaturaSalva = localStorage.getItem(CHAVE_ASSINATURA);
+        if (assinaturaSalva) {
+            imagemPreviewAssinatura.src = assinaturaSalva;
+            imagemPreviewAssinatura.style.display = 'block';
+            linhaPreviewAssinatura.style.display = 'none';
+        } else {
+            imagemPreviewAssinatura.style.display = 'none';
+            linhaPreviewAssinatura.style.display = 'block';
+        }
 
         areaVazia.style.display = 'none';
         areaConteudo.style.display = 'block';

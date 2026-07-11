@@ -11,10 +11,26 @@ async function carregarComponente(caminho, idDestino) {
         const resposta = await fetch(caminho);
         if (!resposta.ok) throw new Error(`Falha ao carregar ${caminho}`);
         destino.innerHTML = await resposta.text();
+        executarScripts(destino);
     } catch (erro) {
         console.error('[GS Elétrica] Erro ao carregar componente:', erro);
         destino.innerHTML = '<p style="padding:1rem;color:#E23D3D;">Não foi possível carregar este componente.</p>';
     }
+}
+
+// Scripts inseridos via innerHTML NÃO são executados pelo navegador —
+// isso é um comportamento padrão (e uma pegadinha bem comum) do JavaScript.
+// Esta função recria cada <script> encontrado dentro do componente recém-carregado
+// para que o código lá dentro (menu, tema, links, modal etc.) realmente rode.
+function executarScripts(container) {
+    container.querySelectorAll('script').forEach((scriptAntigo) => {
+        const scriptNovo = document.createElement('script');
+        Array.from(scriptAntigo.attributes).forEach((attr) => {
+            scriptNovo.setAttribute(attr.name, attr.value);
+        });
+        scriptNovo.textContent = scriptAntigo.textContent;
+        scriptAntigo.replaceWith(scriptNovo);
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {

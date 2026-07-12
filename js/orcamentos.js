@@ -216,13 +216,15 @@
         const canvas = await html2canvas(folha, { scale: 2, backgroundColor: '#ffffff' });
         const imagem = canvas.toDataURL('image/png');
 
+        // A página do PDF é criada do tamanho exato do conteúdo (largura de A4, altura proporcional),
+        // assim o orçamento inteiro cabe numa página só, sem cortar nada quando ele é mais alto que uma A4.
+        const larguraMm = 210;
+        const alturaMm = (canvas.height * larguraMm) / canvas.width;
+
         const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF({ unit: 'mm', format: 'a4' });
+        const pdf = new jsPDF({ unit: 'mm', format: [larguraMm, alturaMm] });
 
-        const larguraPdf = pdf.internal.pageSize.getWidth();
-        const alturaImagem = (canvas.height * larguraPdf) / canvas.width;
-
-        pdf.addImage(imagem, 'PNG', 0, 0, larguraPdf, alturaImagem);
+        pdf.addImage(imagem, 'PNG', 0, 0, larguraMm, alturaMm);
 
         const numero = document.getElementById('of-numero').textContent.replace(/\D/g, '-');
         const nomeArquivo = `orcamento-gs-eletrica-${numero || 'documento'}.pdf`;

@@ -212,24 +212,37 @@
     });
 
     async function capturarFolhaComoCanvas(folha) {
-        // A caixa da prévia usa "position: sticky" pra ficar grudada na tela ao rolar a página.
-        // Isso atrapalha a captura (corta o conteúdo no tamanho da tela), então desligamos
-        // temporariamente o sticky só durante a captura e devolvemos como estava depois.
-        const containerSticky = folha.closest('.card-preview');
-        const posicaoOriginal = containerSticky ? containerSticky.style.position : null;
-        if (containerSticky) containerSticky.style.position = 'static';
+        // No celular a prévia fica numa coluna estreita (largura da tela do telefone), o que fazia
+        // a "foto" sair comprida e fina, tipo cupom fiscal. Pra sempre sair proporcional como no
+        // computador, tiramos a foto de uma cópia do orçamento fora da tela, com largura fixa.
+        const LARGURA_CAPTURA = 794; // ~ largura de uma folha A4 a 96dpi
+
+        const clone = folha.cloneNode(true);
+        clone.style.width = LARGURA_CAPTURA + 'px';
+        clone.style.maxWidth = 'none';
+        clone.style.boxSizing = 'border-box';
+
+        const wrapper = document.createElement('div');
+        wrapper.style.position = 'fixed';
+        wrapper.style.top = '0';
+        wrapper.style.left = '-99999px';
+        wrapper.style.width = LARGURA_CAPTURA + 'px';
+        wrapper.style.background = '#ffffff';
+        wrapper.appendChild(clone);
+        document.body.appendChild(wrapper);
 
         try {
-            return await html2canvas(folha, {
+            // dá um instante pro navegador aplicar o layout na cópia antes de capturar
+            await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+            return await html2canvas(clone, {
                 scale: 2,
                 backgroundColor: '#ffffff',
-                scrollX: 0,
-                scrollY: -window.scrollY,
-                windowWidth: document.documentElement.scrollWidth,
-                windowHeight: document.documentElement.scrollHeight
+                width: LARGURA_CAPTURA,
+                windowWidth: LARGURA_CAPTURA
             });
         } finally {
-            if (containerSticky) containerSticky.style.position = posicaoOriginal;
+            wrapper.remove();
         }
     }
 

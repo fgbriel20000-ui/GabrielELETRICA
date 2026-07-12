@@ -211,6 +211,44 @@
         window.print();
     });
 
+    async function gerarPdfDoOrcamento() {
+        const folha = document.getElementById('folha-orcamento');
+        const canvas = await html2canvas(folha, { scale: 2, backgroundColor: '#ffffff' });
+        const imagem = canvas.toDataURL('image/png');
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ unit: 'mm', format: 'a4' });
+
+        const larguraPdf = pdf.internal.pageSize.getWidth();
+        const alturaImagem = (canvas.height * larguraPdf) / canvas.width;
+
+        pdf.addImage(imagem, 'PNG', 0, 0, larguraPdf, alturaImagem);
+
+        const numero = document.getElementById('of-numero').textContent.replace(/\D/g, '-');
+        const nomeArquivo = `orcamento-gs-eletrica-${numero || 'documento'}.pdf`;
+
+        return { pdf, nomeArquivo };
+    }
+
+    function montarMensagemWhatsapp() {
+        const nome = document.getElementById('of-cliente-nome').textContent.trim();
+        const numero = document.getElementById('of-numero').textContent.trim();
+        const descricao = document.getElementById('of-servico-descricao').textContent.trim();
+        const valor = document.getElementById('of-total').textContent.trim();
+        const condicoes = document.getElementById('of-condicoes').textContent.trim();
+
+        return `Olá${nome ? ' ' + nome : ''}! Segue o orçamento *${numero}* da GS Elétrica.\n\n` +
+            `*Serviço:* ${descricao}\n*Valor:* ${valor}\n${condicoes}\n\n` +
+            `Qualquer dúvida, estou à disposição!`;
+    }
+
+    function numeroWhatsappDoCliente() {
+        const telefone = document.getElementById('of-cliente-telefone').textContent || '';
+        const digitos = telefone.replace(/\D/g, '');
+        if (!digitos) return '';
+        return digitos.length <= 11 ? `55${digitos}` : digitos;
+    }
+
     document.getElementById('btn-baixar-pdf').addEventListener('click', async function () {
         const botao = this;
         const textoOriginal = botao.textContent;
@@ -218,23 +256,50 @@
         botao.disabled = true;
 
         try {
-            const folha = document.getElementById('folha-orcamento');
-            const canvas = await html2canvas(folha, { scale: 2, backgroundColor: '#ffffff' });
-            const imagem = canvas.toDataURL('image/png');
-
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF({ unit: 'mm', format: 'a4' });
-
-            const larguraPdf = pdf.internal.pageSize.getWidth();
-            const alturaImagem = (canvas.height * larguraPdf) / canvas.width;
-
-            pdf.addImage(imagem, 'PNG', 0, 0, larguraPdf, alturaImagem);
-
-            const numero = document.getElementById('of-numero').textContent.replace(/\D/g, '-');
-            pdf.save(`orcamento-gs-eletrica-${numero || 'documento'}.pdf`);
+            const { pdf, nomeArquivo } = await gerarPdfDoOrcamento();
+            pdf.save(nomeArquivo);
         } catch (erro) {
             console.error('[GS Elétrica] Erro ao gerar PDF:', erro);
             alert('Não foi possível gerar o PDF. Tente novamente.');
+        } finally {
+            botao.textContent = textoOriginal;
+            botao.disabled = false;
+        }
+    });
+
+    document.getElementById('btn-whatsapp').addEventListener('click', async function () {
+        const botao = this;
+        const textoOriginal = botao.textContent;
+        botao.textContent = 'Preparando...';
+        botao.disabled = true;
+
+        try {
+            const { pdf, nomeArquivo } = await gerarPdfDoOrcamento();
+            const mensagem = montarMensagemWhatsapp();
+            const blobPdf = pdf.output('blob');
+            const arquivo = new File([blobPdf], nomeArquivo, { type: 'application/pdf' });
+
+            if (navigator.canShare && navigator.canShare({ files: [arquivo] })) {
+                // Celular com suporte a compartilhamento nativo: manda o PDF direto para o WhatsApp escolhido
+                await navigator.share({
+                    files: [arquivo],
+                    title: nomeArquivo,
+                    text: mensagem
+                });
+            } else {
+                // Sem suporte a compartilhar arquivo (ex: computador): baixa o PDF e abre o WhatsApp com a mensagem pronta
+                pdf.save(nomeArquivo);
+                const numeroCliente = numeroWhatsappDoCliente();
+                const link = numeroCliente
+                    ? `https://wa.me/${numeroCliente}?text=${encodeURIComponent(mensagem)}`
+                    : `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
+                window.open(link, '_blank');
+            }
+        } catch (erro) {
+            if (erro.name !== 'AbortError') {
+                console.error('[GS Elétrica] Erro ao enviar pelo WhatsApp:', erro);
+                alert('Não foi possível enviar pelo WhatsApp. Tente novamente.');
+            }
         } finally {
             botao.textContent = textoOriginal;
             botao.disabled = false;

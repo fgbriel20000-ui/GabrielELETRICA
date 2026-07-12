@@ -1,103 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GS Elétrica | Inicializando</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GS Elétrica | Carregando</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 2rem;
-        }
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at 50% 0%, #14356B 0%, #0B1F3A 70%);
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        color: #F1F4F9;
+        overflow: hidden;
+        transition: opacity 0.4s ease;
+    }
 
-        .loading-container {
-            text-align: center;
-            max-width: 320px;
-            width: 100%;
-        }
+    /* Faixa elétrica: referência à fita de sinalização amarelo/azul */
+    .faixa-eletrica {
+        position: fixed;
+        left: 0; right: 0;
+        height: 6px;
+        background: repeating-linear-gradient(
+            135deg,
+            #F5B400 0px, #F5B400 22px,
+            #0B1F3A 22px, #0B1F3A 44px
+        );
+    }
+    .faixa-eletrica.topo { top: 0; }
+    .faixa-eletrica.base { bottom: 0; }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #ff7a00;
-            margin-bottom: 1.5rem;
-            letter-spacing: 1px;
-        }
+    .container-loading {
+        text-align: center;
+        padding: 2rem;
+    }
 
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #333333;
-            border-top: 4px solid #ff7a00;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1.5rem;
-            box-shadow: 0 0 15px rgba(255, 122, 0, 0.3);
-        }
+    .logo-loading {
+        width: 108px;
+        height: auto;
+        margin-bottom: 1.25rem;
+        animation: pulso 2.2s ease-in-out infinite;
+        filter: drop-shadow(0 0 18px rgba(245, 180, 0, 0.35));
+    }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    @keyframes pulso {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.06); }
+    }
 
-        .loading-text {
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            color: #cccccc;
-        }
+    .titulo-loading {
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 700;
+        font-size: 1.9rem;
+        letter-spacing: 1px;
+        color: #F5B400;
+    }
 
-        .loading-bar {
-            width: 100%;
-            height: 6px;
-            background-color: #222222;
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 1rem;
-        }
+    .subtitulo-loading {
+        font-size: 0.85rem;
+        color: #9AA6B8;
+        margin-top: 0.3rem;
+        letter-spacing: 0.3px;
+    }
 
-        .loading-progress {
-            height: 100%;
-            background: linear-gradient(90deg, #ff7a00, #ff9a3c);
-            border-radius: 3px;
-            width: 0%;
-            animation: progressAnimation 1.5s ease-in-out forwards;
-        }
+    .spinner {
+        width: 42px;
+        height: 42px;
+        margin: 1.75rem auto 1.1rem;
+        border-radius: 50%;
+        border: 4px solid rgba(245, 180, 0, 0.15);
+        border-top-color: #F5B400;
+        border-right-color: #FF6A1A;
+        animation: girar 0.85s linear infinite;
+    }
 
-        @keyframes progressAnimation {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
+    @keyframes girar {
+        to { transform: rotate(360deg); }
+    }
 
-        .powered-by {
-            font-size: 0.85rem;
-            color: #666666;
-            margin-top: 2rem;
-        }
-    </style>
+    .barra-carregamento {
+        width: 220px;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 3px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .progresso {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #F5B400, #FF6A1A);
+        border-radius: 3px;
+        animation: carregar 1.7s ease-in-out forwards;
+    }
+
+    @keyframes carregar {
+        to { width: 100%; }
+    }
+
+    .status-loading {
+        font-size: 0.8rem;
+        color: #6E7A8E;
+        margin-top: 0.9rem;
+        min-height: 1.1em;
+    }
+</style>
 </head>
-<body>
-    <div class="loading-container">
-        <div class="logo">GS ELÉTRICA</div>
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Inicializando Sistema V2K</div>
-        <div class="loading-bar">
-            <div class="loading-progress"></div>
+<body id="corpo-loading">
+
+    <div class="faixa-eletrica topo"></div>
+
+    <div class="container-loading">
+        <img src="imagens/logo-icone.png" alt="GS Elétrica" class="logo-loading">
+        <h1 class="titulo-loading">GS Elétrica</h1>
+        <p class="subtitulo-loading">Instalações e manutenções elétricas</p>
+
+        <div class="spinner"></div>
+        <div class="barra-carregamento">
+            <div class="progresso"></div>
         </div>
-        <div class="powered-by">Desenvolvido por Gabriel</div>
+        <p class="status-loading" id="status-loading">Carregando sistema...</p>
     </div>
+
+    <div class="faixa-eletrica base"></div>
+
+    <script>
+        // Pequenas mensagens rotativas pra dar sensação de progresso real
+        const mensagens = ['Carregando sistema...', 'Preparando seus dados...', 'Quase lá...'];
+        let indice = 0;
+        const elementoStatus = document.getElementById('status-loading');
+        const intervaloMensagens = setInterval(() => {
+            indice = (indice + 1) % mensagens.length;
+            elementoStatus.textContent = mensagens[indice];
+        }, 600);
+
+        // Redireciona para o app com um fade suave, sem tela branca no meio
+        setTimeout(() => {
+            clearInterval(intervaloMensagens);
+            document.getElementById('corpo-loading').style.opacity = '0';
+            setTimeout(() => { window.location.href = './index.html'; }, 400);
+        }, 1800);
+    </script>
 </body>
 </html>

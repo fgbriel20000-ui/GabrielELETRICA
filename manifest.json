@@ -2,7 +2,7 @@
   "name": "GS Elétrica",
   "short_name": "GS Elétrica",
   "description": "Orçamentos, clientes e agenda para instalações e manutenções elétricas.",
-  "start_url": "./index.html",
+  "start_url": "./loading.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",

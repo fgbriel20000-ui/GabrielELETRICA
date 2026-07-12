@@ -101,6 +101,10 @@
 
     .of-vazio { text-align: center; color: #9AA6B8; padding: 3rem 1rem; }
 
+    .btn-whatsapp { background-color: #25D366; color: #fff; }
+    .btn-whatsapp:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn-whatsapp:disabled { opacity: 0.7; transform: none; }
+
     @media print {
         #gs-header, #gs-sidebar, #gs-footer, .card-form, .pagina-cabecalho, .btn { display: none !important; }
         main, #gs-footer { margin-left: 0 !important; }
@@ -283,6 +287,7 @@
 
             <div class="acoes-form" id="acoes-preview" style="display:none;">
                 <button type="button" class="btn btn-secundario" id="btn-baixar-pdf">Baixar PDF</button>
+                <button type="button" class="btn btn-whatsapp" id="btn-whatsapp">💬 Enviar por WhatsApp</button>
                 <button type="button" class="btn btn-contorno" id="btn-imprimir">Imprimir</button>
             </div>
         </section>

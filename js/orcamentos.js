@@ -211,9 +211,31 @@
         window.print();
     });
 
+    async function capturarFolhaComoCanvas(folha) {
+        // A caixa da prévia usa "position: sticky" pra ficar grudada na tela ao rolar a página.
+        // Isso atrapalha a captura (corta o conteúdo no tamanho da tela), então desligamos
+        // temporariamente o sticky só durante a captura e devolvemos como estava depois.
+        const containerSticky = folha.closest('.card-preview');
+        const posicaoOriginal = containerSticky ? containerSticky.style.position : null;
+        if (containerSticky) containerSticky.style.position = 'static';
+
+        try {
+            return await html2canvas(folha, {
+                scale: 2,
+                backgroundColor: '#ffffff',
+                scrollX: 0,
+                scrollY: -window.scrollY,
+                windowWidth: document.documentElement.scrollWidth,
+                windowHeight: document.documentElement.scrollHeight
+            });
+        } finally {
+            if (containerSticky) containerSticky.style.position = posicaoOriginal;
+        }
+    }
+
     async function gerarPdfDoOrcamento() {
         const folha = document.getElementById('folha-orcamento');
-        const canvas = await html2canvas(folha, { scale: 2, backgroundColor: '#ffffff' });
+        const canvas = await capturarFolhaComoCanvas(folha);
         const imagem = canvas.toDataURL('image/png');
 
         // A página do PDF é criada do tamanho exato do conteúdo (largura de A4, altura proporcional),

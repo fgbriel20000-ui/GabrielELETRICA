@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadoras — GS Elétrica</title>
+
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0B1F3A">
+<link rel="apple-touch-icon" href="../icones/icone-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/estilo.css">
+
+<style>
+    body { padding-top: var(--gs-altura-header); }
+    @media (min-width: 861px) {
+        main, #gs-footer { margin-left: var(--gs-largura-sidebar); }
+    }
+
+    .pagina-cabecalho { padding: 2rem 0 1rem; }
+    .pagina-cabecalho h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .pagina-cabecalho p { color: var(--gs-texto-claro); }
+
+    /* ===== Abas (mesma lógica da página "Mais" — novas calculadoras
+       entram aqui como uma nova aba + painel, sem mexer no resto) ===== */
+    .abas {
+        display: flex;
+        gap: 0.5rem;
+        border-bottom: 1px solid var(--gs-borda);
+        margin-bottom: 2rem;
+        overflow-x: auto;
+    }
+    .aba-botao {
+        background: none;
+        border: none;
+        padding: 0.85rem 1.25rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--gs-texto-claro);
+        border-bottom: 3px solid transparent;
+        white-space: nowrap;
+    }
+    .aba-botao.ativa {
+        color: var(--gs-amarelo-forte);
+        border-bottom-color: var(--gs-amarelo);
+    }
+
+    .painel-aba { display: none; padding-bottom: 3rem; }
+    .painel-aba.ativa { display: block; }
+
+    /* ===== Layout calculadora: formulário + resultado ===== */
+    .layout-calc { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
+    @media (max-width: 980px) { .layout-calc { grid-template-columns: 1fr; } }
+
+    .campo-linha { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 480px) { .campo-linha { grid-template-columns: 1fr; } }
+
+    .resultado-calc { text-align: center; padding: 1.5rem 1rem; }
+    .resultado-calc .numero { font-family: var(--gs-fonte-titulo); font-weight: 700; font-size: 2.4rem; color: var(--gs-amarelo-forte); }
+    .resultado-calc .percentual { font-size: 1.1rem; color: var(--gs-texto-claro); margin-top: 0.25rem; }
+
+    .selo-status {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0.35rem 0.9rem; border-radius: 999px;
+        font-size: 0.85rem; font-weight: 600; margin-top: 1rem;
+    }
+    .selo-status.ok { background: rgba(31,157,85,0.12); color: var(--gs-sucesso); }
+    .selo-status.alerta { background: rgba(226,61,61,0.12); color: var(--gs-erro); }
+
+    .resultado-vazio { text-align: center; color: #9AA6B8; padding: 3rem 1rem; }
+
+    .nota-calc { font-size: 0.82rem; color: var(--gs-texto-claro); margin-top: 1rem; }
+</style>
+</head>
+<body data-base="../" data-pagina="calculadoras">
+
+<div id="gs-header"></div>
+<div id="gs-sidebar"></div>
+
+<main>
+    <div class="container pagina-cabecalho">
+        <h1>Calculadoras</h1>
+        <p>Ferramentas técnicas de apoio para o dia a dia dos serviços elétricos.</p>
+    </div>
+
+    <div class="container">
+        <div class="abas">
+            <button class="aba-botao ativa" data-aba="queda-tensao">⚡ Queda de Tensão</button>
+        </div>
+
+        <!-- ===================== ABA: QUEDA DE TENSÃO ===================== -->
+        <section class="painel-aba ativa" id="painel-queda-tensao">
+            <div class="layout-calc">
+                <div class="card">
+                    <h2 style="margin-bottom:1rem; font-size:1.05rem;">Dados do circuito</h2>
+                    <form id="form-queda-tensao">
+                        <div class="campo">
+                            <label for="qt-corrente">Corrente do circuito (A)</label>
+                            <input type="number" id="qt-corrente" min="0" step="0.01" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="qt-comprimento">Comprimento do trecho, ida (m)</label>
+                            <input type="number" id="qt-comprimento" min="0" step="0.1" required>
+                        </div>
+
+                        <div class="campo-linha">
+                            <div class="campo">
+                                <label for="qt-bitola">Bitola do cabo (mm²)</label>
+                                <input type="number" id="qt-bitola" min="0" step="0.1" required>
+                            </div>
+                            <div class="campo">
+                                <label for="qt-material">Material do condutor</label>
+                                <select id="qt-material">
+                                    <option value="0.0172">Cobre</option>
+                                    <option value="0.0282">Alumínio</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="campo">
+                            <label for="qt-tensao">Tensão nominal do circuito (V)</label>
+                            <select id="qt-tensao">
+                                <option value="127">127 V</option>
+                                <option value="220" selected>220 V</option>
+                                <option value="380">380 V</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primario btn-bloco">Calcular</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div id="qt-vazio" class="resultado-vazio">⚡ Preencha os dados para calcular a queda de tensão.</div>
+                    <div id="qt-conteudo" style="display:none;">
+                        <div class="resultado-calc">
+                            <div class="numero" id="qt-out-volts">0,00 V</div>
+                            <p class="percentual" id="qt-out-percentual">0,00% da tensão nominal</p>
+                            <span class="selo-status" id="qt-out-selo">—</span>
+                        </div>
+                        <p class="nota-calc">
+                            Cálculo: R = ρ × (2 × L) / S, considerando ida e volta do circuito.
+                            A NBR 5410 recomenda, em geral, queda máxima de 4% em circuitos terminais.
+                            Sempre confirme o limite aplicável ao caso específico.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Novas calculadoras (corrente, disjuntor, bitola etc.) entram aqui
+             como novos botões em .abas + novo <section class="painel-aba">. -->
+    </div>
+</main>
+
+<div id="gs-footer"></div>
+<div id="gs-modal-slot"></div>
+
+<script src="../js/componentes.js"></script>
+<script src="../js/calculadoras.js"></script>
+
+</body>
+</html>

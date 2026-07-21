@@ -6,7 +6,7 @@
    a atualização do cache nos aparelhos dos usuários.
    ========================================================= */
 
-const NOME_CACHE = 'gs-eletrica-v5';
+const NOME_CACHE = 'gs-eletrica-v6';
 
 const ARQUIVOS_ESSENCIAIS = [
     './index.html',
@@ -26,6 +26,8 @@ const ARQUIVOS_ESSENCIAIS = [
     './paginas/agenda.html',
     './paginas/mais.html',
     './js/mais.js',
+    './paginas/calculadoras.html',
+    './js/calculadoras.js',
     './icones/icone-192.png',
     './icones/icone-512.png',
     './imagens/logo-icone.png'

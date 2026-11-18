@@ -237,6 +237,23 @@
                     </label>
                 </div>
 
+                <div class="card" id="card-senha">
+                    <h4>Senha de acesso</h4>
+                    <p id="senha-status" style="margin-bottom:0.9rem;">Sem senha definida.</p>
+                    <div class="campo">
+                        <label for="senha-nova">Nova senha (mínimo 4 caracteres)</label>
+                        <input type="password" id="senha-nova" autocomplete="new-password">
+                    </div>
+                    <div class="campo">
+                        <label for="senha-repita">Repita a senha</label>
+                        <input type="password" id="senha-repita" autocomplete="new-password">
+                    </div>
+                    <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+                        <button type="button" class="btn btn-primario" id="btn-salvar-senha">Salvar senha</button>
+                        <button type="button" class="btn btn-contorno" id="btn-remover-senha">Remover senha</button>
+                    </div>
+                </div>
+
                 <div class="card linha-config">
                     <div>
                         <h4>Fazer backup dos dados</h4>

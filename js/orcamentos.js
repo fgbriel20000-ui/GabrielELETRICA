@@ -6,6 +6,7 @@
     const CHAVE_HISTORICO = 'gs-historico-orcamentos';
     const CHAVE_CONTADOR = 'gs-contador-orcamentos';
     const CHAVE_ASSINATURA = 'gs-assinatura-eletricista';
+    const CHAVE_MATERIAIS = 'gs-materiais-salvos';
 
     const form = document.getElementById('form-orcamento');
     const areaVazia = document.getElementById('of-vazio');
@@ -50,7 +51,7 @@
         const linha = document.createElement('div');
         linha.className = 'material-linha';
         linha.innerHTML = `
-            <div class="campo campo-nome"><label>Material</label><input type="text" class="mat-nome" placeholder="Ex: Cabo 2,5mm (metro)"></div>
+            <div class="campo campo-nome"><label>Material</label><input type="text" class="mat-nome" list="materiais-sugestoes" placeholder="Ex: Cabo 2,5mm (metro)" autocomplete="off"></div>
             <div class="campo"><label>Qtd.</label><input type="number" class="mat-qtd" min="0" step="0.01" value="1"></div>
             <div class="campo"><label>Preço unit. (R$)</label><input type="number" class="mat-preco" min="0" step="0.01"></div>
             <button type="button" class="btn btn-contorno btn-remover" aria-label="Remover material">✕</button>`;
@@ -91,6 +92,65 @@
         document.getElementById('form-total-mao-obra').textContent = formatarMoeda(maoDeObra.total);
         document.getElementById('form-total-geral').textContent = formatarMoeda(arredondar(totalMateriais + maoDeObra.total));
     }
+
+    /* ===== Materiais salvos (catálogo pessoal) ===== */
+
+    function lerCatalogo() {
+        try {
+            const lista = JSON.parse(localStorage.getItem(CHAVE_MATERIAIS) || '[]');
+            return Array.isArray(lista) ? lista : [];
+        } catch (erro) {
+            return [];
+        }
+    }
+
+    function atualizarSugestoes() {
+        const datalist = document.getElementById('materiais-sugestoes');
+        datalist.innerHTML = '';
+        lerCatalogo().forEach(function (item) {
+            const opcao = document.createElement('option');
+            opcao.value = item.nome;
+            opcao.label = formatarMoeda(item.preco);
+            datalist.appendChild(opcao);
+        });
+    }
+
+    function salvarNoCatalogo(itens) {
+        const catalogo = lerCatalogo();
+        itens.forEach(function (item) {
+            if (!item.precoUnitario || item.nome === 'Material') return;
+            const existente = catalogo.find(function (c) {
+                return c.nome.toLowerCase() === item.nome.toLowerCase();
+            });
+            if (existente) {
+                existente.preco = item.precoUnitario;
+            } else {
+                catalogo.push({ nome: item.nome, preco: item.precoUnitario });
+            }
+        });
+        catalogo.sort(function (a, b) { return a.nome.localeCompare(b.nome, 'pt-BR'); });
+        try {
+            localStorage.setItem(CHAVE_MATERIAIS, JSON.stringify(catalogo.slice(0, 300)));
+        } catch (erro) {
+            console.error('[GS Elétrica] Não foi possível salvar os materiais:', erro);
+        }
+        atualizarSugestoes();
+    }
+
+    // Ao escolher um material salvo, o preço é preenchido sozinho (se estiver vazio)
+    listaMateriais.addEventListener('change', function (evento) {
+        if (!evento.target.classList.contains('mat-nome')) return;
+        const nome = evento.target.value.trim().toLowerCase();
+        const salvo = lerCatalogo().find(function (c) { return c.nome.toLowerCase() === nome; });
+        if (!salvo) return;
+        const campoPreco = evento.target.closest('.material-linha').querySelector('.mat-preco');
+        if (!campoPreco.value) {
+            campoPreco.value = salvo.preco;
+            atualizarTotaisDoFormulario();
+        }
+    });
+
+    atualizarSugestoes();
 
     function reiniciarMateriais() {
         listaMateriais.innerHTML = '';
@@ -222,6 +282,35 @@
         atualizarStatusAssinatura();
     });
 
+    // Assinatura pronta: escreve o nome em letra cursiva e salva como se tivesse sido desenhada
+    document.getElementById('btn-assinatura-digitada').addEventListener('click', async function () {
+        const nome = document.getElementById('assinatura-nome').value.trim();
+        if (!nome) {
+            alert('Digite seu nome para criar a assinatura.');
+            return;
+        }
+
+        try { await document.fonts.load("700 48px 'Dancing Script'"); } catch (erro) { /* usa a fonte cursiva padrão */ }
+
+        const largura = canvasAssinatura.width;
+        const altura = canvasAssinatura.height;
+        ctxAssinatura.clearRect(0, 0, largura, altura);
+
+        let tamanho = Math.round(altura * 0.6);
+        ctxAssinatura.font = `700 ${tamanho}px 'Dancing Script', cursive`;
+        while (ctxAssinatura.measureText(nome).width > largura * 0.9 && tamanho > 14) {
+            tamanho -= 2;
+            ctxAssinatura.font = `700 ${tamanho}px 'Dancing Script', cursive`;
+        }
+        ctxAssinatura.fillStyle = '#101828';
+        ctxAssinatura.textAlign = 'center';
+        ctxAssinatura.textBaseline = 'middle';
+        ctxAssinatura.fillText(nome, largura / 2, altura / 2);
+
+        localStorage.setItem(CHAVE_ASSINATURA, canvasAssinatura.toDataURL('image/png'));
+        atualizarStatusAssinatura();
+    });
+
     form.addEventListener('submit', function (evento) {
         evento.preventDefault();
 
@@ -261,6 +350,7 @@
         ultimoOrcamento = dados;
         preencherPreview(dados);
         salvarNoHistorico(dados);
+        salvarNoCatalogo(materiais);
     });
 
     function preencherPreview(dados) {

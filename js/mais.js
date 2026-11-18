@@ -111,6 +111,8 @@
         'gs-agenda',
         'gs-historico-recibos',
         'gs-contador-recibos',
+        'gs-materiais-salvos',
+        'gs-assinatura-eletricista',
         'gs-tema'
     ];
 
@@ -154,11 +156,44 @@
     });
 
     document.getElementById('btn-limpar-dados').addEventListener('click', function () {
-        const confirmar = confirm('Tem certeza? Isso vai apagar todos os clientes, orçamentos, recibos e compromissos deste aparelho. Essa ação não pode ser desfeita.');
+        const confirmar = confirm('Tem certeza? Isso vai apagar todos os clientes, orçamentos, recibos, compromissos, materiais salvos e a assinatura deste aparelho. Essa ação não pode ser desfeita.');
         if (!confirmar) return;
 
         CHAVES_DADOS.forEach(chave => localStorage.removeItem(chave));
         alert('Dados apagados.');
         window.location.reload();
+    });
+    /* ===== Configurações: senha de acesso ===== */
+    const statusSenha = document.getElementById('senha-status');
+
+    function atualizarStatusSenha() {
+        const ativa = window.gsSenha && window.gsSenha.existe();
+        statusSenha.textContent = ativa
+            ? 'Senha ativa ✓ — o app pede a senha ao abrir.'
+            : 'Sem senha definida. Qualquer pessoa com o celular desbloqueado abre o app.';
+        document.getElementById('btn-remover-senha').style.display = ativa ? 'inline-flex' : 'none';
+    }
+    atualizarStatusSenha();
+
+    document.getElementById('btn-salvar-senha').addEventListener('click', async function () {
+        if (!window.gsSenha) {
+            alert('A senha só funciona com o site aberto pelo endereço https (o do GitHub Pages).');
+            return;
+        }
+        const nova = document.getElementById('senha-nova').value;
+        const repita = document.getElementById('senha-repita').value;
+        if (nova.length < 4) { alert('A senha precisa ter pelo menos 4 caracteres.'); return; }
+        if (nova !== repita) { alert('As duas senhas não são iguais.'); return; }
+        await window.gsSenha.definir(nova);
+        document.getElementById('senha-nova').value = '';
+        document.getElementById('senha-repita').value = '';
+        atualizarStatusSenha();
+        alert('Senha salva! Anote em um lugar seguro: se esquecer, só dá para entrar apagando os dados do aparelho.');
+    });
+
+    document.getElementById('btn-remover-senha').addEventListener('click', function () {
+        if (!confirm('Remover a senha de acesso?')) return;
+        window.gsSenha.remover();
+        atualizarStatusSenha();
     });
 })();

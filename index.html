@@ -14,111 +14,69 @@
 <link rel="stylesheet" href="css/estilo.css">
 
 <style>
-    /* ===== Estilos específicos da Home ===== */
+    /* ===== Estilos específicos do painel inicial ===== */
     body { padding-top: var(--gs-altura-header); }
 
     @media (min-width: 861px) {
         main, #gs-footer { margin-left: var(--gs-largura-sidebar); }
     }
 
-    .hero {
+    .painel-topo {
         background: linear-gradient(135deg, var(--gs-azul-profundo) 0%, var(--gs-azul) 100%);
         color: var(--gs-branco);
-        padding: 5rem 0 4rem;
-        position: relative;
-        overflow: hidden;
+        padding: 2.5rem 0 2rem;
     }
-
-    .hero::after {
-        content: '';
-        position: absolute;
-        right: -60px; top: -60px;
-        width: 320px; height: 320px;
-        background: radial-gradient(circle, rgba(245,180,0,0.18) 0%, transparent 70%);
-    }
-
-    .hero-conteudo { max-width: 620px; position: relative; z-index: 1; }
-
-    .hero-eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
+    .painel-eyebrow {
         color: var(--gs-amarelo);
         font-weight: 700;
         letter-spacing: 0.06em;
         text-transform: uppercase;
         font-size: 0.85rem;
-        margin-bottom: 1rem;
+        margin-bottom: 0.4rem;
     }
+    .painel-topo h1 { color: var(--gs-branco); font-size: clamp(1.7rem, 4vw, 2.4rem); margin-bottom: 1.25rem; }
 
-    .hero h1 {
-        font-size: clamp(2.2rem, 5vw, 3.4rem);
-        color: var(--gs-branco);
-        margin-bottom: 1.1rem;
+    .resumo { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .resumo-item.destaque { grid-column: 1 / -1; }
+    .resumo-item.destaque strong { font-size: 1.6rem; color: var(--gs-amarelo); }
+    .resumo-item {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: var(--gs-raio);
+        padding: 0.8rem 0.9rem;
     }
+    .resumo-item span { display: block; color: #C9D4E8; font-size: 0.78rem; margin-bottom: 0.2rem; }
+    .resumo-item strong { font-family: var(--gs-fonte-titulo); font-size: 1.25rem; color: var(--gs-branco); }
 
-    .hero h1 span { color: var(--gs-amarelo); }
+    .secao { padding: 2rem 0 0.5rem; }
+    .secao:last-of-type { padding-bottom: 3rem; }
+    .secao h2 { font-size: 1.2rem; margin-bottom: 1rem; }
 
-    .hero p {
-        color: #C9D4E8;
-        font-size: 1.08rem;
-        margin-bottom: 2rem;
-        max-width: 520px;
-    }
-
-    .hero-acoes { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-    .secao { padding: 4rem 0; }
-
-    .secao-titulo { text-align: center; max-width: 640px; margin: 0 auto 2.5rem; }
-    .secao-titulo h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); margin-bottom: 0.6rem; }
-    .secao-titulo p { color: var(--gs-texto-claro); }
-
-    .grade-servicos {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 1.5rem;
-    }
-
-    .card-servico {
-        text-align: left;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    .grade-atalhos { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
+    .atalho {
+        display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+        text-align: center; text-decoration: none; color: var(--gs-texto);
         border-top: 3px solid var(--gs-amarelo);
+        padding: 1.25rem 0.75rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .card-servico:hover { transform: translateY(-4px); box-shadow: var(--gs-sombra-media); }
-
-    .card-servico .icone {
-        width: 48px; height: 48px;
-        border-radius: 50%;
+    .atalho:hover { transform: translateY(-3px); box-shadow: var(--gs-sombra-media); }
+    .atalho .icone {
+        width: 48px; height: 48px; border-radius: 50%;
         background: rgba(245, 180, 0, 0.14);
-        color: var(--gs-amarelo-forte);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1.4rem;
-        margin-bottom: 1rem;
+        display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
     }
+    .atalho strong { font-size: 0.95rem; }
 
-    .card-servico h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-    .card-servico p { color: var(--gs-texto-claro); font-size: 0.94rem; }
-
-    .faixa-cta {
-        background-color: var(--gs-azul-profundo);
-        color: var(--gs-branco);
-        text-align: center;
-        padding: 3.5rem 0;
+    .orcamento-linha {
+        display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+        padding: 0.75rem 0; border-bottom: 1px solid var(--gs-borda);
     }
-    .faixa-cta h2 { color: var(--gs-branco); margin-bottom: 0.75rem; }
-    .faixa-cta p { color: #C9D4E8; margin-bottom: 1.75rem; }
-
-    .selo-normas {
-        display: flex;
-        gap: 1.5rem;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 3rem;
-        color: var(--gs-texto-claro);
-        font-size: 0.85rem;
-    }
-    .selo-normas span { border: 1px solid var(--gs-borda); border-radius: 999px; padding: 0.4rem 0.9rem; }
+    .orcamento-linha:last-child { border-bottom: none; }
+    .orcamento-linha small { display: block; color: var(--gs-texto-claro); }
+    .orcamento-linha .valor { font-weight: 700; white-space: nowrap; }
+    .lista-vazia { text-align: center; color: var(--gs-texto-claro); padding: 1.5rem 0.5rem; }
+    .lista-vazia .btn { margin-top: 1rem; text-decoration: none; }
 </style>
 </head>
 <body data-base="./" data-pagina="inicio">
@@ -127,67 +85,39 @@
 <div id="gs-sidebar"></div>
 
 <main>
-
-    <section class="hero">
-        <div class="container hero-conteudo">
-            <p class="hero-eyebrow">⚡ Instalações &amp; Manutenções Elétricas</p>
-            <h1>Energia com segurança, <span>do orçamento à entrega</span>.</h1>
-            <p>Atendimento profissional para residências e empresas em Natal/RN — orçamento detalhado, prazos claros e serviço dentro das normas técnicas (NBR 5410).</p>
-            <div class="hero-acoes">
-                <button class="btn btn-primario" id="btn-abrir-orcamento">Fazer orçamento</button>
-                <a href="#servicos" class="btn btn-contorno" style="color:#fff;border-color:rgba(255,255,255,0.3);">Ver serviços</a>
+    <section class="painel-topo">
+        <div class="container">
+            <p class="painel-eyebrow">⚡ GS Elétrica</p>
+            <h1 id="saudacao">Painel</h1>
+            <div class="resumo">
+                <div class="resumo-item destaque"><span>Total orçado no mês</span><strong id="resumo-total">R$ 0,00</strong></div>
+                <div class="resumo-item"><span>Orçamentos no mês</span><strong id="resumo-qtd">0</strong></div>
+                <div class="resumo-item"><span>Clientes</span><strong id="resumo-clientes">0</strong></div>
             </div>
         </div>
     </section>
 
     <div class="faixa-eletrica"></div>
 
-    <section class="secao" id="servicos">
+    <section class="secao">
         <div class="container">
-            <div class="secao-titulo">
-                <h2>O que a GS Elétrica faz por você</h2>
-                <p>Serviços elétricos completos, do diagnóstico à instalação final.</p>
-            </div>
-
-            <div class="grade-servicos">
-                <div class="card card-servico">
-                    <div class="icone">🔌</div>
-                    <h3>Instalações elétricas</h3>
-                    <p>Instalação completa de fiação, quadros de distribuição e pontos de luz e tomada.</p>
-                </div>
-                <div class="card card-servico">
-                    <div class="icone">🛠️</div>
-                    <h3>Manutenção e reparos</h3>
-                    <p>Diagnóstico de falhas, curtos-circuitos e manutenção preventiva.</p>
-                </div>
-                <div class="card card-servico">
-                    <div class="icone">📋</div>
-                    <h3>Orçamento detalhado</h3>
-                    <p>Orçamento por escrito, com valores, prazos e garantia da mão de obra.</p>
-                </div>
-                <div class="card card-servico">
-                    <div class="icone">📅</div>
-                    <h3>Agendamento de visitas</h3>
-                    <p>Marque uma visita técnica no horário que for melhor pra você.</p>
-                </div>
+            <h2>Atalhos</h2>
+            <div class="grade-atalhos">
+                <a class="card atalho" href="paginas/orcamentos.html"><span class="icone">📋</span><strong>Novo orçamento</strong></a>
+                <a class="card atalho" href="paginas/clientes.html"><span class="icone">👥</span><strong>Clientes</strong></a>
+                <a class="card atalho" href="paginas/agenda.html"><span class="icone">📅</span><strong>Agenda</strong></a>
+                <a class="card atalho" href="paginas/calculadoras.html"><span class="icone">🧮</span><strong>Calculadoras</strong></a>
+                <a class="card atalho" href="paginas/mais.html"><span class="icone">⚙️</span><strong>Recibos e mais</strong></a>
             </div>
         </div>
     </section>
 
-    <section class="faixa-cta">
+    <section class="secao">
         <div class="container">
-            <h2>Precisa de um orçamento?</h2>
-            <p>Preencha os dados do serviço e receba um orçamento detalhado em minutos.</p>
-            <button class="btn btn-primario" id="btn-cta-orcamento">Fazer orçamento agora</button>
-
-            <div class="selo-normas">
-                <span>NBR 5410</span>
-                <span>NR-10</span>
-                <span>Garantia de mão de obra</span>
-            </div>
+            <h2>Últimos orçamentos</h2>
+            <div class="card" id="ultimos-orcamentos"></div>
         </div>
     </section>
-
 </main>
 
 <div id="gs-footer"></div>
@@ -195,12 +125,60 @@
 
 <script src="js/componentes.js"></script>
 <script>
-    // Botões da home levam para a página de orçamento
-    document.addEventListener('click', (e) => {
-        if (e.target.id === 'btn-abrir-orcamento' || e.target.id === 'btn-cta-orcamento') {
-            window.location.href = 'paginas/orcamentos.html';
-        }
+(function () {
+    function ler(chave) {
+        try { return JSON.parse(localStorage.getItem(chave) || '[]'); } catch (e) { return []; }
+    }
+    function moeda(v) {
+        return Number(v || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    const hora = new Date().getHours();
+    document.getElementById('saudacao').textContent = hora < 12 ? 'Bom dia!' : hora < 18 ? 'Boa tarde!' : 'Boa noite!';
+
+    const historico = ler('gs-historico-orcamentos');
+    const clientes = ler('gs-clientes');
+
+    // Resumo do mês (a data fica no formato dd/mm/aaaa, hh:mm)
+    const hoje = new Date();
+    const doMes = historico.filter(function (o) {
+        const m = String(o.data || '').match(/(\d{2})\/(\d{2})\/(\d{4})/);
+        return !!m && Number(m[2]) === hoje.getMonth() + 1 && Number(m[3]) === hoje.getFullYear();
     });
+    document.getElementById('resumo-qtd').textContent = doMes.length;
+    document.getElementById('resumo-total').textContent = moeda(doMes.reduce(function (s, o) {
+        return s + Number((o.servico && o.servico.valor) || 0);
+    }, 0));
+    document.getElementById('resumo-clientes').textContent =
+        Array.isArray(clientes) ? clientes.length : Object.keys(clientes || {}).length;
+
+    // Últimos 5 orçamentos
+    const caixa = document.getElementById('ultimos-orcamentos');
+    if (!historico.length) {
+        caixa.innerHTML = '<div class="lista-vazia">Nenhum orçamento ainda.<br><a class="btn btn-primario" href="paginas/orcamentos.html">Fazer o primeiro orçamento</a></div>';
+        return;
+    }
+    historico.slice(0, 5).forEach(function (o) {
+        const linha = document.createElement('div');
+        linha.className = 'orcamento-linha';
+
+        const esquerda = document.createElement('div');
+        const titulo = document.createElement('strong');
+        titulo.textContent = (o.cliente && o.cliente.nome) || 'Sem nome';
+        const sub = document.createElement('small');
+        sub.textContent = 'Nº ' + (o.numero || '—') + ' · ' + (o.data || '');
+        esquerda.appendChild(titulo);
+        esquerda.appendChild(sub);
+
+        const valor = document.createElement('span');
+        valor.className = 'valor';
+        valor.textContent = moeda(o.servico && o.servico.valor);
+
+        linha.appendChild(esquerda);
+        linha.appendChild(valor);
+        caixa.appendChild(linha);
+    });
+})();
 </script>
 
 </body>

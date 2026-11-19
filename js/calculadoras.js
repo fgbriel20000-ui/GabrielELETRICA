@@ -62,4 +62,42 @@
         qtVazio.style.display = 'none';
         qtConteudo.style.display = 'block';
     });
+    /* ===== Calculadora: Consumo em repouso ===== */
+    const formConsumoRepouso = document.getElementById('form-consumo-repouso');
+
+    function formatarReais(valor) {
+        return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    formConsumoRepouso.addEventListener('submit', function (evento) {
+        evento.preventDefault();
+
+        const corrente = Number(document.getElementById('cr-corrente').value || 0);
+        const tensao = Number(document.getElementById('cr-tensao').value);
+        const tarifa = Number(document.getElementById('cr-tarifa').value || 0);
+        const horasPorDia = Number(document.getElementById('cr-horas').value || 0);
+        const diasNoMes = Number(document.getElementById('cr-dias').value || 0);
+
+        const potenciaW = tensao * corrente;
+        const kwhMes = (potenciaW * horasPorDia * diasNoMes) / 1000;
+        const custoMes = kwhMes * tarifa;
+        const custoAno = custoMes * 12;
+
+        document.getElementById('cr-out-mes').textContent = formatarReais(custoMes);
+        document.getElementById('cr-out-ano').textContent = `${formatarReais(custoAno)} por ano`;
+        document.getElementById('cr-out-detalhe').textContent =
+            `Potência: ${formatarNumero(potenciaW, 0)} W · Energia: ${formatarNumero(kwhMes, 1)} kWh por mês.`;
+
+        const selo = document.getElementById('cr-out-selo');
+        if (corrente <= 0.05) {
+            selo.textContent = '✅ Praticamente sem consumo em repouso';
+            selo.className = 'selo-status ok';
+        } else {
+            selo.textContent = '⚠️ Há consumo mesmo com tudo desligado';
+            selo.className = 'selo-status alerta';
+        }
+
+        document.getElementById('cr-vazio').style.display = 'none';
+        document.getElementById('cr-conteudo').style.display = 'block';
+    });
 })();

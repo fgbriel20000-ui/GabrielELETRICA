@@ -88,6 +88,7 @@
     <div class="container">
         <div class="abas">
             <button class="aba-botao ativa" data-aba="queda-tensao">⚡ Queda de Tensão</button>
+            <button class="aba-botao" data-aba="consumo-repouso">💡 Consumo em repouso</button>
         </div>
 
         <!-- ===================== ABA: QUEDA DE TENSÃO ===================== -->
@@ -145,6 +146,70 @@
                             Cálculo: R = ρ × (2 × L) / S, considerando ida e volta do circuito.
                             A NBR 5410 recomenda, em geral, queda máxima de 4% em circuitos terminais.
                             Sempre confirme o limite aplicável ao caso específico.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== ABA: CONSUMO EM REPOUSO ===================== -->
+        <section class="painel-aba" id="painel-consumo-repouso">
+            <div class="layout-calc">
+                <div class="card">
+                    <h2 style="margin-bottom:0.5rem; font-size:1.05rem;">Consumo com tudo desligado</h2>
+                    <p class="nota-calc" style="margin-top:0; margin-bottom:1rem;">
+                        Desligue todos os disjuntores e aparelhos da casa, ligue um alicate amperímetro no cabo de entrada e anote quantos amperes ainda aparecem.
+                    </p>
+                    <form id="form-consumo-repouso">
+                        <div class="campo">
+                            <label for="cr-corrente">Corrente medida com tudo desligado (A)</label>
+                            <input type="number" id="cr-corrente" min="0" step="0.01" required>
+                        </div>
+
+                        <div class="campo-linha">
+                            <div class="campo">
+                                <label for="cr-tensao">Tensão da casa (V)</label>
+                                <select id="cr-tensao">
+                                    <option value="127">127 V</option>
+                                    <option value="220" selected>220 V</option>
+                                </select>
+                            </div>
+                            <div class="campo">
+                                <label for="cr-tarifa">Preço do kWh (R$)</label>
+                                <input type="number" id="cr-tarifa" min="0" step="0.01" placeholder="Ex: 0,95" required>
+                            </div>
+                        </div>
+
+                        <div class="campo-linha">
+                            <div class="campo">
+                                <label for="cr-horas">Horas ligado por dia</label>
+                                <input type="number" id="cr-horas" min="0" max="24" step="0.5" value="24">
+                            </div>
+                            <div class="campo">
+                                <label for="cr-dias">Dias no mês</label>
+                                <input type="number" id="cr-dias" min="1" max="31" value="30">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primario btn-bloco">Calcular</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div id="cr-vazio" class="resultado-vazio">💡 Preencha os dados para ver quanto esse consumo custa.</div>
+                    <div id="cr-conteudo" style="display:none;">
+                        <div class="resultado-calc">
+                            <div class="numero" id="cr-out-mes">R$ 0,00</div>
+                            <p class="percentual">por mês</p>
+                            <p class="percentual" id="cr-out-ano">R$ 0,00 por ano</p>
+                            <span class="selo-status" id="cr-out-selo">—</span>
+                        </div>
+                        <p class="nota-calc" id="cr-out-detalhe"></p>
+                        <p class="nota-calc">
+                            Cálculo: potência (W) = tensão × corrente; energia (kWh) = potência × horas × dias ÷ 1000.
+                            Para o preço do kWh, divida o valor total da conta pelos kWh consumidos (já inclui impostos).
+                            O valor é uma estimativa, porque o fator de potência real pode deixar o custo um pouco menor.
+                            Com tudo desligado o ideal é perto de 0 A; se aparecer corrente, pode ser aparelho em espera, fuga ou erro de medição.
                         </p>
                     </div>
                 </div>
